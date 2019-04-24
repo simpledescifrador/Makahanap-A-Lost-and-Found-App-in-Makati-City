@@ -25,4 +25,19 @@ public class AppDataManager implements DataManager {
         this.applicationPreferences = applicationPreferences;
         this.apiHelper = apiHelper;
     }
+
+    @Override
+    public boolean isFirstTimeUser() {
+        return applicationPreferences.isFirstTimeUser();
+    }
+
+    @Override
+    public void removeStartUpIntro() {
+        applicationPreferences.removeStartUpIntro();
+    }
+
+    @Override
+    public void showStartUpIntro() {
+        applicationPreferences.showStartUpIntro();
+    }
 }

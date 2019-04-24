@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <!-- The background color, preferably the same as your normal theme -->
+    <item android:drawable="@drawable/default_gradient_bg" />
+    <!-- Your product logo - 144dp color version of your app icon -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/app_logo" />
+    </item>
+    <!--<item-->
+        <!--android:drawable="@drawable/makati_skyline"-->
+        <!--android:gravity="bottom|fill_horizontal" />-->
+    <!--<item android:drawable="@drawable/makati_logo" android:gravity="center|top" android:top="82dp"/>-->
+</layer-list>
