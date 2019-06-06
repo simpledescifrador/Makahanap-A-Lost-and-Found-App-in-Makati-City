@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "668759297813",
+    "firebase_url": "https://makahanap-1555052155673.firebaseio.com",
+    "project_id": "makahanap-1555052155673",
+    "storage_bucket": "makahanap-1555052155673.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668759297813:android:5b5fac30705892d5",
+        "android_client_info": {
+          "package_name": "com.makatizen.makahanap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668759297813-lfmkb6r1e5ab880b5uts745fqhglk4rh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.makatizen.makahanap",
+            "certificate_hash": "da71ba5105fafb6ffafef3b50840a3ef3069e0a9"
+          }
+        },
+        {
+          "client_id": "668759297813-qfe40mgan9081ovbnfhnih0dbfpc7ein.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVwsaV3KxPINGt4o-vumAwHZiaOKIR6Do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668759297813-qfe40mgan9081ovbnfhnih0dbfpc7ein.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

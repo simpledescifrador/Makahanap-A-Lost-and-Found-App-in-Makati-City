@@ -32,6 +32,10 @@ public class MakahanapAccount {
     @Expose
     private String dateCreated;
 
+    @SerializedName("email_address")
+    @Expose
+    private String emailAddress;
+
     @SerializedName("first_name")
     @Expose
     private String firstName;
@@ -44,17 +48,23 @@ public class MakahanapAccount {
     @Expose
     private Integer id;
 
-    @SerializedName("image_url")
-    @Expose
-    private String imageUrl;
-
     @SerializedName("last_name")
     @Expose
     private String lastName;
 
+    @SerializedName("makatizen_number")
+    @Expose
+    private String makatizenNumber;
+
     @SerializedName("middle_name")
     @Expose
     private String middleName;
+
+    private String password;
+
+    @SerializedName("profile_image_url")
+    @Expose
+    private String profileImageUrl;
 
     @SerializedName("status")
     @Expose
@@ -107,6 +117,14 @@ public class MakahanapAccount {
         return dateCreated;
     }
 
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(final String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -127,20 +145,20 @@ public class MakahanapAccount {
         return id;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(final String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(final String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getMakatizenNumber() {
+        return makatizenNumber;
+    }
+
+    public void setMakatizenNumber(final String makatizenNumber) {
+        this.makatizenNumber = makatizenNumber;
     }
 
     public String getMiddleName() {
@@ -151,7 +169,44 @@ public class MakahanapAccount {
         this.middleName = middleName;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(final String password) {
+        this.password = password;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(final String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
     public AccountStatus getStatus() {
         return status;
+    }
+
+    @Override
+    public String toString() {
+        return "MakahanapAccount{" +
+                "address='" + address + '\'' +
+                ", age=" + age +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", civilStatus=" + civilStatus +
+                ", contactNumber='" + contactNumber + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", gender=" + gender +
+                ", id=" + id +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", makatizenNumber='" + makatizenNumber + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

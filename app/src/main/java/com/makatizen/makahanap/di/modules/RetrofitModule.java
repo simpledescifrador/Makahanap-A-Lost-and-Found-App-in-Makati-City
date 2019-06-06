@@ -5,6 +5,7 @@ import com.makatizen.makahanap.data.remote.ApiConstants;
 import com.makatizen.makahanap.data.remote.ApiHelper;
 import com.makatizen.makahanap.data.remote.ApiInterface;
 import com.makatizen.makahanap.data.remote.AppApiHelper;
+import com.makatizen.makahanap.data.remote.MakatizenApiInterface;
 import com.makatizen.makahanap.di.qualifiers.MakatizenApi;
 import com.makatizen.makahanap.di.scopes.ApplicationScope;
 import dagger.Module;
@@ -25,8 +26,8 @@ public class RetrofitModule {
 
     @Provides
     @ApplicationScope
-    ApiHelper provideApiHelper(ApiInterface apiInterface) {
-        return new AppApiHelper(apiInterface);
+    ApiHelper provideApiHelper(ApiInterface apiInterface, MakatizenApiInterface makatizenApiInterface) {
+        return new AppApiHelper(apiInterface, makatizenApiInterface);
     }
 
     @Provides
@@ -43,12 +44,10 @@ public class RetrofitModule {
         return httpLoggingInterceptor;
     }
 
-
     @Provides
     @ApplicationScope
-    @MakatizenApi
-    ApiHelper provideMakatizenApiHelper(@MakatizenApi ApiInterface apiInterface) {
-        return new AppApiHelper(apiInterface);
+    MakatizenApiInterface provideMakatizenApiInterface(@MakatizenApi Retrofit retrofit) {
+        return retrofit.create(MakatizenApiInterface.class);
     }
 
     @Provides
@@ -113,12 +112,5 @@ public class RetrofitModule {
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-    }
-
-    @Provides
-    @ApplicationScope
-    @MakatizenApi
-    ApiInterface provideRetrofitApiInterface(@MakatizenApi Retrofit retrofit) {
-        return retrofit.create(ApiInterface.class);
     }
 }

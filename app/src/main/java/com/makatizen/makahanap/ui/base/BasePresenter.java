@@ -2,6 +2,7 @@ package com.makatizen.makahanap.ui.base;
 
 import android.support.annotation.NonNull;
 import com.makatizen.makahanap.data.DataManager;
+import com.makatizen.makahanap.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Inject;
 
@@ -20,7 +21,11 @@ public class BasePresenter<V extends BaseMvpView> implements Presenter<V> {
         }
     }
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    @Inject
+    CompositeDisposable mCompositeDisposable;
+
+    @Inject
+    SchedulerProvider mSchedulerProvider;
 
     private DataManager mDataManager;
 
@@ -58,5 +63,13 @@ public class BasePresenter<V extends BaseMvpView> implements Presenter<V> {
         if (!isViewAttached()) {
             throw new MvpViewNotAttachedException();
         }
+    }
+
+    public CompositeDisposable getCompositeDisposable() {
+        return mCompositeDisposable;
+    }
+
+    public SchedulerProvider getSchedulerProvider() {
+        return mSchedulerProvider;
     }
 }

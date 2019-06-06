@@ -35,6 +35,8 @@ dependencies {
     implementation "com.android.support:support-annotations:$rootProject.ext.SUPPORT_LIBRARY_VERSION"
     implementation "com.android.support:design:$rootProject.ext.SUPPORT_LIBRARY_VERSION"
 
+    // Firebase
+    implementation "com.google.firebase:firebase-core:$rootProject.ext.FIREBASE_VERSION"
     // Map Box
     implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:$rootProject.ext.MAP_BOX_VERSION"
 
@@ -96,3 +98,4 @@ dependencies {
     //Facebook Shimmering
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
 }
+apply plugin: 'com.google.gms.google-services'

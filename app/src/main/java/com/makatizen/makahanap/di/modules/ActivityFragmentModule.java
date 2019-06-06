@@ -7,6 +7,9 @@ import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.intro.IntroMvpPresenter;
 import com.makatizen.makahanap.ui.intro.IntroMvpView;
 import com.makatizen.makahanap.ui.intro.IntroPresenter;
+import com.makatizen.makahanap.ui.register.RegisterMvpPresenter;
+import com.makatizen.makahanap.ui.register.RegisterMvpView;
+import com.makatizen.makahanap.ui.register.RegisterPresenter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -34,5 +37,12 @@ public class ActivityFragmentModule {
     @ActivityScope
     IntroMvpPresenter<IntroMvpView> provideIntroPresenter(IntroPresenter<IntroMvpView> introMvpViewIntroPresenter) {
         return introMvpViewIntroPresenter;
+    }
+    
+    @Provides
+    @ActivityScope
+    RegisterMvpPresenter<RegisterMvpView> provideRegisterPresenter(
+            RegisterPresenter<RegisterMvpView> registerMvpViewRegisterPresenter) {
+        return registerMvpViewRegisterPresenter;
     }
 }

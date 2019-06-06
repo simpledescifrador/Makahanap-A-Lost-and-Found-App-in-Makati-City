@@ -10,13 +10,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity"></activity>
+        <activity android:name=".ui.loader.LoaderActivity"></activity>
+        <activity android:name=".ui.main.MainActivity" />
         <activity
             android:name=".ui.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarStyle" />
-        <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.register.RegisterActivity" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme" />
+        <activity
+            android:name=".ui.register.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/RegisterTheme" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/SplashTheme">

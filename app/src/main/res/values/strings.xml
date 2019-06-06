@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Makahanap</string>
+
+    <!-- Error Messages -->
+    <string name="error_empty_makatizen_id">Please enter your Makatizen ID</string>
+    <string name="error_invalid_makatizen_id">Please enter valid Makatizen ID</string>
+    <string name="error_network_failed">Network Connection Failed</string>
+    <string name="error_password_empty">Your password cannot be empty</string>
+    <string name="error_password_invalid_length">At least 7 or more characters</string>
+    <string name="error_confirm_password_not_match">Password is not matched</string>
+
+    <!-- Success Messages -->
+    <string name="success_register_message">Registration Successful</string>
+    <!--  Failed Messages -->
+    <string name="failed_register_message">Registration Failed</string>
+    <!--  HINTs! -->
+    <string name="hint_mobile_verification">Tap Next to verify your makatizen card with your phone number.\nAfter pressing next the verification code will be sent to your mobile number. </string>
 </resources>
