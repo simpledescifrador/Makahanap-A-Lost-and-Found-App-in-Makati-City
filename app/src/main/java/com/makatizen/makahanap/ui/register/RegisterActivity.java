@@ -1,7 +1,6 @@
 package com.makatizen.makahanap.ui.register;
 
 import android.content.Intent;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +14,12 @@ import br.com.sapereaude.maskedEditText.MaskedEditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.makatizen.makahanap.BuildConfig;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.MakatizenAccount;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.loader.LoaderActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
-import com.makatizen.makahanap.ui.main.MainActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
 import javax.inject.Inject;
 
@@ -120,12 +117,6 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
         finish();
     }
 
-    @Override
-    public void resetButtonText() {
-        mRegisterMakatizenVerifyBtn.setText("Verify");
-        mRegisterNowBtn.setText("Register");
-    }
-
     @OnClick({R.id.register_back_btn, R.id.register_makatizen_verify_btn, R.id.register_now_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -153,6 +144,18 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void removeErrors() {
+        mRegisterPasswordEt.setError(null);
+        mRegisterConfirmPasswordEt.setError(null);
+    }
+
+    @Override
+    public void resetButtonText() {
+        mRegisterMakatizenVerifyBtn.setText("Verify");
+        mRegisterNowBtn.setText("Register");
     }
 
     @Override

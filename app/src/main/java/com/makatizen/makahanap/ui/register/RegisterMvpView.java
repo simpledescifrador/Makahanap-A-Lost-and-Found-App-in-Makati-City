@@ -11,6 +11,8 @@ public interface RegisterMvpView extends BaseMvpView {
 
     void onRegisterSuccessful(int accountId);
 
+    void removeErrors();
+
     void resetButtonText();
 
     void setConfirmPasswordError(int stringId);

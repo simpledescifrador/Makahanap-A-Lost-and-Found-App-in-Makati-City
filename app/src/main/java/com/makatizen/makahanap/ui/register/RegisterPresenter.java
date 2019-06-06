@@ -12,7 +12,6 @@ import com.makatizen.makahanap.ui.base.BasePresenter;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
@@ -78,6 +77,7 @@ public class RegisterPresenter<V extends RegisterMvpView> extends BasePresenter<
     public void registerAccount(final MakahanapAccount account) {
         Log.d(TAG, "registerAccount: ");
         getMvpView().hideKeyboard();
+        getMvpView().removeErrors();
 
         if (!getMvpView().isNetworkConnected()) {
             getMvpView().onError(R.string.error_network_failed); //Network Failed
@@ -141,6 +141,8 @@ public class RegisterPresenter<V extends RegisterMvpView> extends BasePresenter<
     @Override
     public void verifyMakatizenId(final String id) {
         getMvpView().hideKeyboard();
+        getMvpView().removeErrors();
+
         if (TextUtils.isEmpty(id)) {
             getMvpView().onError(R.string.error_empty_makatizen_id);
         } else if (id.length() < 12) {
