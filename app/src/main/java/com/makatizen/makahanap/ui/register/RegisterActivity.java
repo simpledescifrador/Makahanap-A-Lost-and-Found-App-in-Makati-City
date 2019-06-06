@@ -111,7 +111,6 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
         mRegisterNowBtn.setEnabled(false);
         Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoaderActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(IntentExtraKeys.ACCOUNT_ID, accountId);
         startActivity(intent);
         finish();
@@ -148,6 +147,7 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
 
     @Override
     public void removeErrors() {
+        mRegisterMakatizenNumberEt.setError(null);
         mRegisterPasswordEt.setError(null);
         mRegisterConfirmPasswordEt.setError(null);
     }
