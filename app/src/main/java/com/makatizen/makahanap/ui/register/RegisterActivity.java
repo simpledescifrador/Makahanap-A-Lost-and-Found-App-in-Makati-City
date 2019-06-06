@@ -23,6 +23,7 @@ import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.loader.LoaderActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
 import com.makatizen.makahanap.ui.main.MainActivity;
+import com.makatizen.makahanap.utils.IntentExtraKeys;
 import javax.inject.Inject;
 
 public class RegisterActivity extends BaseActivity implements RegisterMvpView {
@@ -114,6 +115,7 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
         Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoaderActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(IntentExtraKeys.ACCOUNT_ID, accountId);
         startActivity(intent);
         finish();
     }
