@@ -2,7 +2,9 @@ package com.makatizen.makahanap.data.local.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.google.gson.Gson;
 import com.makatizen.makahanap.di.qualifiers.ApplicationContext;
+import com.makatizen.makahanap.pojo.MakahanapAccount;
 
 public class CommonPreferencesHelper implements BasePreferencesHelper {
 
@@ -13,6 +15,20 @@ public class CommonPreferencesHelper implements BasePreferencesHelper {
 
     public CommonPreferencesHelper(@ApplicationContext Context context) {
         this.preferences = context.getSharedPreferences(NAME_PREF, Context.MODE_PRIVATE);
+    }
+    /*
+    *  Method for saving account in prefs in json form
+    * */
+    public void setAccountToPrefs(MakahanapAccount makahanapAccount) {
+        String jsonAccount = new Gson().toJson(makahanapAccount);
+        preferences.edit().putString(AppPreferencesHelper.PREF_KEY_ACCOUNT, jsonAccount).apply();
+    }
+    /*
+     *  Method for getting account in prefs
+     * */
+    public MakahanapAccount getAccountFromPrefs() {
+        String jsonAccount = preferences.getString(AppPreferencesHelper.PREF_KEY_ACCOUNT, "");
+        return new Gson().fromJson(jsonAccount, MakahanapAccount.class);
     }
 
     @Override

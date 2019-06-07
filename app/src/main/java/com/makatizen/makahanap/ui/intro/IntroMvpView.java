@@ -8,5 +8,7 @@ public interface IntroMvpView extends BaseMvpView {
 
     void loadLogin();
 
+    void loadMain();
+
     void onSelectedPage(int position);
 }

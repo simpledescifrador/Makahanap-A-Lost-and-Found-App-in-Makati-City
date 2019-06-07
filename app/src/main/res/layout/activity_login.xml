@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity">
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/login_app_login_iv"
+            android:id="@+id/login_iv_app_logo"
             android:layout_width="293dp"
             android:layout_height="78dp"
             android:layout_marginEnd="16dp"
@@ -25,7 +24,7 @@
             app:srcCompat="@drawable/app_logo_with_text" />
 
         <br.com.sapereaude.maskedEditText.MaskedEditText
-            android:id="@+id/login_makatizen_number_et"
+            android:id="@+id/login_et_makatizen_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -45,7 +44,7 @@
             mask:allowed_chars="1234567890" />
 
         <EditText
-            android:id="@+id/login_password_et"
+            android:id="@+id/login_et_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -64,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <Button
-            android:id="@+id/login_now_btn"
+            android:id="@+id/login_btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -75,10 +74,10 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_password_et" />
+            app:layout_constraintTop_toBottomOf="@+id/login_et_password" />
 
         <TextView
-            android:id="@+id/login_forgot_password_tv"
+            android:id="@+id/login_tv_forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -87,10 +86,10 @@
             android:text="Forgot Password?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_now_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/login_btn_login" />
 
         <TextView
-            android:id="@+id/login_register_tv"
+            android:id="@+id/login_tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -109,10 +108,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:text="Don't have an Account?"
-            app:layout_constraintEnd_toStartOf="@+id/login_register_tv"
+            app:layout_constraintEnd_toStartOf="@+id/login_tv_register"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_forgot_password_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/login_tv_forgot_password" />
 
         <TextView
             android:id="@+id/textView4"
@@ -127,7 +126,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_app_login_iv" />
+            app:layout_constraintTop_toBottomOf="@+id/login_iv_app_logo" />
 
         <TextView
             android:id="@+id/textView6"
@@ -142,7 +141,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_makatizen_number_et" />
+            app:layout_constraintTop_toBottomOf="@+id/login_et_makatizen_number" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

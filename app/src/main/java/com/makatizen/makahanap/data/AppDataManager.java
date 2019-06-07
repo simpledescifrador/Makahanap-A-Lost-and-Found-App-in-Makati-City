@@ -6,6 +6,7 @@ import com.makatizen.makahanap.data.local.preference.PreferencesHelper;
 import com.makatizen.makahanap.data.remote.ApiHelper;
 import com.makatizen.makahanap.di.qualifiers.ApplicationContext;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
@@ -32,6 +33,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public MakahanapAccount getCurrentAccount() {
+        return applicationPreferences.getCurrentAccount();
+    }
+
+    @Override
+    public Single<MakahanapAccount> getMakahanapAccountData(final int accountId) {
+        return apiHelper.getMakahanapAccountData(accountId);
+    }
+
+    @Override
     public Single<MakatizenGetDataResponse> getMakatizenData(final String makatizenId) {
         return apiHelper.getMakatizenData(makatizenId);
     }
@@ -39,6 +50,11 @@ public class AppDataManager implements DataManager {
     @Override
     public boolean isFirstTimeUser() {
         return applicationPreferences.isFirstTimeUser();
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        return applicationPreferences.isLoggedIn();
     }
 
     @Override
@@ -52,6 +68,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveCurrentAccount(final MakahanapAccount account) {
+        applicationPreferences.saveCurrentAccount(account);
+    }
+
+    @Override
+    public void setCurrentAccountLoggedIn(final boolean logged) {
+        applicationPreferences.setCurrentAccountLoggedIn(logged);
+    }
+
+    @Override
     public void showStartUpIntro() {
         applicationPreferences.showStartUpIntro();
     }
@@ -59,5 +85,10 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<VerifyMakatizenIdResponse> verifyMakatizenId(final String makatizenId) {
         return apiHelper.verifyMakatizenId(makatizenId);
+    }
+
+    @Override
+    public Single<LoginResponse> loginAppRequest(final String makatizenNumber, final String password) {
+        return apiHelper.loginAppRequest(makatizenNumber, password);
     }
 }

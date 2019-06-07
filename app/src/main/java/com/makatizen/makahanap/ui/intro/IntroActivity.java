@@ -20,6 +20,7 @@ import butterknife.OnClick;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
+import com.makatizen.makahanap.ui.main.MainActivity;
 import com.makatizen.makahanap.ui.register.RegisterActivity;
 import javax.inject.Inject;
 
@@ -86,6 +87,12 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
     }
 
     @Override
+    public void loadMain() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
     public void onPageScrollStateChanged(final int i) {
 
     }
@@ -109,7 +116,7 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
                 mIntroNextBtn.setEnabled(true);
                 mIntroPrevBtn.setEnabled(false);
                 mIntroPrevBtn.setVisibility(View.INVISIBLE);
-                mIntroNextBtn.setText("Next");
+                mIntroNextBtn.setText("Start");
                 mIntroNextBtn.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 mIntroPrevBtn.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 mIntroPrevBtn.setText("");

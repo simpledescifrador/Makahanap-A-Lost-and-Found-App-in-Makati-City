@@ -112,6 +112,7 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
         Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoaderActivity.class);
         intent.putExtra(IntentExtraKeys.ACCOUNT_ID, accountId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }

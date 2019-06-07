@@ -14,8 +14,9 @@ public class IntroPresenter<V extends IntroMvpView> extends BasePresenter<V>
 
     @Override
     public void checkIfIntroWillBeLoaded() {
-        /*Check if the user is already remove the intro screen*/
-        if (getDataManager().isFirstTimeUser()) { //Intro should be loaded
+        if (getDataManager().isLoggedIn()) {
+            getMvpView().loadMain(); // Load Main Activity
+        } else if (getDataManager().isFirstTimeUser()) { //Intro should be loaded
             getMvpView().loadIntro();
         } else { //Load Login Instead
             getMvpView().loadLogin();

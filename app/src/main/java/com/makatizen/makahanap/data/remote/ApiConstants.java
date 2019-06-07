@@ -6,9 +6,9 @@ public class ApiConstants {
 
     /*------- API HEADERS -------------*/
     //Base Urls
-    public static final String BASE_URL = "http://192.168.1.101/makahanap/";
+    public static final String BASE_URL = "http://192.168.1.100/makahanap/";
 
-    public static final String MAKATIZEN_API_BASE_URL = "http://192.168.1.101/makatizen/";
+    public static final String MAKATIZEN_API_BASE_URL = "http://192.168.1.100/makatizen/";
 
     public static final String API_KEY = "makahanap@key2018";
 
@@ -27,6 +27,7 @@ public class ApiConstants {
 
     static final String REGISTER_ACCOUNT_URL = "api/v1/auth/register";
     //Account
+    static final String GET_ACCOUNT_DATA = "api/v1/account/";
     /* ------------- END OF API URL'S ------------ */
 
 

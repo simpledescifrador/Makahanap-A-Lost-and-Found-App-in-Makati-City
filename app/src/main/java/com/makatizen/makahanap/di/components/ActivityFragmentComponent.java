@@ -3,6 +3,8 @@ package com.makatizen.makahanap.di.components;
 import com.makatizen.makahanap.di.modules.ActivityFragmentModule;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.intro.IntroActivity;
+import com.makatizen.makahanap.ui.loader.LoaderActivity;
+import com.makatizen.makahanap.ui.login.LoginActivity;
 import com.makatizen.makahanap.ui.register.RegisterActivity;
 import dagger.Component;
 
@@ -13,4 +15,8 @@ public interface ActivityFragmentComponent {
     void inject(IntroActivity introActivity);
 
     void inject(RegisterActivity registerActivity);
+
+    void inject(LoaderActivity loaderActivity);
+
+    void inject(LoginActivity loginActivity);
 }
