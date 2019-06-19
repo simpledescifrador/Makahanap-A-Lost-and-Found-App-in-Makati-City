@@ -1,9 +1,513 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".ui.report.pet.ReportPetActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/textView53saa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Pet Type" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/report_pet_type_dog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackground"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="5dp"
+                    app:contentPadding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@drawable/ic_pet" />
+
+                        <TextView
+                            android:id="@+id/textVisaew671"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="Dog"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/report_pet_type_cat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackground"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="5dp"
+                    app:contentPadding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView10121"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@drawable/ic_cat" />
+
+                        <TextView
+                            android:id="@+id/textView671"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="Cat"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/report_pet_type_bird"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackground"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="5dp"
+                    app:contentPadding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView101das21"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@drawable/ic_bird" />
+
+                        <TextView
+                            android:id="@+id/textViewdas671"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="Bird"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/report_pet_type_others"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackground"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="5dp"
+                    app:contentPadding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView101das2das1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@drawable/ic_question" />
+
+                        <TextView
+                            android:id="@+id/textViedaswdas671"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="Others"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/report_pet_select_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/ic_assignment_turned_in_black_24dp"
+            android:gravity="center_vertical"
+            android:text="Select Pet Type: Nothing Selected"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/holo_red_light"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/report_pet_tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Pet Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <EditText
+            android:id="@+id/report_pet_et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/all_et_bg"
+            android:ems="10"
+            android:inputType="textMultiLine|textCapSentences"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <TextView
+            android:id="@+id/report_pet_tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <EditText
+            android:id="@+id/report_pet_et_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/all_et_bg"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <TextView
+            android:id="@+id/report_pet_tv_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Location"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/report_pet_et_location"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/all_et_bg"
+                android:ems="10"
+                android:inputType="textPostalAddress|textMultiLine"
+                android:lines="2"
+                android:padding="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:visibility="gone" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/all_et_bg">
+
+                <fragment
+                    android:id="@+id/report_pet_autocomplete_fragment"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+
+            <ImageButton
+                android:id="@+id/report_pet_ibtn_place_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_place" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/report_pet_tv_add_location_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Add More Location Info"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@android:color/holo_blue_dark"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/report_pet_tv_more_location_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Additional Location Information"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/report_pet_et_more_location_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/all_et_bg"
+            android:ems="10"
+            android:inputType="textPostalAddress|textMultiLine"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/report_pet_tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <br.com.sapereaude.maskedEditText.MaskedEditText
+                android:id="@+id/report_pet_et_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/all_et_bg"
+                android:ems="10"
+                android:hint="YYYYMMDD"
+                android:inputType="date"
+                android:padding="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:keep_hint="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:mask="####/##/##"
+                mask:allowed_chars="1234567890" />
+
+            <ImageButton
+                android:id="@+id/report_pet_ibtn_date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_calendar" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/report_pet_tv_condition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Pet Condition"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <RadioGroup
+            android:id="@+id/report_pet_condition_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/report_pet_good_rb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/colorPrimary"
+                android:checked="true"
+                android:text="Good Condition" />
+
+            <RadioButton
+                android:id="@+id/report_pet_injured_rb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/colorPrimary"
+                android:text="Injured" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/report_pet_btn_add_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/ic_camera_alt_grey_800_24dp"
+            android:text="Add Image" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/report_pet_rv_images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/report_pet_linearl_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/report_pet_btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Delete"
+                android:textColor="@color/defaultRed" />
+
+            <Button
+                android:id="@+id/report_pet_btn_cancel_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Cancel" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/report_pet_reward_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView102"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Are you willing to give a reward?" />
+
+                <Switch
+                    android:id="@+id/report_pet_switch_reward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/report_pet_et_reward_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/all_et_bg"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/ic_peso_sign"
+                android:ems="10"
+                android:hint="Amount in Peso"
+                android:inputType="numberDecimal"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/report_pet_btn_submit_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/primary_btn_bg"
+            android:text="Submit Report"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

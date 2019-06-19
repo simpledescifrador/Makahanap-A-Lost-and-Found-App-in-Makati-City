@@ -22,6 +22,7 @@
     <string name="hint_found_pt_location">Where did you found the item?</string>
     <string name="hint_pt_add_image">Tap here to add image</string>
     <!-- Hints for Pet Forms-->
+    <string name="hint_lost_pet_name">What is the name of your lost pet?</string>
     <string name="hint_lost_pet_description">How do you describe your lost pet?</string>
     <string name="hint_found_pet_description">How do you describe the pet you found?</string>
     <string name="hint_lost_pet_date">When did you lose your pet?</string>

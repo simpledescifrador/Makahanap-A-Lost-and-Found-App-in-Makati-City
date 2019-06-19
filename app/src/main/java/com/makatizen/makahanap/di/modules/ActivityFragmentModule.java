@@ -26,6 +26,9 @@ import com.makatizen.makahanap.ui.register.RegisterPresenter;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingMvpPresenter;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingMvpView;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingPresenter;
+import com.makatizen.makahanap.ui.report.pet.ReportPetMvpPresenter;
+import com.makatizen.makahanap.ui.report.pet.ReportPetMvpView;
+import com.makatizen.makahanap.ui.report.pet.ReportPetPresenter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -98,5 +101,12 @@ public class ActivityFragmentModule {
     ReportPersonalThingMvpPresenter<ReportPersonalThingMvpView> provideReportPersonalThingPresenter(
             ReportPersonalThingPresenter<ReportPersonalThingMvpView> reportPersonalThingMvpViewReportPersonalThingPresenter) {
         return reportPersonalThingMvpViewReportPersonalThingPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    ReportPetMvpPresenter<ReportPetMvpView> provideReportPetPresenter(
+            ReportPetPresenter<ReportPetMvpView> reportPetMvpViewReportPetPresenter) {
+        return reportPetMvpViewReportPetPresenter;
     }
 }

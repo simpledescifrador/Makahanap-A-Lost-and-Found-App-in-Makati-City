@@ -127,7 +127,7 @@ public class AppApiHelper implements ApiHelper {
                 createPartFromString(String.valueOf(pet.getLocationData().getLatlng().longitude)));
         partMap.put("additional_location_info", createPartFromString(pet.getAdditionalLocationInfo()));
 
-        partMap.put("account_id", createPartFromString(pet.getAccountId()));
+        partMap.put("account_id", createPartFromString(String.valueOf(pet.getAccountData().getId())));
         partMap.put("pet_name", createPartFromString(pet.getName() != null ? pet.getName() : ""));
         partMap.put("pet_breed", createPartFromString(pet.getBreed() != null ? pet.getBreed() : ""));
         partMap.put("pet_type", createPartFromString(pet.getPetType()));
@@ -147,7 +147,7 @@ public class AppApiHelper implements ApiHelper {
             imageUri = Uri.fromFile(new File(pet.getPetImagesUrl().get(i)));
             petImagesPart.add(prepareFilePart("pet_images[]", imageUri));
         }
-        return mApiInterface.reportPersonalThing(partMap, petImagesPart);
+        return mApiInterface.reportPet(partMap, petImagesPart);
     }
 
     @Override

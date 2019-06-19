@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Pet {
 
-    @SerializedName("account_id")
+    @SerializedName("account_data")
     @Expose
-    private String accountId;
+    private MakahanapAccount accountData;
 
     @SerializedName("additional_location_info")
     @Expose
@@ -62,12 +62,12 @@ public class Pet {
     public Pet() {
     }
 
-    public String getAccountId() {
-        return accountId;
+    public MakahanapAccount getAccountData() {
+        return accountData;
     }
 
-    public void setAccountId(final String accountId) {
-        this.accountId = accountId;
+    public void setAccountData(final MakahanapAccount accountData) {
+        this.accountData = accountData;
     }
 
     public String getAdditionalLocationInfo() {

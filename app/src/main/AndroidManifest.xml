@@ -22,7 +22,9 @@
             android:name=".ui.image_viewer.ImageViewerActivity"
             android:theme="@style/NoActionBarStyle"></activity>
         <activity android:name=".ui.report.person.ReportPersonActivity" />
-        <activity android:name=".ui.report.pet.ReportPetActivity" />
+        <activity
+            android:name=".ui.report.pet.ReportPetActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.report.personal_thing.ReportPersonalThingActivity"
             android:screenOrientation="portrait" />

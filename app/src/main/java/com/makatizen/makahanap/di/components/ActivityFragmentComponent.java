@@ -14,6 +14,7 @@ import com.makatizen.makahanap.ui.main.map.MapFragment;
 import com.makatizen.makahanap.ui.main.notification.NotificationFragment;
 import com.makatizen.makahanap.ui.register.RegisterActivity;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingActivity;
+import com.makatizen.makahanap.ui.report.pet.ReportPetActivity;
 import dagger.Component;
 
 @ActivityScope
@@ -43,4 +44,6 @@ public interface ActivityFragmentComponent {
     void inject(ReportPersonalThingActivity reportPersonalThingActivity);
 
     void inject(ImageViewerActivity imageViewerActivity);
+
+    void inject(ReportPetActivity reportPetActivity);
 }
