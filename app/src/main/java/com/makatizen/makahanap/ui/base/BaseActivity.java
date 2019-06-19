@@ -16,6 +16,7 @@ import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.di.components.ActivityFragmentComponent;
 import com.makatizen.makahanap.di.components.DaggerActivityFragmentComponent;
 import com.makatizen.makahanap.di.modules.ActivityFragmentModule;
+import com.makatizen.makahanap.di.modules.UtilityModule;
 import com.makatizen.makahanap.utils.AppUtils;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseMvpView {
@@ -31,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseMvpV
         super.onCreate(savedInstanceState);
         mActivityFragmentComponent = DaggerActivityFragmentComponent.builder()
                 .activityFragmentModule(new ActivityFragmentModule(this))
+                .utilityModule(new UtilityModule(this))
                 .applicationComponent(MakahanapApplication.getApplicationComponent())
                 .build();
     }

@@ -7,4 +7,6 @@ public interface LoaderMvpPresenter<V extends LoaderMvpView & BaseMvpView> exten
 
     void getCurrentAccountData(int accountId);
 
+    void getAllBarangayData();
+
 }

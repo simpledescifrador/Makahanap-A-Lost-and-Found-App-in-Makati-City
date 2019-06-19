@@ -79,6 +79,12 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
+    @Override
     public void invalidMakatizenId() {
         mRegisterMakatizenNumberEt.setError("Makatizen ID not found");
     }

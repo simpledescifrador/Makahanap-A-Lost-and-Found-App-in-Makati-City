@@ -6,9 +6,9 @@ public class ApiConstants {
 
     /*------- API HEADERS -------------*/
     //Base Urls
-    public static final String BASE_URL = "http://192.168.1.100/makahanap/";
+    public static final String BASE_URL = "http://192.168.43.35/makahanap/";
 
-    public static final String MAKATIZEN_API_BASE_URL = "http://192.168.1.100/makatizen/";
+    public static final String MAKATIZEN_API_BASE_URL = "http://192.168.43.35/makatizen/";
 
     public static final String API_KEY = "makahanap@key2018";
 
@@ -20,21 +20,29 @@ public class ApiConstants {
 
     /*------- END OF API HEADERS -------------*/
 
-    
+
     /* -------------  API URL'S ------------ */
     //Authentication
     static final String LOGIN_REQUEST_URL = "api/v1/auth/login";
-
     static final String REGISTER_ACCOUNT_URL = "api/v1/auth/register";
+
     //Account
-    static final String GET_ACCOUNT_DATA = "api/v1/account/";
+    static final String GET_ACCOUNT_DATA_URL = "api/v1/account/";
+
+    //Barangay
+    static final String GET_ALL_BARANGAY_DATA_URL = "api/v1/barangay";
+    static final String GET_BARANGAY_DATA_URL = "api/v1/barangay/";
+
+    //Report
+    static final String REPORT_PERSONAL_THING_URL = "api/v1/report/pt";
+    static final String REPORT_PET_URL = "api/v1/report/pet";
     /* ------------- END OF API URL'S ------------ */
 
 
     /* ------------- MAKATIZEN API URL'S -----------*/
-    static final String VERIFY_MAKATIZEN_ID = "api/v1/account/validate";
+    static final String VERIFY_MAKATIZEN_ID_URL = "api/v1/account/validate";
 
-    static final String GET_MAKATIZEN_DATA = "api/v1/account/";
+    static final String GET_MAKATIZEN_DATA_URL = "api/v1/account/";
 
     /* ------------- END OF API URL'S ------------ */
 

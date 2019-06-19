@@ -11,10 +11,10 @@ import retrofit2.http.Path;
 
 public interface MakatizenApiInterface {
 
-    @GET(ApiConstants.GET_MAKATIZEN_DATA + "{id}")
+    @GET(ApiConstants.GET_MAKATIZEN_DATA_URL + "{id}")
     Single<MakatizenGetDataResponse> getMakatizenData(@Path("id") String makatizenId);
 
     @FormUrlEncoded
-    @POST(ApiConstants.VERIFY_MAKATIZEN_ID)
+    @POST(ApiConstants.VERIFY_MAKATIZEN_ID_URL)
     Single<VerifyMakatizenIdResponse> validateMakatizenNumber(@Field("makatizen_number") String id);
 }

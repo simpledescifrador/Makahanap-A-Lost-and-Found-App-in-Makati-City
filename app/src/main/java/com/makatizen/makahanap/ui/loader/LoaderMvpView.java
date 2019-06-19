@@ -7,4 +7,6 @@ public interface LoaderMvpView extends BaseMvpView {
     void nextLoadingMessage();
 
     void onCompletedLoader();
+
+    void onSuccessGetAccountData();
 }

@@ -2,6 +2,7 @@ package com.makatizen.makahanap.ui.intro;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
@@ -63,6 +64,11 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
         getActivityFragmentComponent().inject(this);
         mPresenter.attachView(this);
         mPresenter.checkIfIntroWillBeLoaded();
+
+        // Check if we're running on Android 5.0 or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
+        }
     }
 
     @Override

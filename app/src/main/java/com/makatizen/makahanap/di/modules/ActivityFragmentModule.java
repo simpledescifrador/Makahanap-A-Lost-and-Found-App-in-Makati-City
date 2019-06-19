@@ -2,6 +2,7 @@ package com.makatizen.makahanap.di.modules;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.BottomSheetDialog;
 import com.makatizen.makahanap.di.qualifiers.ActivityContext;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.intro.IntroMvpPresenter;
@@ -13,13 +14,22 @@ import com.makatizen.makahanap.ui.loader.LoaderPresenter;
 import com.makatizen.makahanap.ui.login.LoginMvpPresenter;
 import com.makatizen.makahanap.ui.login.LoginMvpView;
 import com.makatizen.makahanap.ui.login.LoginPresenter;
+import com.makatizen.makahanap.ui.main.MainMvpPresenter;
+import com.makatizen.makahanap.ui.main.MainMvpView;
+import com.makatizen.makahanap.ui.main.MainPresenter;
+import com.makatizen.makahanap.ui.main.home.HomeMvpPresenter;
+import com.makatizen.makahanap.ui.main.home.HomeMvpView;
+import com.makatizen.makahanap.ui.main.home.HomePresenter;
 import com.makatizen.makahanap.ui.register.RegisterMvpPresenter;
 import com.makatizen.makahanap.ui.register.RegisterMvpView;
 import com.makatizen.makahanap.ui.register.RegisterPresenter;
+import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingMvpPresenter;
+import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingMvpView;
+import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingPresenter;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = {AdapterModule.class, RxModule.class})
+@Module(includes = {AdapterModule.class, RxModule.class, UtilityModule.class})
 public class ActivityFragmentModule {
 
     private Activity activity;
@@ -41,15 +51,20 @@ public class ActivityFragmentModule {
 
     @Provides
     @ActivityScope
-    IntroMvpPresenter<IntroMvpView> provideIntroPresenter(IntroPresenter<IntroMvpView> introMvpViewIntroPresenter) {
-        return introMvpViewIntroPresenter;
+    BottomSheetDialog provideBottomSheetDialog() {
+        return new BottomSheetDialog(activity);
     }
 
     @Provides
     @ActivityScope
-    RegisterMvpPresenter<RegisterMvpView> provideRegisterPresenter(
-            RegisterPresenter<RegisterMvpView> registerMvpViewRegisterPresenter) {
-        return registerMvpViewRegisterPresenter;
+    HomeMvpPresenter<HomeMvpView> provideHomePresenter(HomePresenter<HomeMvpView> homeMvpViewHomePresenter) {
+        return homeMvpViewHomePresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    IntroMvpPresenter<IntroMvpView> provideIntroPresenter(IntroPresenter<IntroMvpView> introMvpViewIntroPresenter) {
+        return introMvpViewIntroPresenter;
     }
 
     @Provides
@@ -63,5 +78,25 @@ public class ActivityFragmentModule {
     @ActivityScope
     LoginMvpPresenter<LoginMvpView> provideLoginPresenter(LoginPresenter<LoginMvpView> loginMvpViewLoginPresenter) {
         return loginMvpViewLoginPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    MainMvpPresenter<MainMvpView> provideMainPresenter(MainPresenter<MainMvpView> mainMvpViewMainPresenter) {
+        return mainMvpViewMainPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    RegisterMvpPresenter<RegisterMvpView> provideRegisterPresenter(
+            RegisterPresenter<RegisterMvpView> registerMvpViewRegisterPresenter) {
+        return registerMvpViewRegisterPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    ReportPersonalThingMvpPresenter<ReportPersonalThingMvpView> provideReportPersonalThingPresenter(
+            ReportPersonalThingPresenter<ReportPersonalThingMvpView> reportPersonalThingMvpViewReportPersonalThingPresenter) {
+        return reportPersonalThingMvpViewReportPersonalThingPresenter;
     }
 }

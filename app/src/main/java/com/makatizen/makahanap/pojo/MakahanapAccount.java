@@ -145,6 +145,10 @@ public class MakahanapAccount {
         return id;
     }
 
+    public void setId(final Integer id) {
+        this.id = id;
+    }
+
     public String getLastName() {
         return lastName;
     }

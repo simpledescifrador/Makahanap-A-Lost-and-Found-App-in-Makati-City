@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="more_categories">
+        <item>Art</item>
+        <item>Beauty Accessories</item>
+        <item>Books</item>
+        <item>Clothes</item>
+        <item>Paperworks</item>
+        <item>Bank Cards</item>
+        <item>Jewelry</item>
+        <item>eReaders</item>
+        <item>PC Accessories</item>
+        <item>Photography Equipment</item>
+        <item>Mobile Phone Accessories</item>
+        <item>Sports Equipment</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="pet_types">
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Bird</item>
+        <item>Rabbit</item>
+        <item>Fish</item>
+    </string-array>
+
+    <string-array name="pet_condition">
+        <item>Good</item>
+        <item>Sick</item>
+        <item>Injured</item>
+    </string-array>
+    <string-array name="age_group">
+        <item>Child</item>
+        <item>Teen</item>
+        <item>Adult</item>
+        <item>Senior</item>
+    </string-array>
+    <string-array name="dog_type">
+        <item>Askal</item>
+        <item>Beagle</item>
+        <item>Poodle</item>
+        <item>Pug</item>
+        <item>Golden Retriever</item>
+        <item>Dalmatian</item>
+        <item>Shih Tzu</item>
+        <item>Chihuahua</item>
+        <item>German Shepherd</item>
+        <item>Doberman</item>
+        <item>Labrador Retriever</item>
+        <item>Bulldog</item>
+        <item>Siberian Husky</item>
+        <item>Chow Chow</item>
+        <item>Greyhound</item>
+        <item>Hound</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="cat_type">
+        <item>Persian</item>
+        <item>Siamese</item>
+        <item>Maine Coon</item>
+        <item>Abyssinian</item>
+        <item>Ragdoll</item>
+        <item>Burmese</item>
+        <item>Bengal</item>
+        <item>Sphynx</item>
+        <item>Siberian</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="bird_type">
+        <item>Parrot</item>
+        <item>Cockatiels</item>
+        <item>Budgerigars</item>
+        <item>Cockatoos</item>
+        <item>Conures</item>
+        <item>Macaws</item>
+        <item>Poicephalus</item>
+        <item>Amazon Parrots</item>
+        <item>Quaker Parrots</item>
+        <item>Others</item>
+    </string-array>
+</resources>

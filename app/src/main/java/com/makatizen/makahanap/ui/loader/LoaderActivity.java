@@ -34,8 +34,9 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
     private int mCurrentIndex = 0;
 
     private String[] mLoadingMessages = {
-            "Preparing your data",
+            "Preparing app resources . . .",
             "Getting your account data . . .",
+            "Retrieving all barangay repositories",
             "Loading the app . . ."
     };
 
@@ -47,6 +48,12 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
         setContentView(R.layout.activity_loader);
         setUnBinder(ButterKnife.bind(this));
         init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     @Override
@@ -70,6 +77,12 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
             finish();
         }
 
+    }
+
+    @Override
+    public void onSuccessGetAccountData() {
+        // Next Task is to Get the All barangay data
+        mPresenter.getAllBarangayData();
     }
 
     @Override

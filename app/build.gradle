@@ -9,6 +9,7 @@ android {
         multiDexEnabled true
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -40,8 +41,14 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$rootProject.ext.FIREBASE_VERSION"
-    // Map Box
-    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:$rootProject.ext.MAP_BOX_VERSION"
+
+    // Google API
+    implementation 'com.google.android.libraries.places:places:1.1.0'
+    implementation "com.google.android.gms:play-services-gcm:$rootProject.ext.GOOGLE_API_VERSION"
+//    implementation "com.google.android.gms:play-services-places:$rootProject.ext.GOOGLE_API_VERSION"
+    implementation "com.google.android.gms:play-services-nearby:$rootProject.ext.GOOGLE_API_VERSION"
+    implementation "com.google.android.gms:play-services-location:$rootProject.ext.GOOGLE_API_VERSION"
+    implementation "com.google.android.gms:play-services-maps:$rootProject.ext.GOOGLE_API_VERSION"
 
     // Room Persistence for local Database
     implementation "android.arch.persistence.room:runtime:$rootProject.ext.ROOM_VERSION"
@@ -59,7 +66,6 @@ dependencies {
     // RxJava
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.RXANDROID_VERSION"
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.RXJAVA2_VERSION"
-
     // Butter Knife for Views Injection
     implementation "com.jakewharton:butterknife:$rootProject.ext.BUTTER_KNIFE_VERSION"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.BUTTER_KNIFE_VERSION"
@@ -100,5 +106,7 @@ dependencies {
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
     //Facebook Shimmering
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
+    //Custom Alert
+    implementation 'com.github.Shashank02051997:FancyAlertDialog-Android:0.1'
 }
 apply plugin: 'com.google.gms.google-services'

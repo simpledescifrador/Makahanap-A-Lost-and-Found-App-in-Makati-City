@@ -53,6 +53,36 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
+    @Override
+    public void onLoginFailed() {
+        mLoginBtnLogin.setEnabled(true);
+        mLoginBtnLogin.setText("Login");
+    }
+
+    @Override
+    public void onLoginRequest() {
+        //Change Button text to loading . . .
+        mLoginBtnLogin.setEnabled(false);
+        mLoginBtnLogin.setText("Loading . . .");
+    }
+
+    @Override
+    public void onLoginSuccessful(final int accountId) {
+        //Process to the app
+        mLoginBtnLogin.setEnabled(false);
+        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, LoaderActivity.class);
+        intent.putExtra(IntentExtraKeys.ACCOUNT_ID, accountId);
+        startActivity(intent);
+        finish();
+    }
+
     @OnClick({R.id.login_btn_login, R.id.login_tv_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -68,7 +98,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
                 break;
             case R.id.login_tv_register:
-                Intent intent =  new Intent(this, RegisterActivity.class);
+                Intent intent = new Intent(this, RegisterActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -90,30 +120,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     public void setPasswordError(final int stringId) {
         mLoginEtPassword.setError(getResources().getString(stringId));
         mLoginEtPassword.requestFocus();
-    }
-
-    @Override
-    public void onLoginSuccessful(final int accountId) {
-        //Process to the app
-        mLoginBtnLogin.setEnabled(false);
-        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, LoaderActivity.class);
-        intent.putExtra(IntentExtraKeys.ACCOUNT_ID, accountId);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public void onLoginFailed() {
-        mLoginBtnLogin.setEnabled(true);
-        mLoginBtnLogin.setText("Login");
-    }
-
-    @Override
-    public void onLoginRequest() {
-        //Change Button text to loading . . .
-        mLoginBtnLogin.setEnabled(false);
-        mLoginBtnLogin.setText("Loading . . .");
     }
 
     @Override
