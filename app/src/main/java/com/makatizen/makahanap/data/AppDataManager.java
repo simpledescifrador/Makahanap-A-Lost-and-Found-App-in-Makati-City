@@ -7,6 +7,7 @@ import com.makatizen.makahanap.data.remote.ApiHelper;
 import com.makatizen.makahanap.di.qualifiers.ApplicationContext;
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -101,6 +102,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<RegisterReponse> registerNewAccount(final MakahanapAccount makahanapAccount) {
         return apiHelper.registerNewAccount(makahanapAccount);
+    }
+
+    @Override
+    public Completable reportPerson(final Person person) {
+        return apiHelper.reportPerson(person);
     }
 
     @Override

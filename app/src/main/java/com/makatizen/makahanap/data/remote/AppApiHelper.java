@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -66,6 +67,44 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<RegisterReponse> registerNewAccount(final MakahanapAccount makahanapAccount) {
         return mApiInterface.registerNewAccount(makahanapAccount);
+    }
+
+    @Override
+    public Completable reportPerson(final Person person) {
+        Map<String, RequestBody> partMap = new HashMap<>();
+        List<Part> personImagesPart = new ArrayList<>();
+        Uri imageUri;
+        //Location Info
+        partMap.put("location_address", createPartFromString(person.getLocationData().getAddress()));
+        partMap.put("location_name", createPartFromString(person.getLocationData().getName()));
+        partMap.put("location_id", createPartFromString(person.getLocationData().getId()));
+        partMap.put("location_latitude",
+                createPartFromString(String.valueOf(person.getLocationData().getLatlng().latitude)));
+        partMap.put("location_longitude",
+                createPartFromString(String.valueOf(person.getLocationData().getLatlng().longitude)));
+        partMap.put("additional_location_info", createPartFromString(person.getAdditionalLocationInfo()));
+
+        partMap.put("account_id", createPartFromString(String.valueOf(person.getAccountData().getId())));
+        partMap.put("name", createPartFromString(person.getName() != null ? person.getName() : ""));
+        partMap.put("age_range", createPartFromString(person.getAgeRange()));
+        partMap.put("age_group", createPartFromString(person.getAgeGroup()));
+        partMap.put("sex", createPartFromString(person.getSex()));
+        partMap.put("date", createPartFromString(person.getDate()));
+        partMap.put("description", createPartFromString(person.getDescription()));
+
+        if (person.getType() == Type.LOST) {
+            partMap.put("type", createPartFromString("Lost"));
+            partMap.put("reward",
+                    createPartFromString(person.getReward() != null ? person.getReward().toString() : "0.0"));
+        } else {
+            partMap.put("type", createPartFromString("Found"));
+        }
+        int itemImagesCount = person.getPersonImagesUrl().size();
+        for (int i = 0; i < itemImagesCount; i++) {
+            imageUri = Uri.fromFile(new File(person.getPersonImagesUrl().get(i)));
+            personImagesPart.add(prepareFilePart("person_images[]", imageUri));
+        }
+        return mApiInterface.reportPerson(partMap, personImagesPart);
     }
 
     @Override

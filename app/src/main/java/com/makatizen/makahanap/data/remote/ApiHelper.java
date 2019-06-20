@@ -2,6 +2,7 @@ package com.makatizen.makahanap.data.remote;
 
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -26,6 +27,8 @@ public interface ApiHelper {
     Single<LoginResponse> loginAppRequest(String makatizenNumber, String password);
 
     Single<RegisterReponse> registerNewAccount(MakahanapAccount makahanapAccount);
+
+    Completable reportPerson(Person person);
 
     Completable reportPersonalThing(PersonalThing personalThing);
 

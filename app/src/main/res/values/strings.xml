@@ -36,7 +36,9 @@
     <string name="hint_found_person_location">Where did you find the person?</string>
     <string name="hint_lost_person_date">When did you lose the person?</string>
     <string name="hint_found_person_date">When did you find the person?</string>
-
+    <string name="hint_lost_person_description">How did you describe him/her?</string>
+    <string name="hint_found_person_description">How did you describe him/her?</string>
+    <string name="hint_lost_person_name">Name of the lost person</string>
     <!-- Error Messages -->
     <string name="error_empty_makatizen_id">Please enter your Makatizen ID</string>
     <string name="error_invalid_makatizen_id">Please enter valid Makatizen ID</string>
@@ -51,4 +53,5 @@
     <string name="failed_register_message">Registration Failed</string>
     <!--  HINTs! -->
     <string name="hint_mobile_verification">Tap Next to verify your makatizen card with your phone number.\nAfter pressing next the verification code will be sent to your mobile number. </string>
+
 </resources>

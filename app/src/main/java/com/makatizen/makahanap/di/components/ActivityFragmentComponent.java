@@ -13,6 +13,7 @@ import com.makatizen.makahanap.ui.main.home.HomeFragment;
 import com.makatizen.makahanap.ui.main.map.MapFragment;
 import com.makatizen.makahanap.ui.main.notification.NotificationFragment;
 import com.makatizen.makahanap.ui.register.RegisterActivity;
+import com.makatizen.makahanap.ui.report.person.ReportPersonActivity;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingActivity;
 import com.makatizen.makahanap.ui.report.pet.ReportPetActivity;
 import dagger.Component;
@@ -46,4 +47,6 @@ public interface ActivityFragmentComponent {
     void inject(ImageViewerActivity imageViewerActivity);
 
     void inject(ReportPetActivity reportPetActivity);
+
+    void inject(ReportPersonActivity reportPersonActivity);
 }

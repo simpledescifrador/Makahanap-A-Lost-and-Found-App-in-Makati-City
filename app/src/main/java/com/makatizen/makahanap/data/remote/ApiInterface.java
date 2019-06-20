@@ -55,5 +55,10 @@ public interface ApiInterface {
             @PartMap Map<String, RequestBody> data,
             @Part List<MultipartBody.Part> petImages
     );
-
+    @Multipart
+    @POST(ApiConstants.REPORT_PERSON_URL)
+    Completable reportPerson(
+            @PartMap Map<String, RequestBody> data,
+            @Part List<MultipartBody.Part> personImages
+    );
 }

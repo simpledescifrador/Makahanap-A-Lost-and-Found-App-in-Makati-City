@@ -21,7 +21,9 @@
         <activity
             android:name=".ui.image_viewer.ImageViewerActivity"
             android:theme="@style/NoActionBarStyle"></activity>
-        <activity android:name=".ui.report.person.ReportPersonActivity" />
+        <activity
+            android:name=".ui.report.person.ReportPersonActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.report.pet.ReportPetActivity"
             android:screenOrientation="portrait" />

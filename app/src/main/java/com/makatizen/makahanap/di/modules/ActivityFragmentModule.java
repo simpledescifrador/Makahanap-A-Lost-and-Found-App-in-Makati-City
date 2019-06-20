@@ -23,6 +23,9 @@ import com.makatizen.makahanap.ui.main.home.HomePresenter;
 import com.makatizen.makahanap.ui.register.RegisterMvpPresenter;
 import com.makatizen.makahanap.ui.register.RegisterMvpView;
 import com.makatizen.makahanap.ui.register.RegisterPresenter;
+import com.makatizen.makahanap.ui.report.person.ReportPersonMvpPresenter;
+import com.makatizen.makahanap.ui.report.person.ReportPersonMvpView;
+import com.makatizen.makahanap.ui.report.person.ReportPersonPresenter;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingMvpPresenter;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingMvpView;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingPresenter;
@@ -94,6 +97,13 @@ public class ActivityFragmentModule {
     RegisterMvpPresenter<RegisterMvpView> provideRegisterPresenter(
             RegisterPresenter<RegisterMvpView> registerMvpViewRegisterPresenter) {
         return registerMvpViewRegisterPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    ReportPersonMvpPresenter<ReportPersonMvpView> provideReportPersonPresenter(
+            ReportPersonPresenter<ReportPersonMvpView> reportPersonMvpViewReportPersonPresenter) {
+        return reportPersonMvpViewReportPersonPresenter;
     }
 
     @Provides
