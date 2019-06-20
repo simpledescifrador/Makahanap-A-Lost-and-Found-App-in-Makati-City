@@ -772,7 +772,6 @@ public class ReportPetActivity extends BaseActivity implements ReportPetMvpView,
         RecyclerItemUtils.addTo(mReportPetRvImages).setOnItemClickListener(this);
         RecyclerItemUtils.addTo(mReportPetRvImages).setOnLongClickListener(this);
 
-        Places.initialize(this, getResources().getString(R.string.google_api_key));
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(this);
 

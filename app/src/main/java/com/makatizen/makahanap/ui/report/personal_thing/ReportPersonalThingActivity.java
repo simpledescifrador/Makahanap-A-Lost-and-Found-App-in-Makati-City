@@ -869,7 +869,6 @@ public class ReportPersonalThingActivity extends BaseActivity implements ReportP
         RecyclerItemUtils.addTo(mReportPtRvImages).setOnItemClickListener(this);
         RecyclerItemUtils.addTo(mReportPtRvImages).setOnLongClickListener(this);
 
-        Places.initialize(this, getResources().getString(R.string.google_api_key));
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(this);
 
