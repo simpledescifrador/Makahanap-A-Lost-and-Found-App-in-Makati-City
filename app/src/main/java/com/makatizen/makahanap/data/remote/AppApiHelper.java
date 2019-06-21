@@ -7,6 +7,7 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
@@ -192,6 +193,11 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<VerifyMakatizenIdResponse> verifyMakatizenId(final String makatizenId) {
         return mMakatizenApiInterface.validateMakatizenNumber(makatizenId);
+    }
+
+    @Override
+    public Single<GetLatestFeedResponse> getLatestFeed() {
+        return mApiInterface.getLatestFeed();
     }
 
     @NonNull

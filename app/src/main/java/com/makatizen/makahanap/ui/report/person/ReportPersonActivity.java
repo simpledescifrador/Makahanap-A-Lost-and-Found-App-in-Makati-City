@@ -355,7 +355,7 @@ public class ReportPersonActivity extends BaseActivity implements ReportPersonMv
     @Override
     public void onSubmitReportCompleted() {
         final Dialog dialog = mAppAlertDialog.showCustomDialog(AlertType.SUCCESS, "Your report has been submitted",
-                "We will let you know when person was matched with your person", "Okay");
+                "We will let you know when person was matched with your person", "Okay", null);
 
         if (dialog == null) {
             return;

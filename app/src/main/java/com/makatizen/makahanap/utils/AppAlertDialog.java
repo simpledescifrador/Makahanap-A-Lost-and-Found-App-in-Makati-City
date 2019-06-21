@@ -29,7 +29,7 @@ public class AppAlertDialog {
         mActivity = activity;
     }
 
-    public Dialog showCustomDialog(AlertType alertType, String title, String message, String positiveText) {
+    public Dialog showCustomDialog(AlertType alertType, String title, String message, String positiveText, String animationPath) {
         Dialog dialog = new Dialog(mActivity);
         dialog.setContentView(R.layout.dialog_custom_alert);
         TextView titleText = dialog.findViewById(R.id.custom_alert_tv_title);
@@ -58,6 +58,11 @@ public class AppAlertDialog {
                 animationView.setAnimation("animations/error_404.json");
                 break;
         }
+
+        if (animationPath != null) {
+            animationView.setAnimation(animationPath);
+        }
+
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);

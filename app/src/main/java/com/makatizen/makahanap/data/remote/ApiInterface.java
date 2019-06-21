@@ -2,6 +2,7 @@ package com.makatizen.makahanap.data.remote;
 
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import io.reactivex.Completable;
@@ -61,4 +62,7 @@ public interface ApiInterface {
             @PartMap Map<String, RequestBody> data,
             @Part List<MultipartBody.Part> personImages
     );
+
+    @GET(ApiConstants.GET_LATEST_FEED_URL)
+    Single<GetLatestFeedResponse> getLatestFeed();
 }

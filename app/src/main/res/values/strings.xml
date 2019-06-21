@@ -6,7 +6,11 @@
     <!--  Title -->
     <string name="title_type_lost">What did you lose?</string>
     <string name="title_type_found">What did you found?</string>
-
+    <string name="title_no_feed_content">No Lost and Found Reported</string>
+    <string name="title_no_network">No Internet Connection</string>
+    <!--  Message -->
+    <string name="message_no_feed_content">Did you lost or found something?\nReport it now</string>
+    <string name="message_no_network">Make sure that Wi-Fi or mobile data is turned on, then try again.</string>
     <!-- Hints for Personal Thing Forms-->
     <string name="hint_lost_pt_item_name">What specific item did you lose?</string>
     <string name="hint_found_pt_item_name">What specific item did you found?</string>

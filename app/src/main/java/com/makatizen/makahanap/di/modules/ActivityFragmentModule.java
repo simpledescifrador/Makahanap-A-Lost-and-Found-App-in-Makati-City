@@ -17,6 +17,9 @@ import com.makatizen.makahanap.ui.login.LoginPresenter;
 import com.makatizen.makahanap.ui.main.MainMvpPresenter;
 import com.makatizen.makahanap.ui.main.MainMvpView;
 import com.makatizen.makahanap.ui.main.MainPresenter;
+import com.makatizen.makahanap.ui.main.feed.FeedMvpPresenter;
+import com.makatizen.makahanap.ui.main.feed.FeedMvpView;
+import com.makatizen.makahanap.ui.main.feed.FeedPresenter;
 import com.makatizen.makahanap.ui.main.home.HomeMvpPresenter;
 import com.makatizen.makahanap.ui.main.home.HomeMvpView;
 import com.makatizen.makahanap.ui.main.home.HomePresenter;
@@ -59,6 +62,12 @@ public class ActivityFragmentModule {
     @ActivityScope
     BottomSheetDialog provideBottomSheetDialog() {
         return new BottomSheetDialog(activity);
+    }
+
+    @Provides
+    @ActivityScope
+    FeedMvpPresenter<FeedMvpView> provideFeedPresenter(FeedPresenter<FeedMvpView> feedMvpViewFeedPresenter) {
+        return feedMvpViewFeedPresenter;
     }
 
     @Provides

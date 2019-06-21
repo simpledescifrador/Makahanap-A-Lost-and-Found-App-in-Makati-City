@@ -347,7 +347,7 @@ public class ReportPetActivity extends BaseActivity implements ReportPetMvpView,
     @Override
     public void onSubmitReportCompleted() {
         final Dialog dialog = mAppAlertDialog.showCustomDialog(AlertType.SUCCESS, "Your report has been submitted",
-                "We will let you know when other pet was matched with your pet", "Okay");
+                "We will let you know when other pet was matched with your pet", "Okay", null);
 
         if (dialog == null) {
             return;

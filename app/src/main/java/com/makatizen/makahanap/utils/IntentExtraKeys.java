@@ -6,4 +6,6 @@ public class IntentExtraKeys {
     public static final String TYPE = "TYPE";
     public static final String SELECTED_POSITION = "SELECTED_POSITION";
     public static final String ITEM_IMAGES = "ITEM_IMAGES";
+
+    public static final String ITEM_ID = "ITEM_ID";
 }

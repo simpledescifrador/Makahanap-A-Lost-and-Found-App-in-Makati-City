@@ -422,7 +422,7 @@ public class ReportPersonalThingActivity extends BaseActivity implements ReportP
 //                    }
 //                })
 //                .build();
-        final Dialog dialog = mAppAlertDialog.showCustomDialog(AlertType.SUCCESS, "Your report has been submitted", "We will let you know when other item was matched with your item", "Okay");
+        final Dialog dialog = mAppAlertDialog.showCustomDialog(AlertType.SUCCESS, "Your report has been submitted", "We will let you know when other item was matched with your item", "Okay", null);
 
         if (dialog == null) {
             return;

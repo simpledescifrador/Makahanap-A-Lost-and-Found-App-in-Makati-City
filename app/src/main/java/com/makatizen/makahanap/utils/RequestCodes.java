@@ -13,4 +13,6 @@ public class RequestCodes {
     public static final int OPEN_CAMERA = 50;
 
     public static final int OPEN_GALLERY = 60;
+
+    public static final int ITEM_DETAILS = 70;
 }

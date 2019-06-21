@@ -37,6 +37,9 @@ public class ApiConstants {
     static final String REPORT_PERSONAL_THING_URL = "api/v1/report/pt";
     static final String REPORT_PET_URL = "api/v1/report/pet";
     static final String REPORT_PERSON_URL = "api/v1/report/person";
+
+    //Items
+    static final String GET_LATEST_FEED_URL = "api/v1/items";
     /* ------------- END OF API URL'S ------------ */
 
 

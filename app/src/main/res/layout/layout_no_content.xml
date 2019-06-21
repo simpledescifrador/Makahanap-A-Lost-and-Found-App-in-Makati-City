@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/no_content_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/no_content_animation"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="fitCenter"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="animations/empty_box.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/no_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="No Content"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/no_content_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginStart="48dp"
+        android:padding="8dp"
+        android:text="Report a lost or found"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/colorPrimaryText" />
+
+    <Button
+        android:id="@+id/no_content_btn_report"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Report"
+        android:textColor="@color/defaultGreen" />
+
+</LinearLayout>
