@@ -4,6 +4,7 @@ import com.makatizen.makahanap.di.modules.ActivityFragmentModule;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerActivity;
 import com.makatizen.makahanap.ui.intro.IntroActivity;
+import com.makatizen.makahanap.ui.item_details.ItemDetailsActivity;
 import com.makatizen.makahanap.ui.loader.LoaderActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
 import com.makatizen.makahanap.ui.main.MainActivity;
@@ -49,4 +50,6 @@ public interface ActivityFragmentComponent {
     void inject(ReportPetActivity reportPetActivity);
 
     void inject(ReportPersonActivity reportPersonActivity);
+
+    void inject(ItemDetailsActivity itemDetailsActivity);
 }

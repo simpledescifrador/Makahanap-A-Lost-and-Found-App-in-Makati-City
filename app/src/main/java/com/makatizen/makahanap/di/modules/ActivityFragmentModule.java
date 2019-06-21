@@ -8,6 +8,9 @@ import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.intro.IntroMvpPresenter;
 import com.makatizen.makahanap.ui.intro.IntroMvpView;
 import com.makatizen.makahanap.ui.intro.IntroPresenter;
+import com.makatizen.makahanap.ui.item_details.ItemDetailsMvpPresenter;
+import com.makatizen.makahanap.ui.item_details.ItemDetailsMvpView;
+import com.makatizen.makahanap.ui.item_details.ItemDetailsPresenter;
 import com.makatizen.makahanap.ui.loader.LoaderMvpPresenter;
 import com.makatizen.makahanap.ui.loader.LoaderMvpView;
 import com.makatizen.makahanap.ui.loader.LoaderPresenter;
@@ -80,6 +83,13 @@ public class ActivityFragmentModule {
     @ActivityScope
     IntroMvpPresenter<IntroMvpView> provideIntroPresenter(IntroPresenter<IntroMvpView> introMvpViewIntroPresenter) {
         return introMvpViewIntroPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    ItemDetailsMvpPresenter<ItemDetailsMvpView> provideItemDetailsPresenter(
+            ItemDetailsPresenter<ItemDetailsMvpView> itemDetailsMvpViewItemDetailsPresenter) {
+        return itemDetailsMvpViewItemDetailsPresenter;
     }
 
     @Provides
