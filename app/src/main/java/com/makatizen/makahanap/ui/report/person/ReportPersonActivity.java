@@ -506,10 +506,10 @@ public class ReportPersonActivity extends BaseActivity implements ReportPersonMv
                 person.setLocationData(mLocationData);
                 person.setPersonImagesUrl(mImagePaths);
                 person.setAdditionalLocationInfo(mReportPersonEtMoreLocationInfo.getText().toString());
+                person.setType(mType);
 
                 if (mType == Type.LOST) {
                     person.setName(mReportPersonEtName.getText().toString());
-
                     double reward = 0.0;
                     try {
                         reward = Double.parseDouble(mReportPersonEtRewardAmount.getText().toString());
@@ -634,7 +634,7 @@ public class ReportPersonActivity extends BaseActivity implements ReportPersonMv
                 rangeSeekbar.setMaxValue(120);
                 minValueText.setText("Min: 60");
                 maxValueText.setText("Max: 120");
-                mSelectedAgeGroup = "Senior";
+                mSelectedAgeGroup = "Senior Adult";
                 mSelectedAgeRanged = "60 to 120";
                 break;
         }
