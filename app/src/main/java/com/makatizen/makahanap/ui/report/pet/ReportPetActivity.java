@@ -37,9 +37,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.Place.Field;
+import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
@@ -778,7 +780,10 @@ public class ReportPetActivity extends BaseActivity implements ReportPetMvpView,
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.report_pet_autocomplete_fragment);
-
+        RectangularBounds bounds = RectangularBounds.newInstance(
+                new LatLng(14.530872, 121.022232),
+                new LatLng(14.568527, 121.045865));
+        autocompleteFragment.setLocationBias(bounds);
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Field.ID, Field.NAME, Field.ADDRESS, Field.LAT_LNG));
         autocompleteFragment.a.setTextSize(14);
