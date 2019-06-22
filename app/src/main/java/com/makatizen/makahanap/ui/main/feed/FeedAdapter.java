@@ -77,7 +77,6 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<ViewHolder, FeedItem> i
 
     @Override
     public Filter getFilter() {
-        // FIXME: 6/22/19 Error Not showing when if the list is updated
         return new Filter() {
             @Override
             protected FilterResults performFiltering(final CharSequence charSequence) {
@@ -189,11 +188,11 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<ViewHolder, FeedItem> i
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new FeedDiffCallback(getData(), feedItemsList));
         diffResult.dispatchUpdatesTo(this);
 
-        this.feedItemsListTempHolder.clear();
-        this.feedItemsListTempHolder.addAll(feedItemsList);
 
         getData().clear();
         setDataNoNotify(feedItemsList);
+        this.feedItemsListTempHolder.clear();
+        this.feedItemsListTempHolder.addAll(feedItemsList);
 
     }
 }

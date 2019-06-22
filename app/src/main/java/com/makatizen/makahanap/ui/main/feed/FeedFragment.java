@@ -181,6 +181,8 @@ public class FeedFragment extends BaseFragment implements FeedMvpView, OnItemCli
         mNoInternetLayout.setVisibility(View.GONE);
 
         mFeedAdapter.updateFeedItemList(feedItems);
+        mFeedRgFilter.check(R.id.feed_rb_item_all);
+        mFeedRvLatestReports.smoothScrollToPosition(0);
     }
 
     @Override

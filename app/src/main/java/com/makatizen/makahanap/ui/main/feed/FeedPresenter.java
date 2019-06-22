@@ -28,7 +28,6 @@ public class FeedPresenter<V extends FeedMvpView> extends BasePresenter<V> imple
     @Override
     public void loadLatestFeed() {
         if (!getMvpView().isNetworkConnected()) {
-            // TODO: 6/20/19 No Network
             getMvpView().noNetworkConnection();
         } else {
             getDataManager().getLatestFeed()
@@ -85,7 +84,6 @@ public class FeedPresenter<V extends FeedMvpView> extends BasePresenter<V> imple
     @Override
     public void refreshFeed() {
         if (!getMvpView().isNetworkConnected()) {
-            // TODO: 6/20/19 No Network
             getMvpView().onError(R.string.title_no_network);
         } else {
             getDataManager().getLatestFeed()
