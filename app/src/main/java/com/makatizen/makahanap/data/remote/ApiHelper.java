@@ -5,12 +5,14 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.List;
@@ -20,6 +22,10 @@ public interface ApiHelper {
     Observable<List<BarangayData>> getAllBarangayData();
 
     Single<BarangayData> getBarangayData(int barangayId);
+
+    Maybe<List<String>> getItemImages(int itemId);
+
+    Single<GetLatestFeedResponse> getLatestFeed();
 
     Single<MakahanapAccount> getMakahanapAccountData(int accountId);
 
@@ -37,5 +43,5 @@ public interface ApiHelper {
 
     Single<VerifyMakatizenIdResponse> verifyMakatizenId(String makatizenId);
 
-    Single<GetLatestFeedResponse> getLatestFeed();
+    Single<GetItemDetailsResponse> getItemDetails(int itemId);
 }

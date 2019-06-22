@@ -166,7 +166,7 @@ public class PersonalThing {
         this.itemName = itemName;
     }
 
-    public Boolean getItemSurrendered() {
+    public Boolean isItemSurrendered() {
         return isItemSurrendered;
     }
 

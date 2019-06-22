@@ -40,6 +40,8 @@ public class ApiConstants {
 
     //Items
     static final String GET_LATEST_FEED_URL = "api/v1/items";
+    static final String GET_ITEM_IMAGES_URL = "api/v1/items/"/*itemID*/;
+    static final String GET_ITEM_DETAILS_URL = "api/v1/items/"/*itemID */;
     /* ------------- END OF API URL'S ------------ */
 
 

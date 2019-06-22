@@ -2,10 +2,12 @@ package com.makatizen.makahanap.data.remote;
 
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.List;
@@ -30,6 +32,15 @@ public interface ApiInterface {
     @GET(ApiConstants.GET_BARANGAY_DATA_URL + "{barangay_id}")
     Single<BarangayData> getBarangayData(int barangayId);
 
+    @GET(ApiConstants.GET_ITEM_DETAILS_URL + "{item_id}")
+    Single<GetItemDetailsResponse> getItemDetails(@Path("item_id") int itemId);
+
+    @GET(ApiConstants.GET_ITEM_IMAGES_URL + "{item_id}/images")
+    Maybe<List<String>> getItemImages(@Path("item_id") int itemId);
+
+    @GET(ApiConstants.GET_LATEST_FEED_URL)
+    Single<GetLatestFeedResponse> getLatestFeed();
+
     @GET(ApiConstants.GET_ACCOUNT_DATA_URL + "{account_id}")
     Single<MakahanapAccount> getMakahanapAccountData(@Path("account_id") int accountId);
 
@@ -44,6 +55,13 @@ public interface ApiInterface {
     Single<RegisterReponse> registerNewAccount(@Body MakahanapAccount makahanapAccount);
 
     @Multipart
+    @POST(ApiConstants.REPORT_PERSON_URL)
+    Completable reportPerson(
+            @PartMap Map<String, RequestBody> data,
+            @Part List<MultipartBody.Part> personImages
+    );
+
+    @Multipart
     @POST(ApiConstants.REPORT_PERSONAL_THING_URL)
     Completable reportPersonalThing(
             @PartMap Map<String, RequestBody> data,
@@ -56,13 +74,4 @@ public interface ApiInterface {
             @PartMap Map<String, RequestBody> data,
             @Part List<MultipartBody.Part> petImages
     );
-    @Multipart
-    @POST(ApiConstants.REPORT_PERSON_URL)
-    Completable reportPerson(
-            @PartMap Map<String, RequestBody> data,
-            @Part List<MultipartBody.Part> personImages
-    );
-
-    @GET(ApiConstants.GET_LATEST_FEED_URL)
-    Single<GetLatestFeedResponse> getLatestFeed();
 }

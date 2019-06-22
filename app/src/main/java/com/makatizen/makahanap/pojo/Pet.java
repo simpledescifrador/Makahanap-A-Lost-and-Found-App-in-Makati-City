@@ -39,7 +39,7 @@ public class Pet {
     @Expose
     private Type itemType;
 
-    @SerializedName("location_date")
+    @SerializedName("location_data")
     @Expose
     private LocationData locationData;
 

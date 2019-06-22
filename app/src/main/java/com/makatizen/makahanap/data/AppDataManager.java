@@ -10,12 +10,14 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.List;
@@ -76,6 +78,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Maybe<List<String>> getItemImages(final int itemId) {
+        return apiHelper.getItemImages(itemId);
+    }
+
+    @Override
+    public Single<GetLatestFeedResponse> getLatestFeed() {
+        return apiHelper.getLatestFeed();
+    }
+
+    @Override
     public Single<MakahanapAccount> getMakahanapAccountData(final int accountId) {
         return apiHelper.getMakahanapAccountData(accountId);
     }
@@ -106,13 +118,13 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Completable reportPerson(final Person person) {
-        return apiHelper.reportPerson(person);
+    public void removeStartUpIntro() {
+        applicationPreferences.removeStartUpIntro();
     }
 
     @Override
-    public void removeStartUpIntro() {
-        applicationPreferences.removeStartUpIntro();
+    public Completable reportPerson(final Person person) {
+        return apiHelper.reportPerson(person);
     }
 
     @Override
@@ -146,7 +158,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<GetLatestFeedResponse> getLatestFeed() {
-        return apiHelper.getLatestFeed();
+    public Single<GetItemDetailsResponse> getItemDetails(final int itemId) {
+        return apiHelper.getItemDetails(itemId);
     }
 }

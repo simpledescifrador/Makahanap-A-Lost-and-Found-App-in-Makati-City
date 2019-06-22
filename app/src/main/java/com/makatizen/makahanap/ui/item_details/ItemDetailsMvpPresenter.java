@@ -5,4 +5,7 @@ import com.makatizen.makahanap.ui.base.Presenter;
 
 public interface ItemDetailsMvpPresenter<V extends ItemDetailsMvpView & BaseMvpView> extends Presenter<V> {
 
+    void loadItemDetails(int itemId);
+
+    void loadItemImages(int itemId);
 }

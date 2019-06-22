@@ -7,6 +7,7 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
@@ -14,6 +15,7 @@ import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import com.makatizen.makahanap.utils.enums.Type;
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.io.File;
@@ -48,6 +50,11 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<BarangayData> getBarangayData(final int barangayId) {
         return mApiInterface.getBarangayData(barangayId);
+    }
+
+    @Override
+    public Maybe<List<String>> getItemImages(final int itemId) {
+        return mApiInterface.getItemImages(itemId);
     }
 
     @Override
@@ -140,7 +147,7 @@ public class AppApiHelper implements ApiHelper {
             partMap.put("date_found", createPartFromString(personalThing.getDate()));
             partMap.put("barangay_id", createPartFromString(String.valueOf(personalThing.getBarangayData().getId())));
             partMap.put("s", createPartFromString(
-                    String.valueOf(personalThing.getItemSurrendered() ? 1 : 0))); //if them is to be surrender
+                    String.valueOf(personalThing.isItemSurrendered() ? 1 : 0))); //if them is to be surrender
         }
 
         int itemImagesCount = personalThing.getItemImagesUrl().size();
@@ -193,6 +200,11 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<VerifyMakatizenIdResponse> verifyMakatizenId(final String makatizenId) {
         return mMakatizenApiInterface.validateMakatizenNumber(makatizenId);
+    }
+
+    @Override
+    public Single<GetItemDetailsResponse> getItemDetails(final int itemId) {
+        return mApiInterface.getItemDetails(itemId);
     }
 
     @Override
