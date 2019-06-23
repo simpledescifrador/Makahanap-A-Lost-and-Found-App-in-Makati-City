@@ -324,7 +324,8 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
                 if (isTurnOvered) {
                     mItemDetailsPtTvTurnoverLbl.setVisibility(View.VISIBLE);
                     mItemDetailsPtTvTurnover.setVisibility(View.VISIBLE);
-                    mItemDetailsPtTvTurnover.setText("Barangay " + response.getPersonalThingData().getBarangayData().getName());
+                    mItemDetailsPtTvTurnover
+                            .setText("Barangay " + response.getPersonalThingData().getBarangayData().getName());
                 }
                 break;
         }
@@ -443,6 +444,11 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
             case R.id.item_details_btn_account_message:
                 break;
         }
+    }
+
+    @Override
+    public void removeMessageButton() {
+        mItemDetailsBtnAccountMessage.setVisibility(View.GONE);
     }
 
     @Override

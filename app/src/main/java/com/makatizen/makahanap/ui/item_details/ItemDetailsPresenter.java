@@ -53,6 +53,11 @@ public class ItemDetailsPresenter<V extends ItemDetailsMvpView> extends BasePres
                         if (isViewAttached()) {
                             getMvpView().hideItemDetailsLoading();
 
+                            //Check if the item is report by current account
+                            int currentAccountId = getDataManager().getCurrentAccount().getId();
+                            if (currentAccountId == getItemDetailsResponse.getAccount().getId()) {
+                                getMvpView().removeMessageButton();
+                            }
                             if (getItemDetailsResponse.getPersonalThingData() != null) {
                                 getMvpView().onPersonalThingData(getItemDetailsResponse);
                             } else if (getItemDetailsResponse.getPetData() != null) {

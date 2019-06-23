@@ -16,4 +16,6 @@ public interface ItemDetailsMvpView extends BaseMvpView {
     void onPetData(GetItemDetailsResponse response);
 
     void onPersonData(GetItemDetailsResponse response);
+
+    void removeMessageButton();
 }
