@@ -26,6 +26,12 @@ import retrofit2.http.Path;
 
 public interface ApiInterface {
 
+    @GET(ApiConstants.GET_ACCOUNT_ITEM_IMAGES_URL + "{account_id}/images")
+    Maybe<List<String>> getAccountItemImages(@Path("account_id") int accountId);
+
+    @GET(ApiConstants.GET_LATEST_ACCOUNT_FEED_URL + "{account_id}/items")
+    Single<GetLatestFeedResponse> getAccountLatestFeed(@Path("account_id") int accountId);
+
     @GET(ApiConstants.GET_ALL_BARANGAY_DATA_URL)
     Observable<List<BarangayData>> getAllBarangayData();
 

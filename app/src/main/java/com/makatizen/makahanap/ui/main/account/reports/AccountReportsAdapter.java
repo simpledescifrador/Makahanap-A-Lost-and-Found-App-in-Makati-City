@@ -1,16 +1,13 @@
-package com.makatizen.makahanap.ui.main.feed;
+package com.makatizen.makahanap.ui.main.account.reports;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,15 +20,13 @@ import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.remote.ApiConstants;
 import com.makatizen.makahanap.pojo.FeedItem;
 import com.makatizen.makahanap.ui.base.BaseRecyclerViewAdapter;
-import com.makatizen.makahanap.ui.main.feed.FeedAdapter.ViewHolder;
 import com.makatizen.makahanap.utils.DateUtils;
-import com.makatizen.makahanap.utils.enums.Type;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
-public class FeedAdapter extends BaseRecyclerViewAdapter<ViewHolder, FeedItem> implements Filterable {
+public class AccountReportsAdapter extends BaseRecyclerViewAdapter<AccountReportsAdapter.ViewHolder, FeedItem> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -65,55 +60,15 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<ViewHolder, FeedItem> i
         }
     }
 
-    public List<FeedItem> feedItemsListTempHolder = new ArrayList<>();
 
     private Context mContext;
 
     @Inject
-    public FeedAdapter(final Context context) {
+    public AccountReportsAdapter(final Context context) {
         mContext = context;
         setData(new ArrayList<FeedItem>());
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(final CharSequence charSequence) {
-                Type type;
-                Log.d("Feed Adapter", "performFiltering: " + charSequence);
-                if (charSequence.equals("Found")) {
-                    type = Type.FOUND;
-                } else if (charSequence.equals("Lost")) {
-                    type = Type.LOST;
-                } else {
-                    type = null;
-                }
-
-                if (type == null) {
-                    setDataNoNotify(feedItemsListTempHolder);
-                } else {
-                    List<FeedItem> filteredList = new ArrayList<>();
-                    for (FeedItem feedItem : feedItemsListTempHolder) {
-                        if (feedItem.getItemType() == type) {
-                            filteredList.add(feedItem);
-                        }
-                    }
-                    setDataNoNotify(filteredList);
-
-
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = getData();
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(final CharSequence charSequence, final FilterResults filterResults) {
-                setData((ArrayList<FeedItem>) filterResults.values);
-            }
-        };
-    }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position,
@@ -185,14 +140,12 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<ViewHolder, FeedItem> i
     }
 
     public void updateFeedItemList(List<FeedItem> feedItemsList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new FeedDiffCallback(getData(), feedItemsList));
+        DiffUtil.DiffResult diffResult = DiffUtil
+                .calculateDiff(new AccountReportsDiffCallback(getData(), feedItemsList));
         diffResult.dispatchUpdatesTo(this);
-
 
         getData().clear();
         setDataNoNotify(feedItemsList);
-        this.feedItemsListTempHolder.clear();
-        this.feedItemsListTempHolder.addAll(feedItemsList);
 
     }
 }

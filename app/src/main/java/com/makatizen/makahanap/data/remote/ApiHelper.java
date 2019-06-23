@@ -19,9 +19,15 @@ import java.util.List;
 
 public interface ApiHelper {
 
+    Maybe<List<String>> getAccountItemImages(int accountId);
+
+    Single<GetLatestFeedResponse> getAccountLatestFeed(int accountId);
+
     Observable<List<BarangayData>> getAllBarangayData();
 
     Single<BarangayData> getBarangayData(int barangayId);
+
+    Single<GetItemDetailsResponse> getItemDetails(int itemId);
 
     Maybe<List<String>> getItemImages(int itemId);
 
@@ -42,6 +48,4 @@ public interface ApiHelper {
     Completable reportPet(Pet pet);
 
     Single<VerifyMakatizenIdResponse> verifyMakatizenId(String makatizenId);
-
-    Single<GetItemDetailsResponse> getItemDetails(int itemId);
 }

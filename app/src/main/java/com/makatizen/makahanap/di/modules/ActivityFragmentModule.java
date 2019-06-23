@@ -20,6 +20,18 @@ import com.makatizen.makahanap.ui.login.LoginPresenter;
 import com.makatizen.makahanap.ui.main.MainMvpPresenter;
 import com.makatizen.makahanap.ui.main.MainMvpView;
 import com.makatizen.makahanap.ui.main.MainPresenter;
+import com.makatizen.makahanap.ui.main.account.AccountMvpPresenter;
+import com.makatizen.makahanap.ui.main.account.AccountMvpView;
+import com.makatizen.makahanap.ui.main.account.AccountPresenter;
+import com.makatizen.makahanap.ui.main.account.about.AccountAboutMvpPresenter;
+import com.makatizen.makahanap.ui.main.account.about.AccountAboutMvpView;
+import com.makatizen.makahanap.ui.main.account.about.AccountAboutPresenter;
+import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryMvpPresenter;
+import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryMvpView;
+import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryPresenter;
+import com.makatizen.makahanap.ui.main.account.reports.AccountReportsMvpPresenter;
+import com.makatizen.makahanap.ui.main.account.reports.AccountReportsMvpView;
+import com.makatizen.makahanap.ui.main.account.reports.AccountReportsPresenter;
 import com.makatizen.makahanap.ui.main.feed.FeedMvpPresenter;
 import com.makatizen.makahanap.ui.main.feed.FeedMvpView;
 import com.makatizen.makahanap.ui.main.feed.FeedPresenter;
@@ -48,6 +60,13 @@ public class ActivityFragmentModule {
 
     public ActivityFragmentModule(Activity activity) {
         this.activity = activity;
+    }
+
+    @Provides
+    @ActivityScope
+    AccountMvpPresenter<AccountMvpView> provideAccountPresenter(
+            AccountPresenter<AccountMvpView> accountMvpViewAccountPresenter) {
+        return accountMvpViewAccountPresenter;
     }
 
     @Provides
@@ -137,5 +156,23 @@ public class ActivityFragmentModule {
     ReportPetMvpPresenter<ReportPetMvpView> provideReportPetPresenter(
             ReportPetPresenter<ReportPetMvpView> reportPetMvpViewReportPetPresenter) {
         return reportPetMvpViewReportPetPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    AccountAboutMvpPresenter<AccountAboutMvpView> provideAccountAboutPresenter(AccountAboutPresenter<AccountAboutMvpView> accountAboutMvpViewAccountAboutPresenter) {
+        return accountAboutMvpViewAccountAboutPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    AccountReportsMvpPresenter<AccountReportsMvpView> provideAccountReportsPresenter(AccountReportsPresenter<AccountReportsMvpView> accountReportsMvpViewAccountReportsPresenter) {
+        return accountReportsMvpViewAccountReportsPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    AccountGalleryMvpPresenter<AccountGalleryMvpView> provideAccountGalleryPresenter(AccountGalleryPresenter<AccountGalleryMvpView> accountGalleryMvpViewAccountGalleryPresenter) {
+        return accountGalleryMvpViewAccountGalleryPresenter;
     }
 }

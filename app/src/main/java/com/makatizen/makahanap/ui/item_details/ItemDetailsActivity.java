@@ -318,6 +318,14 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
                 mItemDetailsTvType.setTextColor(getResources().getColor(R.color.defaultGreen));
                 mItemDetailsPtTvDateLbl.setText("Date Found:");
                 mItemDetailsPtTvDate.setText(DateUtils.DateFormat(response.getPersonalThingData().getDate()));
+
+                boolean isTurnOvered = response.getPersonalThingData().isItemSurrendered();
+
+                if (isTurnOvered) {
+                    mItemDetailsPtTvTurnoverLbl.setVisibility(View.VISIBLE);
+                    mItemDetailsPtTvTurnover.setVisibility(View.VISIBLE);
+                    mItemDetailsPtTvTurnover.setText("Barangay " + response.getPersonalThingData().getBarangayData().getName());
+                }
                 break;
         }
 
@@ -366,14 +374,6 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         if (reward != 0) {
             mItemDetailsTvRewardAmount.setText(String.valueOf(df.format(reward)));
             mItemDetailsRewardLayout.setVisibility(View.VISIBLE);
-        }
-
-        boolean isTurnOvered = response.getPersonalThingData().isItemSurrendered();
-
-        if (isTurnOvered) {
-            mItemDetailsPtTvTurnoverLbl.setVisibility(View.VISIBLE);
-            mItemDetailsPtTvTurnover.setVisibility(View.VISIBLE);
-            mItemDetailsPtTvTurnover.setText("Barangay " + response.getPersonalThingData().getBarangayData().getName());
         }
 
     }

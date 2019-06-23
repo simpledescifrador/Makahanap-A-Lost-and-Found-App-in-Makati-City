@@ -6,6 +6,8 @@ import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerAdapter;
 import com.makatizen.makahanap.ui.intro.IntroAdapter;
 import com.makatizen.makahanap.ui.item_details.ImageSliderAdapter;
+import com.makatizen.makahanap.ui.main.account.gallery.ImageGalleryAdapter;
+import com.makatizen.makahanap.ui.main.account.reports.AccountReportsAdapter;
 import com.makatizen.makahanap.ui.main.feed.FeedAdapter;
 import com.makatizen.makahanap.ui.report.adapter.ItemImagesAdapter;
 import dagger.Module;
@@ -42,5 +44,17 @@ public class AdapterModule {
     @ActivityScope
     ImageSliderAdapter provideImageSliderAdapter(@ActivityContext Context context) {
         return new ImageSliderAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    ImageGalleryAdapter provideImageGalleryAdapter(@ActivityContext Context context) {
+        return new ImageGalleryAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    AccountReportsAdapter provideAccountReportsAdapter(@ActivityContext Context context) {
+        return new AccountReportsAdapter(context);
     }
 }

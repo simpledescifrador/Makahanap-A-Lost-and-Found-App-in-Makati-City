@@ -35,5 +35,6 @@ public interface BarangayDataDao {
     @Update
     void updateBarangay(BarangayData barangayData);
 
-
+    @Query("DELETE FROM barangay_data")
+    void deleteAllBarangayData();
 }

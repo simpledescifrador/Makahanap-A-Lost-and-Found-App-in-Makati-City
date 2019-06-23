@@ -48,6 +48,9 @@ public class AppPreferencesHelper implements PreferencesHelper, AccountPreferenc
     @Override
     public void setCurrentAccountLoggedIn(final boolean logged) {
         commonPreferencesHelper.setBooleanToPrefs(PREF_KEY_LOGGED_IN, logged);
+        if (!logged) {
+            commonPreferencesHelper.clearPrefs();
+        }
     }
 
     @Override

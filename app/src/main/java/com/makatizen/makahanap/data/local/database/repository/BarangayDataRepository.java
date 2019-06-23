@@ -16,4 +16,6 @@ public interface BarangayDataRepository {
     Single<List<String>> getAllBarangayDataNames();
 
     Maybe<BarangayData> getBarangayData(int id);
+
+    void deleteAllBarangayData();
 }

@@ -44,4 +44,9 @@ public class BarangayDataDataSource implements BarangayDataRepository {
     public Maybe<BarangayData> getBarangayData(final int id) {
         return mBarangayDataDao.getBarangay(id);
     }
+
+    @Override
+    public void deleteAllBarangayData() {
+        mBarangayDataDao.deleteAllBarangayData();
+    }
 }

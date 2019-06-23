@@ -208,6 +208,16 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Maybe<List<String>> getAccountItemImages(final int accountId) {
+        return mApiInterface.getAccountItemImages(accountId);
+    }
+
+    @Override
+    public Single<GetLatestFeedResponse> getAccountLatestFeed(final int accountId) {
+        return mApiInterface.getAccountLatestFeed(accountId);
+    }
+
+    @Override
     public Single<GetLatestFeedResponse> getLatestFeed() {
         return mApiInterface.getLatestFeed();
     }

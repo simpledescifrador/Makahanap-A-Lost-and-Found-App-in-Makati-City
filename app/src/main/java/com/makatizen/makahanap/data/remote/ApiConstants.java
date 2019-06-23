@@ -28,6 +28,8 @@ public class ApiConstants {
 
     //Account
     static final String GET_ACCOUNT_DATA_URL = "api/v1/account/";
+    static final String GET_LATEST_ACCOUNT_FEED_URL = "api/v1/accounts/";
+    static final String GET_ACCOUNT_ITEM_IMAGES_URL = "api/v1/accounts/";
 
     //Barangay
     static final String GET_ALL_BARANGAY_DATA_URL = "api/v1/barangay";

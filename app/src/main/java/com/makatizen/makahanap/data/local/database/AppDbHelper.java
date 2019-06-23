@@ -36,4 +36,9 @@ public class AppDbHelper implements DbHelper {
     public Single<List<String>> getAllBarangayDataNamesFromDb() {
         return mBarangayDataRepository.getAllBarangayDataNames();
     }
+
+    @Override
+    public void deleteAllBarangayDataFromDb() {
+        mBarangayDataRepository.deleteAllBarangayData();
+    }
 }

@@ -68,6 +68,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void deleteAllBarangayDataFromDb() {
+        dbHelper.deleteAllBarangayDataFromDb();
+    }
+
+    @Override
     public Single<BarangayData> getBarangayData(final int barangayId) {
         return apiHelper.getBarangayData(barangayId);
     }
@@ -160,5 +165,15 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<GetItemDetailsResponse> getItemDetails(final int itemId) {
         return apiHelper.getItemDetails(itemId);
+    }
+
+    @Override
+    public Maybe<List<String>> getAccountItemImages(final int accountId) {
+        return apiHelper.getAccountItemImages(accountId);
+    }
+
+    @Override
+    public Single<GetLatestFeedResponse> getAccountLatestFeed(final int accountId) {
+        return apiHelper.getAccountLatestFeed(accountId);
     }
 }

@@ -9,6 +9,9 @@ import com.makatizen.makahanap.ui.loader.LoaderActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
 import com.makatizen.makahanap.ui.main.MainActivity;
 import com.makatizen.makahanap.ui.main.account.AccountFragment;
+import com.makatizen.makahanap.ui.main.account.about.AccountAboutFragment;
+import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryFragment;
+import com.makatizen.makahanap.ui.main.account.reports.AccountReportsFragment;
 import com.makatizen.makahanap.ui.main.feed.FeedFragment;
 import com.makatizen.makahanap.ui.main.home.HomeFragment;
 import com.makatizen.makahanap.ui.main.map.MapFragment;
@@ -52,4 +55,10 @@ public interface ActivityFragmentComponent {
     void inject(ReportPersonActivity reportPersonActivity);
 
     void inject(ItemDetailsActivity itemDetailsActivity);
+
+    void inject(AccountAboutFragment aboutFragment);
+
+    void inject(AccountReportsFragment reportsFragment);
+
+    void inject(AccountGalleryFragment accountGalleryFragment);
 }

@@ -12,7 +12,7 @@ public class GetLatestFeedResponse {
 
     @SerializedName("feed_items")
     @Expose
-    private List<FeedItem> feedItems;
+    private List<FeedItem> feedItems = null;
 
     public Integer getTotalResults() {
         return totalResults;

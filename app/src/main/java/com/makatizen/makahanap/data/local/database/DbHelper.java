@@ -13,4 +13,6 @@ public interface DbHelper {
     Single<List<BarangayData>> getAllBarangayDataFromDb();
 
     Single<List<String>> getAllBarangayDataNamesFromDb();
+
+    void deleteAllBarangayDataFromDb();
 }
