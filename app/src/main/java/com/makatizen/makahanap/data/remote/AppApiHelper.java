@@ -12,6 +12,7 @@ import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
+import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import com.makatizen.makahanap.utils.enums.Type;
 import io.reactivex.Completable;
@@ -200,6 +201,11 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<VerifyMakatizenIdResponse> verifyMakatizenId(final String makatizenId) {
         return mMakatizenApiInterface.validateMakatizenNumber(makatizenId);
+    }
+
+    @Override
+    public Single<RegisterTokenResponse> registerTokenToServer(final String token, final int accountId) {
+        return mApiInterface.registerTokenToServer(token, accountId);
     }
 
     @Override

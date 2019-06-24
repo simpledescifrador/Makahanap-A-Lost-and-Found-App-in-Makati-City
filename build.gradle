@@ -42,5 +42,5 @@ ext {
     GLIDE_VERSION = '4.9.0'
     LOTTIE_VERSION = '2.6.0'
     ROOM_VERSION = '1.1.1'
-    FIREBASE_VERSION = '16.0.9'
+    FIREBASE_VERSION = '16.0.7'
 }

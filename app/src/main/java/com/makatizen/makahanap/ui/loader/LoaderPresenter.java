@@ -5,10 +5,10 @@ import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.DataManager;
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.ui.base.BasePresenter;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -17,7 +17,6 @@ import io.reactivex.functions.Consumer;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
@@ -37,7 +36,7 @@ public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> i
             getDataManager().getAllBarangayData()
                     .subscribeOn(getSchedulerProvider().io())
                     .observeOn(getSchedulerProvider().ui())
-                    .delaySubscription(3000, TimeUnit.MILLISECONDS)
+                    .delaySubscription(2000, TimeUnit.MILLISECONDS)
                     .doOnSubscribe(new Consumer<Disposable>() {
                         @Override
                         public void accept(final Disposable disposable) throws Exception {
@@ -75,7 +74,7 @@ public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> i
                                     .subscribe(new CompletableObserver() {
                                         @Override
                                         public void onComplete() {
-                                            getMvpView().onCompletedLoader();
+                                            getMvpView().onSuccessGetAllBarangayData();
                                         }
 
                                         @Override
@@ -109,7 +108,7 @@ public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> i
             getDataManager().getMakahanapAccountData(accountId)
                     .subscribeOn(getSchedulerProvider().io())
                     .observeOn(getSchedulerProvider().ui())
-                    .delaySubscription(3000, TimeUnit.MILLISECONDS)
+                    .delaySubscription(2000, TimeUnit.MILLISECONDS)
                     .doOnSubscribe(new Consumer<Disposable>() {
                         @Override
                         public void accept(final Disposable disposable) throws Exception {
@@ -150,5 +149,39 @@ public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> i
                         }
                     });
         }
+    }
+
+    @Override
+    public void registerAccountToken(final String token) {
+        int accountId = getDataManager().getCurrentAccount().getId();
+        getDataManager().registerTokenToServer(token, accountId)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .delaySubscription(2000, TimeUnit.MILLISECONDS)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(final Disposable disposable) throws Exception {
+                        getMvpView().nextLoadingMessage();
+                    }
+                })
+                .subscribe(new SingleObserver<RegisterTokenResponse>() {
+                    @Override
+                    public void onError(final Throwable e) {
+                        Log.e(TAG, "onError: Register Token", e);
+                    }
+
+                    @Override
+                    public void onSubscribe(final Disposable d) {
+                        getCompositeDisposable().add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(final RegisterTokenResponse registerTokenResponse) {
+                        Log.d(TAG, "onSuccess: Register Token");
+                        if (registerTokenResponse.isSucessful()) {
+                            getMvpView().onCompletedLoader();
+                        }
+                    }
+                });
     }
 }

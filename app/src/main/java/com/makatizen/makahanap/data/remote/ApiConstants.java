@@ -25,6 +25,7 @@ public class ApiConstants {
     //Authentication
     static final String LOGIN_REQUEST_URL = "api/v1/auth/login";
     static final String REGISTER_ACCOUNT_URL = "api/v1/auth/register";
+    static final String REGISTER_ACCOUNT_TOKEN_URL = "api/auth/token/register";
 
     //Account
     static final String GET_ACCOUNT_DATA_URL = "api/v1/account/";

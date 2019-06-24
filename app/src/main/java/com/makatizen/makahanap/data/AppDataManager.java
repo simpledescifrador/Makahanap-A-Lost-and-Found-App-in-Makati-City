@@ -15,6 +15,7 @@ import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
+import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
@@ -160,6 +161,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<VerifyMakatizenIdResponse> verifyMakatizenId(final String makatizenId) {
         return apiHelper.verifyMakatizenId(makatizenId);
+    }
+
+    @Override
+    public Single<RegisterTokenResponse> registerTokenToServer(final String token, final int accountId) {
+        return apiHelper.registerTokenToServer(token, accountId);
     }
 
     @Override

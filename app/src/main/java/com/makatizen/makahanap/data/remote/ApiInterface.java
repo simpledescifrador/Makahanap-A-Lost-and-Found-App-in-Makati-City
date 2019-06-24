@@ -6,6 +6,7 @@ import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
+import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -79,5 +80,12 @@ public interface ApiInterface {
     Completable reportPet(
             @PartMap Map<String, RequestBody> data,
             @Part List<MultipartBody.Part> petImages
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.REGISTER_ACCOUNT_TOKEN_URL)
+    Single<RegisterTokenResponse> registerTokenToServer(
+            @Field("token") String token,
+            @Field("account_id") int accountId
     );
 }

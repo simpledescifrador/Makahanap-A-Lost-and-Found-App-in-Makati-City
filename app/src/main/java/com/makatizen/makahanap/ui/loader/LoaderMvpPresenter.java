@@ -9,4 +9,5 @@ public interface LoaderMvpPresenter<V extends LoaderMvpView & BaseMvpView> exten
 
     void getAllBarangayData();
 
+    void registerAccountToken(String token);
 }

@@ -41,6 +41,7 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$rootProject.ext.FIREBASE_VERSION"
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
 
     // Google API
     implementation 'com.google.android.libraries.places:places:1.1.0'

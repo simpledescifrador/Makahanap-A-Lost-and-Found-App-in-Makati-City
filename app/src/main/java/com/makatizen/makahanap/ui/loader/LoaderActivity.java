@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -11,9 +13,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.main.MainActivity;
@@ -34,9 +41,10 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
     private int mCurrentIndex = 0;
 
     private String[] mLoadingMessages = {
-            "Preparing app resources . . .",
-            "Getting your account data . . .",
+            "Preparing app resources",
+            "Getting your account data",
             "Retrieving all barangay repositories",
+            "Sending your registration token",
             "Loading the app . . ."
     };
 
@@ -83,6 +91,29 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
     public void onSuccessGetAccountData() {
         // Next Task is to Get the All barangay data
         mPresenter.getAllBarangayData();
+    }
+
+    @Override
+    public void onSuccessGetAllBarangayData() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FCM_TOKEN", "getInstanceId failed", task.getException());
+                            Toast.makeText(LoaderActivity.this, "Error Registering Token", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        mPresenter.registerAccountToken(token);
+                        // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("FCM_TOKEN", token);
+//                        Toast.makeText(LoaderActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

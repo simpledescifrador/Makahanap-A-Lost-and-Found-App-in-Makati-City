@@ -9,4 +9,6 @@ public interface LoaderMvpView extends BaseMvpView {
     void onCompletedLoader();
 
     void onSuccessGetAccountData();
+
+    void onSuccessGetAllBarangayData();
 }

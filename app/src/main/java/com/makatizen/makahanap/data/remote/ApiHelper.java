@@ -10,6 +10,7 @@ import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
+import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
@@ -48,4 +49,6 @@ public interface ApiHelper {
     Completable reportPet(Pet pet);
 
     Single<VerifyMakatizenIdResponse> verifyMakatizenId(String makatizenId);
+
+    Single<RegisterTokenResponse> registerTokenToServer(String token, int accountId);
 }
