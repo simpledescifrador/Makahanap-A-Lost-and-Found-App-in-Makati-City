@@ -9,13 +9,13 @@ import io.reactivex.disposables.CompositeDisposable;
 public class RxModule {
 
     @Provides
-    CompositeDisposable provideCompositeDisposable() {
+    static CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
     }
 
 
     @Provides
-    SchedulerProvider provideSchedulerProvider() {
+    static SchedulerProvider provideSchedulerProvider() {
         return new SchedulerProvider();
     }
 }

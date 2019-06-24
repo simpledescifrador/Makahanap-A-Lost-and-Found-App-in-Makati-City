@@ -18,25 +18,25 @@ public class AdapterModule {
 
     @Provides
     @ActivityScope
-    FeedAdapter provideFeedAdapter(@ActivityContext Context context) {
+    static FeedAdapter provideFeedAdapter(@ActivityContext Context context) {
         return new FeedAdapter(context);
     }
 
     @Provides
     @ActivityScope
-    ImageViewerAdapter provideImageViewerAdapter(@ActivityContext Context context) {
+    static ImageViewerAdapter provideImageViewerAdapter(@ActivityContext Context context) {
         return new ImageViewerAdapter(context);
     }
 
     @Provides
     @ActivityScope
-    IntroAdapter provideIntroAdapter(@ActivityContext Context context) {
+    static IntroAdapter provideIntroAdapter(@ActivityContext Context context) {
         return new IntroAdapter(context);
     }
 
     @Provides
     @ActivityScope
-    ItemImagesAdapter provideItemImageAdapter(@ActivityContext Context context) {
+    static ItemImagesAdapter provideItemImageAdapter(@ActivityContext Context context) {
         return new ItemImagesAdapter(context);
     }
 
@@ -48,13 +48,13 @@ public class AdapterModule {
 
     @Provides
     @ActivityScope
-    ImageGalleryAdapter provideImageGalleryAdapter(@ActivityContext Context context) {
+    static ImageGalleryAdapter provideImageGalleryAdapter(@ActivityContext Context context) {
         return new ImageGalleryAdapter(context);
     }
 
     @Provides
     @ActivityScope
-    AccountReportsAdapter provideAccountReportsAdapter(@ActivityContext Context context) {
+    static AccountReportsAdapter provideAccountReportsAdapter(@ActivityContext Context context) {
         return new AccountReportsAdapter(context);
     }
 }

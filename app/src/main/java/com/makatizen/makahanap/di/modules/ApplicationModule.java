@@ -22,22 +22,22 @@ public class ApplicationModule {
     }
 
     @Provides
+    Application provideApplication() {
+        return application;
+    }
+
+    @Provides
     @ApplicationScope
-    AppDataManager provideAppDataManager(@ApplicationContext Context context, PreferencesHelper preferencesHelper,
+    static AppDataManager provideAppDataManager(@ApplicationContext Context context,
+            PreferencesHelper preferencesHelper,
             DbHelper dbHelper,
             ApiHelper apiHelper) {
         return new AppDataManager(context, dbHelper, preferencesHelper, apiHelper);
     }
 
     @Provides
-    Application provideApplication() {
-        return application;
-    }
-
-
-    @Provides
     @ApplicationScope
-    DataManager provideDataManager(AppDataManager appDataManager) {
+    static DataManager provideDataManager(AppDataManager appDataManager) {
         return appDataManager;
     }
 }

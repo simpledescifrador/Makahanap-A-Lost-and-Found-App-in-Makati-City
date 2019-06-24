@@ -26,19 +26,19 @@ public class RetrofitModule {
 
     @Provides
     @ApplicationScope
-    ApiHelper provideApiHelper(ApiInterface apiInterface, MakatizenApiInterface makatizenApiInterface) {
+    static ApiHelper provideApiHelper(ApiInterface apiInterface, MakatizenApiInterface makatizenApiInterface) {
         return new AppApiHelper(apiInterface, makatizenApiInterface);
     }
 
     @Provides
     @ApplicationScope
-    ApiInterface provideApiInterface(Retrofit retrofit) {
+    static ApiInterface provideApiInterface(Retrofit retrofit) {
         return retrofit.create(ApiInterface.class);
     }
 
     @Provides
     @ApplicationScope
-    HttpLoggingInterceptor provideHttpLoggingInterceptor() {
+    static HttpLoggingInterceptor provideHttpLoggingInterceptor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return httpLoggingInterceptor;
@@ -46,14 +46,14 @@ public class RetrofitModule {
 
     @Provides
     @ApplicationScope
-    MakatizenApiInterface provideMakatizenApiInterface(@MakatizenApi Retrofit retrofit) {
+    static MakatizenApiInterface provideMakatizenApiInterface(@MakatizenApi Retrofit retrofit) {
         return retrofit.create(MakatizenApiInterface.class);
     }
 
     @Provides
     @ApplicationScope
     @MakatizenApi
-    OkHttpClient provideMakatizenOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
+    static OkHttpClient provideMakatizenOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(new Interceptor() {
             @Override
@@ -74,7 +74,7 @@ public class RetrofitModule {
     @Provides
     @ApplicationScope
     @MakatizenApi
-    Retrofit provideMakatizenRetrofit(@MakatizenApi OkHttpClient okHttpClient) {
+    static Retrofit provideMakatizenRetrofit(@MakatizenApi OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(ApiConstants.MAKATIZEN_API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -85,7 +85,7 @@ public class RetrofitModule {
 
     @Provides
     @ApplicationScope
-    OkHttpClient provideOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
+    static OkHttpClient provideOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(new Interceptor() {
             @Override
@@ -105,7 +105,7 @@ public class RetrofitModule {
 
     @Provides
     @ApplicationScope
-    Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+    static Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(ApiConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

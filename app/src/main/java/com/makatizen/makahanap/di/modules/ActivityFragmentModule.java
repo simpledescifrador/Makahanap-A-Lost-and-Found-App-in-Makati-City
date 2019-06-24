@@ -88,91 +88,91 @@ public class ActivityFragmentModule {
 
     @Provides
     @ActivityScope
-    FeedMvpPresenter<FeedMvpView> provideFeedPresenter(FeedPresenter<FeedMvpView> feedMvpViewFeedPresenter) {
+    static FeedMvpPresenter<FeedMvpView> provideFeedPresenter(FeedPresenter<FeedMvpView> feedMvpViewFeedPresenter) {
         return feedMvpViewFeedPresenter;
     }
 
     @Provides
     @ActivityScope
-    HomeMvpPresenter<HomeMvpView> provideHomePresenter(HomePresenter<HomeMvpView> homeMvpViewHomePresenter) {
+    static HomeMvpPresenter<HomeMvpView> provideHomePresenter(HomePresenter<HomeMvpView> homeMvpViewHomePresenter) {
         return homeMvpViewHomePresenter;
     }
 
     @Provides
     @ActivityScope
-    IntroMvpPresenter<IntroMvpView> provideIntroPresenter(IntroPresenter<IntroMvpView> introMvpViewIntroPresenter) {
+    static IntroMvpPresenter<IntroMvpView> provideIntroPresenter(IntroPresenter<IntroMvpView> introMvpViewIntroPresenter) {
         return introMvpViewIntroPresenter;
     }
 
     @Provides
     @ActivityScope
-    ItemDetailsMvpPresenter<ItemDetailsMvpView> provideItemDetailsPresenter(
+    static ItemDetailsMvpPresenter<ItemDetailsMvpView> provideItemDetailsPresenter(
             ItemDetailsPresenter<ItemDetailsMvpView> itemDetailsMvpViewItemDetailsPresenter) {
         return itemDetailsMvpViewItemDetailsPresenter;
     }
 
     @Provides
     @ActivityScope
-    LoaderMvpPresenter<LoaderMvpView> provideLoaderPresenter(
+    static LoaderMvpPresenter<LoaderMvpView> provideLoaderPresenter(
             LoaderPresenter<LoaderMvpView> loaderMvpViewLoaderPresenter) {
         return loaderMvpViewLoaderPresenter;
     }
 
     @Provides
     @ActivityScope
-    LoginMvpPresenter<LoginMvpView> provideLoginPresenter(LoginPresenter<LoginMvpView> loginMvpViewLoginPresenter) {
+    static LoginMvpPresenter<LoginMvpView> provideLoginPresenter(LoginPresenter<LoginMvpView> loginMvpViewLoginPresenter) {
         return loginMvpViewLoginPresenter;
     }
 
     @Provides
     @ActivityScope
-    MainMvpPresenter<MainMvpView> provideMainPresenter(MainPresenter<MainMvpView> mainMvpViewMainPresenter) {
+    static MainMvpPresenter<MainMvpView> provideMainPresenter(MainPresenter<MainMvpView> mainMvpViewMainPresenter) {
         return mainMvpViewMainPresenter;
     }
 
     @Provides
     @ActivityScope
-    RegisterMvpPresenter<RegisterMvpView> provideRegisterPresenter(
+    static RegisterMvpPresenter<RegisterMvpView> provideRegisterPresenter(
             RegisterPresenter<RegisterMvpView> registerMvpViewRegisterPresenter) {
         return registerMvpViewRegisterPresenter;
     }
 
     @Provides
     @ActivityScope
-    ReportPersonMvpPresenter<ReportPersonMvpView> provideReportPersonPresenter(
+    static ReportPersonMvpPresenter<ReportPersonMvpView> provideReportPersonPresenter(
             ReportPersonPresenter<ReportPersonMvpView> reportPersonMvpViewReportPersonPresenter) {
         return reportPersonMvpViewReportPersonPresenter;
     }
 
     @Provides
     @ActivityScope
-    ReportPersonalThingMvpPresenter<ReportPersonalThingMvpView> provideReportPersonalThingPresenter(
+    static ReportPersonalThingMvpPresenter<ReportPersonalThingMvpView> provideReportPersonalThingPresenter(
             ReportPersonalThingPresenter<ReportPersonalThingMvpView> reportPersonalThingMvpViewReportPersonalThingPresenter) {
         return reportPersonalThingMvpViewReportPersonalThingPresenter;
     }
 
     @Provides
     @ActivityScope
-    ReportPetMvpPresenter<ReportPetMvpView> provideReportPetPresenter(
+    static ReportPetMvpPresenter<ReportPetMvpView> provideReportPetPresenter(
             ReportPetPresenter<ReportPetMvpView> reportPetMvpViewReportPetPresenter) {
         return reportPetMvpViewReportPetPresenter;
     }
 
     @Provides
     @ActivityScope
-    AccountAboutMvpPresenter<AccountAboutMvpView> provideAccountAboutPresenter(AccountAboutPresenter<AccountAboutMvpView> accountAboutMvpViewAccountAboutPresenter) {
+    static AccountAboutMvpPresenter<AccountAboutMvpView> provideAccountAboutPresenter(AccountAboutPresenter<AccountAboutMvpView> accountAboutMvpViewAccountAboutPresenter) {
         return accountAboutMvpViewAccountAboutPresenter;
     }
 
     @Provides
     @ActivityScope
-    AccountReportsMvpPresenter<AccountReportsMvpView> provideAccountReportsPresenter(AccountReportsPresenter<AccountReportsMvpView> accountReportsMvpViewAccountReportsPresenter) {
+    static AccountReportsMvpPresenter<AccountReportsMvpView> provideAccountReportsPresenter(AccountReportsPresenter<AccountReportsMvpView> accountReportsMvpViewAccountReportsPresenter) {
         return accountReportsMvpViewAccountReportsPresenter;
     }
 
     @Provides
     @ActivityScope
-    AccountGalleryMvpPresenter<AccountGalleryMvpView> provideAccountGalleryPresenter(AccountGalleryPresenter<AccountGalleryMvpView> accountGalleryMvpViewAccountGalleryPresenter) {
+    static AccountGalleryMvpPresenter<AccountGalleryMvpView> provideAccountGalleryPresenter(AccountGalleryPresenter<AccountGalleryMvpView> accountGalleryMvpViewAccountGalleryPresenter) {
         return accountGalleryMvpViewAccountGalleryPresenter;
     }
 }

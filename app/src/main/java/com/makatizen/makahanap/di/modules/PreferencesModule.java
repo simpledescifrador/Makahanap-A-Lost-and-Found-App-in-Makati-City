@@ -14,14 +14,14 @@ public class PreferencesModule {
 
     @Provides
     @ApplicationScope
-    PreferencesHelper provideApplicationPreferences(
+    static PreferencesHelper provideApplicationPreferences(
             CommonPreferencesHelper commonPreferencesHelper) {
         return new AppPreferencesHelper(commonPreferencesHelper);
     }
 
     @Provides
     @ApplicationScope
-    CommonPreferencesHelper providePreferencesHelper(
+    static CommonPreferencesHelper providePreferencesHelper(
             @ApplicationContext Context context) {
         return new CommonPreferencesHelper(context);
     }

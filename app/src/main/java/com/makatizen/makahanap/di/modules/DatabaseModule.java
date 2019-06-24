@@ -12,7 +12,7 @@ public class DatabaseModule {
 
     @Provides
     @ApplicationScope
-    DbHelper provideDbHelper(BarangayDataRepository barangayDataRepository) {
+    static DbHelper provideDbHelper(BarangayDataRepository barangayDataRepository) {
         return new AppDbHelper(barangayDataRepository);
     }
 }

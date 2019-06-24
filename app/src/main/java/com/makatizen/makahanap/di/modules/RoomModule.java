@@ -35,7 +35,7 @@ public class RoomModule {
 
     @Provides
     @ApplicationScope
-    BarangayDataRepository provideBarangayDataRepository(BarangayDataDao barangayDataDao) {
+    static BarangayDataRepository provideBarangayDataRepository(BarangayDataDao barangayDataDao) {
         return new BarangayDataDataSource(barangayDataDao);
     }
 
