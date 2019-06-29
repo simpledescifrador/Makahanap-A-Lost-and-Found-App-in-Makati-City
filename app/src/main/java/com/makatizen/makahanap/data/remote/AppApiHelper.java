@@ -7,6 +7,7 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.ChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -51,6 +52,11 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<BarangayData> getBarangayData(final int barangayId) {
         return mApiInterface.getBarangayData(barangayId);
+    }
+
+    @Override
+    public Single<ChatResponse> getChatList(final int accountId) {
+        return mApiInterface.getChatList(accountId);
     }
 
     @Override

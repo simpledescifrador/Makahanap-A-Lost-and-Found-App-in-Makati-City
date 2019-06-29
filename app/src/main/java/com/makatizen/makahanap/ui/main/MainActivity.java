@@ -16,7 +16,6 @@ import com.makatizen.makahanap.ui.main.feed.FeedFragment;
 import com.makatizen.makahanap.ui.main.home.HomeFragment;
 import com.makatizen.makahanap.ui.main.map.MapFragment;
 import com.makatizen.makahanap.ui.main.notification.NotificationFragment;
-import com.makatizen.makahanap.utils.enums.District;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
@@ -42,6 +41,12 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         init();
         setUpViewPager();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     @Override
@@ -106,13 +111,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mainViewPagerAdapter.addFragment(new NotificationFragment());
         mainViewPagerAdapter.addFragment(new AccountFragment());
 
-        mMainVpContent.setOffscreenPageLimit(mainViewPagerAdapter.getCount()- 1);
+        mMainVpContent.setOffscreenPageLimit(mainViewPagerAdapter.getCount() - 1);
         mMainVpContent.setAdapter(mainViewPagerAdapter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.detachView();
     }
 }

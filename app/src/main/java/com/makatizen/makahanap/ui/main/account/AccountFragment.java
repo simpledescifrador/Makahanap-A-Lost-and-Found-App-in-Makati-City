@@ -1,6 +1,6 @@
 package com.makatizen.makahanap.ui.main.account;
 
-import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -28,14 +28,19 @@ import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.remote.ApiConstants;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.ui.base.BaseFragment;
+import com.makatizen.makahanap.ui.chat.ChatActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
 import com.makatizen.makahanap.ui.main.account.about.AccountAboutFragment;
 import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryFragment;
 import com.makatizen.makahanap.ui.main.account.reports.AccountReportsFragment;
+import com.makatizen.makahanap.utils.IntentExtraKeys;
 import de.hdodenhof.circleimageview.CircleImageView;
 import javax.inject.Inject;
 
 public class AccountFragment extends BaseFragment implements AccountMvpView {
+
+    @BindView(R.id.account_iv_chat)
+    ImageView mAccountIvChat;
 
     @BindView(R.id.account_iv_image)
     CircleImageView mAccountIvImage;
@@ -100,9 +105,24 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
         getActivity().finish();
     }
 
-    @OnClick(R.id.account_iv_more)
-    public void onViewClicked() {
-        mPopupMenu.show();
+    @OnClick({R.id.account_iv_more, R.id.account_iv_chat})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.account_iv_more:
+                mPopupMenu.show();
+                break;
+            case R.id.account_iv_chat:
+                mPresenter.showAccountMessages();
+                break;
+        }
+    }
+
+    @Override
+    public void openChat(final int accountId) {
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(IntentExtraKeys.ACCOUNT_ID, accountId);
+        startActivity(intent);
     }
 
     @Override
@@ -130,7 +150,7 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
                     case R.id.account_more_settings:
                         break;
                     case R.id.account_more_logout:
-                        new AlertDialog.Builder(getContext())
+                        new Builder(getContext())
                                 .setTitle("Logout")
                                 .setMessage("Are you sure you want to logout?")
                                 .setPositiveButton("Yes", new OnClickListener() {

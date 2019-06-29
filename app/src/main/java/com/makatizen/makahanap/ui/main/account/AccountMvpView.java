@@ -9,4 +9,6 @@ public interface AccountMvpView extends BaseMvpView {
 
     void onSuccessLogout();
 
+    void openChat(int accountId);
+
 }

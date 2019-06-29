@@ -10,6 +10,7 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.ChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -54,6 +55,21 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void deleteAllBarangayDataFromDb() {
+        dbHelper.deleteAllBarangayDataFromDb();
+    }
+
+    @Override
+    public Maybe<List<String>> getAccountItemImages(final int accountId) {
+        return apiHelper.getAccountItemImages(accountId);
+    }
+
+    @Override
+    public Single<GetLatestFeedResponse> getAccountLatestFeed(final int accountId) {
+        return apiHelper.getAccountLatestFeed(accountId);
+    }
+
+    @Override
     public Observable<List<BarangayData>> getAllBarangayData() {
         return apiHelper.getAllBarangayData();
     }
@@ -69,18 +85,23 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void deleteAllBarangayDataFromDb() {
-        dbHelper.deleteAllBarangayDataFromDb();
-    }
-
-    @Override
     public Single<BarangayData> getBarangayData(final int barangayId) {
         return apiHelper.getBarangayData(barangayId);
     }
 
     @Override
+    public Single<ChatResponse> getChatList(final int accountId) {
+        return apiHelper.getChatList(accountId);
+    }
+
+    @Override
     public MakahanapAccount getCurrentAccount() {
         return applicationPreferences.getCurrentAccount();
+    }
+
+    @Override
+    public Single<GetItemDetailsResponse> getItemDetails(final int itemId) {
+        return apiHelper.getItemDetails(itemId);
     }
 
     @Override
@@ -124,6 +145,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<RegisterTokenResponse> registerTokenToServer(final String token, final int accountId) {
+        return apiHelper.registerTokenToServer(token, accountId);
+    }
+
+    @Override
     public void removeStartUpIntro() {
         applicationPreferences.removeStartUpIntro();
     }
@@ -161,25 +187,5 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<VerifyMakatizenIdResponse> verifyMakatizenId(final String makatizenId) {
         return apiHelper.verifyMakatizenId(makatizenId);
-    }
-
-    @Override
-    public Single<RegisterTokenResponse> registerTokenToServer(final String token, final int accountId) {
-        return apiHelper.registerTokenToServer(token, accountId);
-    }
-
-    @Override
-    public Single<GetItemDetailsResponse> getItemDetails(final int itemId) {
-        return apiHelper.getItemDetails(itemId);
-    }
-
-    @Override
-    public Maybe<List<String>> getAccountItemImages(final int accountId) {
-        return apiHelper.getAccountItemImages(accountId);
-    }
-
-    @Override
-    public Single<GetLatestFeedResponse> getAccountLatestFeed(final int accountId) {
-        return apiHelper.getAccountLatestFeed(accountId);
     }
 }

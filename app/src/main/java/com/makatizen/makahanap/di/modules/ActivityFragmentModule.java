@@ -5,6 +5,9 @@ import android.content.Context;
 import android.support.design.widget.BottomSheetDialog;
 import com.makatizen.makahanap.di.qualifiers.ActivityContext;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
+import com.makatizen.makahanap.ui.chat.ChatMvpPresenter;
+import com.makatizen.makahanap.ui.chat.ChatMvpView;
+import com.makatizen.makahanap.ui.chat.ChatPresenter;
 import com.makatizen.makahanap.ui.intro.IntroMvpPresenter;
 import com.makatizen.makahanap.ui.intro.IntroMvpView;
 import com.makatizen.makahanap.ui.intro.IntroPresenter;
@@ -88,6 +91,33 @@ public class ActivityFragmentModule {
 
     @Provides
     @ActivityScope
+    static AccountAboutMvpPresenter<AccountAboutMvpView> provideAccountAboutPresenter(
+            AccountAboutPresenter<AccountAboutMvpView> accountAboutMvpViewAccountAboutPresenter) {
+        return accountAboutMvpViewAccountAboutPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    static AccountGalleryMvpPresenter<AccountGalleryMvpView> provideAccountGalleryPresenter(
+            AccountGalleryPresenter<AccountGalleryMvpView> accountGalleryMvpViewAccountGalleryPresenter) {
+        return accountGalleryMvpViewAccountGalleryPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    static AccountReportsMvpPresenter<AccountReportsMvpView> provideAccountReportsPresenter(
+            AccountReportsPresenter<AccountReportsMvpView> accountReportsMvpViewAccountReportsPresenter) {
+        return accountReportsMvpViewAccountReportsPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    static ChatMvpPresenter<ChatMvpView> provideChatPresenter(ChatPresenter<ChatMvpView> chatMvpViewChatPresenter) {
+        return chatMvpViewChatPresenter;
+    }
+
+    @Provides
+    @ActivityScope
     static FeedMvpPresenter<FeedMvpView> provideFeedPresenter(FeedPresenter<FeedMvpView> feedMvpViewFeedPresenter) {
         return feedMvpViewFeedPresenter;
     }
@@ -100,7 +130,8 @@ public class ActivityFragmentModule {
 
     @Provides
     @ActivityScope
-    static IntroMvpPresenter<IntroMvpView> provideIntroPresenter(IntroPresenter<IntroMvpView> introMvpViewIntroPresenter) {
+    static IntroMvpPresenter<IntroMvpView> provideIntroPresenter(
+            IntroPresenter<IntroMvpView> introMvpViewIntroPresenter) {
         return introMvpViewIntroPresenter;
     }
 
@@ -120,7 +151,8 @@ public class ActivityFragmentModule {
 
     @Provides
     @ActivityScope
-    static LoginMvpPresenter<LoginMvpView> provideLoginPresenter(LoginPresenter<LoginMvpView> loginMvpViewLoginPresenter) {
+    static LoginMvpPresenter<LoginMvpView> provideLoginPresenter(
+            LoginPresenter<LoginMvpView> loginMvpViewLoginPresenter) {
         return loginMvpViewLoginPresenter;
     }
 
@@ -156,23 +188,5 @@ public class ActivityFragmentModule {
     static ReportPetMvpPresenter<ReportPetMvpView> provideReportPetPresenter(
             ReportPetPresenter<ReportPetMvpView> reportPetMvpViewReportPetPresenter) {
         return reportPetMvpViewReportPetPresenter;
-    }
-
-    @Provides
-    @ActivityScope
-    static AccountAboutMvpPresenter<AccountAboutMvpView> provideAccountAboutPresenter(AccountAboutPresenter<AccountAboutMvpView> accountAboutMvpViewAccountAboutPresenter) {
-        return accountAboutMvpViewAccountAboutPresenter;
-    }
-
-    @Provides
-    @ActivityScope
-    static AccountReportsMvpPresenter<AccountReportsMvpView> provideAccountReportsPresenter(AccountReportsPresenter<AccountReportsMvpView> accountReportsMvpViewAccountReportsPresenter) {
-        return accountReportsMvpViewAccountReportsPresenter;
-    }
-
-    @Provides
-    @ActivityScope
-    static AccountGalleryMvpPresenter<AccountGalleryMvpView> provideAccountGalleryPresenter(AccountGalleryPresenter<AccountGalleryMvpView> accountGalleryMvpViewAccountGalleryPresenter) {
-        return accountGalleryMvpViewAccountGalleryPresenter;
     }
 }

@@ -3,6 +3,7 @@ package com.makatizen.makahanap.di.modules;
 import android.content.Context;
 import com.makatizen.makahanap.di.qualifiers.ActivityContext;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
+import com.makatizen.makahanap.ui.chat.ChatAdapter;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerAdapter;
 import com.makatizen.makahanap.ui.intro.IntroAdapter;
 import com.makatizen.makahanap.ui.item_details.ImageSliderAdapter;
@@ -18,8 +19,32 @@ public class AdapterModule {
 
     @Provides
     @ActivityScope
+    ChatAdapter provideChatAdapter(@ActivityContext Context context) {
+        return new ChatAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    ImageSliderAdapter provideImageSliderAdapter(@ActivityContext Context context) {
+        return new ImageSliderAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    static AccountReportsAdapter provideAccountReportsAdapter(@ActivityContext Context context) {
+        return new AccountReportsAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
     static FeedAdapter provideFeedAdapter(@ActivityContext Context context) {
         return new FeedAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    static ImageGalleryAdapter provideImageGalleryAdapter(@ActivityContext Context context) {
+        return new ImageGalleryAdapter(context);
     }
 
     @Provides
@@ -38,23 +63,5 @@ public class AdapterModule {
     @ActivityScope
     static ItemImagesAdapter provideItemImageAdapter(@ActivityContext Context context) {
         return new ItemImagesAdapter(context);
-    }
-
-    @Provides
-    @ActivityScope
-    ImageSliderAdapter provideImageSliderAdapter(@ActivityContext Context context) {
-        return new ImageSliderAdapter(context);
-    }
-
-    @Provides
-    @ActivityScope
-    static ImageGalleryAdapter provideImageGalleryAdapter(@ActivityContext Context context) {
-        return new ImageGalleryAdapter(context);
-    }
-
-    @Provides
-    @ActivityScope
-    static AccountReportsAdapter provideAccountReportsAdapter(@ActivityContext Context context) {
-        return new AccountReportsAdapter(context);
     }
 }

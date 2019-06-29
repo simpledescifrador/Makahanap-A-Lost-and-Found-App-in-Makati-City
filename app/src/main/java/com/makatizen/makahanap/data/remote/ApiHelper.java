@@ -5,6 +5,7 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.ChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -28,6 +29,8 @@ public interface ApiHelper {
 
     Single<BarangayData> getBarangayData(int barangayId);
 
+    Single<ChatResponse> getChatList(int accountId);
+
     Single<GetItemDetailsResponse> getItemDetails(int itemId);
 
     Maybe<List<String>> getItemImages(int itemId);
@@ -42,6 +45,8 @@ public interface ApiHelper {
 
     Single<RegisterReponse> registerNewAccount(MakahanapAccount makahanapAccount);
 
+    Single<RegisterTokenResponse> registerTokenToServer(String token, int accountId);
+
     Completable reportPerson(Person person);
 
     Completable reportPersonalThing(PersonalThing personalThing);
@@ -49,6 +54,4 @@ public interface ApiHelper {
     Completable reportPet(Pet pet);
 
     Single<VerifyMakatizenIdResponse> verifyMakatizenId(String makatizenId);
-
-    Single<RegisterTokenResponse> registerTokenToServer(String token, int accountId);
 }

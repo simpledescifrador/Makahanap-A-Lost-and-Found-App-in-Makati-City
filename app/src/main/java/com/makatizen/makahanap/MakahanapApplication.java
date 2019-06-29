@@ -1,6 +1,11 @@
 package com.makatizen.makahanap;
 
 import android.app.Application;
+import android.support.annotation.Nullable;
+import android.support.text.emoji.EmojiCompat;
+import android.support.text.emoji.FontRequestEmojiCompatConfig;
+import android.support.v4.provider.FontRequest;
+import android.util.Log;
 import com.google.android.libraries.places.api.Places;
 import com.makatizen.makahanap.di.components.ApplicationComponent;
 import com.makatizen.makahanap.di.components.DaggerApplicationComponent;
@@ -20,9 +25,32 @@ public class MakahanapApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initApplicationDaggerComponent();
-
+        initEmojiTextViewSupport();
         // Initialize Places.
         Places.initialize(this, getResources().getString(R.string.google_api_key));
+    }
+
+    void initEmojiTextViewSupport() {
+        final FontRequest fontRequest = new FontRequest(
+                "com.google.android.gms.fonts",
+                "com.google.android.gms",
+                "Noto Color Emoji Compat",
+                R.array.com_google_android_gms_fonts_certs);
+
+        final EmojiCompat.Config config = new
+                FontRequestEmojiCompatConfig(getApplicationContext(), fontRequest)
+                .registerInitCallback(new EmojiCompat.InitCallback() {
+                    @Override
+                    public void onFailed(@Nullable Throwable throwable) {
+                        Log.e("App", "EmojiCompat initialization failed", throwable);
+                    }
+
+                    @Override
+                    public void onInitialized() {
+                        Log.i("App", "EmojiCompat initialized");
+                    }
+                });
+        EmojiCompat.init(config);
     }
 
     private void initApplicationDaggerComponent() {

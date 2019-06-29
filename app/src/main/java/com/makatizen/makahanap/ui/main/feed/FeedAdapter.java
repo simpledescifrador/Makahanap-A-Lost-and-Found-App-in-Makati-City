@@ -124,7 +124,6 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<ViewHolder, FeedItem> i
             Bundle o = (Bundle) payloads.get(0);
             for (String key : o.keySet()) {
                 if (key.equals("item_title")) {
-                    Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show();
                     holder.mFeedItemTvTitle.setText(o.getString(key));
                 }
                 if (key.equals("item_description")) {

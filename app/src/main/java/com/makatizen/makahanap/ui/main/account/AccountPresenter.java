@@ -68,4 +68,10 @@ public class AccountPresenter<V extends AccountMvpView> extends BasePresenter<V>
 
 
     }
+
+    @Override
+    public void showAccountMessages() {
+        int accountId = getDataManager().getCurrentAccount().getId();
+        getMvpView().openChat(accountId); //It Opens Account ChatItem Box
+    }
 }

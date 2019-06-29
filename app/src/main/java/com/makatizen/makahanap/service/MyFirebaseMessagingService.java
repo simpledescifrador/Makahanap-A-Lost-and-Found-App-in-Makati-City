@@ -45,13 +45,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         sendRegistrationToServer(token);
     }
 
-    private void sendRegistrationToServer(final String token) {
-
-    }
-
     private void handleNow() {
     }
 
     private void scheduleJob() {
+    }
+
+    private void sendRegistrationToServer(final String token) {
     }
 }

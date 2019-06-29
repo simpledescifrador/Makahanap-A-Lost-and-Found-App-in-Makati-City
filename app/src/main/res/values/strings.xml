@@ -58,5 +58,7 @@
     <string name="failed_register_message">Registration Failed</string>
     <!--  HINTs! -->
     <string name="hint_mobile_verification">Tap Next to verify your makatizen card with your phone number.\nAfter pressing next the verification code will be sent to your mobile number. </string>
+    <string name="title_no_chat_content">No Message Yet</string>
+    <string name="message_no_chat_content">No Messages in your inbox yet!\nStart chatting with other user</string>
 
 </resources>

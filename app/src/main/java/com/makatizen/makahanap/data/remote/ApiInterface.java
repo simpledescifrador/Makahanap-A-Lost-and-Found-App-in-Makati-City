@@ -2,6 +2,7 @@ package com.makatizen.makahanap.data.remote;
 
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.api_response.ChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -24,6 +25,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
@@ -38,6 +40,11 @@ public interface ApiInterface {
 
     @GET(ApiConstants.GET_BARANGAY_DATA_URL + "{barangay_id}")
     Single<BarangayData> getBarangayData(int barangayId);
+
+    @GET(ApiConstants.GET_CHAT_LIST_URL)
+    Single<ChatResponse> getChatList(
+            @Query("account_id") int accountId
+    );
 
     @GET(ApiConstants.GET_ITEM_DETAILS_URL + "{item_id}")
     Single<GetItemDetailsResponse> getItemDetails(@Path("item_id") int itemId);
@@ -61,6 +68,13 @@ public interface ApiInterface {
     @POST(ApiConstants.REGISTER_ACCOUNT_URL)
     Single<RegisterReponse> registerNewAccount(@Body MakahanapAccount makahanapAccount);
 
+    @FormUrlEncoded
+    @POST(ApiConstants.REGISTER_ACCOUNT_TOKEN_URL)
+    Single<RegisterTokenResponse> registerTokenToServer(
+            @Field("token") String token,
+            @Field("account_id") int accountId
+    );
+
     @Multipart
     @POST(ApiConstants.REPORT_PERSON_URL)
     Completable reportPerson(
@@ -80,12 +94,5 @@ public interface ApiInterface {
     Completable reportPet(
             @PartMap Map<String, RequestBody> data,
             @Part List<MultipartBody.Part> petImages
-    );
-
-    @FormUrlEncoded
-    @POST(ApiConstants.REGISTER_ACCOUNT_TOKEN_URL)
-    Single<RegisterTokenResponse> registerTokenToServer(
-            @Field("token") String token,
-            @Field("account_id") int accountId
     );
 }
