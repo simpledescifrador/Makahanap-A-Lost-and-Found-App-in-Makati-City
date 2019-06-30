@@ -7,9 +7,10 @@ import com.makatizen.makahanap.di.modules.ApplicationModule;
 import com.makatizen.makahanap.di.qualifiers.ApplicationContext;
 import com.makatizen.makahanap.di.scopes.ApplicationScope;
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
 
 @ApplicationScope
-@Component(modules = ApplicationModule.class)
+@Component(modules = {ApplicationModule.class, AndroidInjectionModule.class})
 public interface ApplicationComponent {
 
     @ApplicationContext

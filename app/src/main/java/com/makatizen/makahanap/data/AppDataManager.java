@@ -10,7 +10,10 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
+import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -55,6 +58,17 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<AddChatMessageResponse> addChatMessage(final int chatId, final int accountId,
+            final String message) {
+        return apiHelper.addChatMessage(chatId, accountId, message);
+    }
+
+    @Override
+    public Single<CreateChatResponse> createChat(final int account1Id, final int account2Id, final String type) {
+        return apiHelper.createChat(account1Id, account2Id, type);
+    }
+
+    @Override
     public void deleteAllBarangayDataFromDb() {
         dbHelper.deleteAllBarangayDataFromDb();
     }
@@ -92,6 +106,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<ChatResponse> getChatList(final int accountId) {
         return apiHelper.getChatList(accountId);
+    }
+
+    @Override
+    public Single<ChatMessagesResponse> getChatMessages(final int chatId) {
+        return apiHelper.getChatMessages(chatId);
     }
 
     @Override

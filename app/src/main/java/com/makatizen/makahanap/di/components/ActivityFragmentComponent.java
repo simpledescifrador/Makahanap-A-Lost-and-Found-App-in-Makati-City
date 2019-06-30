@@ -3,6 +3,7 @@ package com.makatizen.makahanap.di.components;
 import com.makatizen.makahanap.di.modules.ActivityFragmentModule;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.chat.ChatActivity;
+import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerActivity;
 import com.makatizen.makahanap.ui.intro.IntroActivity;
 import com.makatizen.makahanap.ui.item_details.ItemDetailsActivity;
@@ -64,4 +65,6 @@ public interface ActivityFragmentComponent {
     void inject(AccountGalleryFragment accountGalleryFragment);
 
     void inject(ChatActivity chatActivity);
+
+    void inject(ChatConvoActivity chatConvoActivity);
 }

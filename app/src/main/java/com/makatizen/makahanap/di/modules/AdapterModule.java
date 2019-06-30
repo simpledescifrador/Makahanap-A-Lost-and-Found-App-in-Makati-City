@@ -4,6 +4,7 @@ import android.content.Context;
 import com.makatizen.makahanap.di.qualifiers.ActivityContext;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.chat.ChatAdapter;
+import com.makatizen.makahanap.ui.chat_convo.ChatConvoAdapter;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerAdapter;
 import com.makatizen.makahanap.ui.intro.IntroAdapter;
 import com.makatizen.makahanap.ui.item_details.ImageSliderAdapter;
@@ -33,6 +34,12 @@ public class AdapterModule {
     @ActivityScope
     static AccountReportsAdapter provideAccountReportsAdapter(@ActivityContext Context context) {
         return new AccountReportsAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    static ChatConvoAdapter provideChatConvoAdapter(@ActivityContext Context context) {
+        return new ChatConvoAdapter(context);
     }
 
     @Provides

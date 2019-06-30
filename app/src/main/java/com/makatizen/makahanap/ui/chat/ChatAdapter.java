@@ -26,7 +26,6 @@ import com.makatizen.makahanap.ui.base.BaseRecyclerViewAdapter;
 import com.makatizen.makahanap.ui.chat.ChatAdapter.ViewHolder;
 import com.makatizen.makahanap.utils.DateUtils;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -54,6 +53,8 @@ public class ChatAdapter extends BaseRecyclerViewAdapter<ViewHolder, ChatItem> {
             ButterKnife.bind(this, itemView);
         }
     }
+
+    static List<MakahanapAccount> senderAccounts = new ArrayList<>();
 
     private Context mContext;
 
@@ -98,6 +99,7 @@ public class ChatAdapter extends BaseRecyclerViewAdapter<ViewHolder, ChatItem> {
                 senderAccount = currentChatItem.getParticipants().get(count);
             }
         }
+        senderAccounts.add(i, senderAccount);
         final MakahanapAccount finalAccount = senderAccount;
         RequestOptions requestOptions = RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL);
         switch (currentChatItem.getType()) {
@@ -155,4 +157,15 @@ public class ChatAdapter extends BaseRecyclerViewAdapter<ViewHolder, ChatItem> {
         getData().clear();
         setDataNoNotify(chatItemList);
     }
+    void updateChatRoom(String chatRoomId, String message, String messageTime) {
+        for (int i = 0; i < getItemCount() - 1; i++) {
+            if (chatRoomId.equals(getData().get(i).getId())) {
+                getData().get(i).getLastestMessage().setCreatedAt(messageTime);
+                getData().get(i).getLastestMessage().setMessage(message);
+                getData().get(i).setIsViewed(true);
+                notifyItemChanged(i);
+            }
+        }
+    }
+
 }

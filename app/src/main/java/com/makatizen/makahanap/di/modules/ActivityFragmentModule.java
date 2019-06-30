@@ -8,6 +8,9 @@ import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.chat.ChatMvpPresenter;
 import com.makatizen.makahanap.ui.chat.ChatMvpView;
 import com.makatizen.makahanap.ui.chat.ChatPresenter;
+import com.makatizen.makahanap.ui.chat_convo.ChatConvoMvpPresenter;
+import com.makatizen.makahanap.ui.chat_convo.ChatConvoMvpView;
+import com.makatizen.makahanap.ui.chat_convo.ChatConvoPresenter;
 import com.makatizen.makahanap.ui.intro.IntroMvpPresenter;
 import com.makatizen.makahanap.ui.intro.IntroMvpView;
 import com.makatizen.makahanap.ui.intro.IntroPresenter;
@@ -108,6 +111,13 @@ public class ActivityFragmentModule {
     static AccountReportsMvpPresenter<AccountReportsMvpView> provideAccountReportsPresenter(
             AccountReportsPresenter<AccountReportsMvpView> accountReportsMvpViewAccountReportsPresenter) {
         return accountReportsMvpViewAccountReportsPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    static ChatConvoMvpPresenter<ChatConvoMvpView> provideChatConvoPresenter(
+            ChatConvoPresenter<ChatConvoMvpView> chatConvoMvpViewChatConvoPresenter) {
+        return chatConvoMvpViewChatConvoPresenter;
     }
 
     @Provides

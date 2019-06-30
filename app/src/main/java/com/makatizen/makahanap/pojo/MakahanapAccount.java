@@ -1,12 +1,26 @@
 package com.makatizen.makahanap.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.makatizen.makahanap.utils.enums.AccountStatus;
 import com.makatizen.makahanap.utils.enums.CivilStatus;
 import com.makatizen.makahanap.utils.enums.Gender;
 
-public class MakahanapAccount {
+public class MakahanapAccount implements Parcelable {
+
+    public static final Creator<MakahanapAccount> CREATOR = new Creator<MakahanapAccount>() {
+        @Override
+        public MakahanapAccount createFromParcel(Parcel in) {
+            return new MakahanapAccount(in);
+        }
+
+        @Override
+        public MakahanapAccount[] newArray(int size) {
+            return new MakahanapAccount[size];
+        }
+    };
 
     @SerializedName("address")
     @Expose
@@ -71,6 +85,35 @@ public class MakahanapAccount {
     private AccountStatus status;
 
     public MakahanapAccount() {
+    }
+
+    protected MakahanapAccount(Parcel in) {
+        address = in.readString();
+        if (in.readByte() == 0) {
+            age = null;
+        } else {
+            age = in.readInt();
+        }
+        cardNumber = in.readString();
+        contactNumber = in.readString();
+        dateCreated = in.readString();
+        emailAddress = in.readString();
+        firstName = in.readString();
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        lastName = in.readString();
+        makatizenNumber = in.readString();
+        middleName = in.readString();
+        password = in.readString();
+        profileImageUrl = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public String getAddress() {
@@ -212,5 +255,32 @@ public class MakahanapAccount {
                 ", password='" + password + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    @Override
+    public void writeToParcel(final Parcel parcel, final int i) {
+        parcel.writeString(address);
+        if (age == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(age);
+        }
+        parcel.writeString(cardNumber);
+        parcel.writeString(contactNumber);
+        parcel.writeString(dateCreated);
+        parcel.writeString(emailAddress);
+        parcel.writeString(firstName);
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(id);
+        }
+        parcel.writeString(lastName);
+        parcel.writeString(makatizenNumber);
+        parcel.writeString(middleName);
+        parcel.writeString(password);
+        parcel.writeString(profileImageUrl);
     }
 }

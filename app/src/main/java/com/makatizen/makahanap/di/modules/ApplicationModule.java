@@ -12,7 +12,8 @@ import com.makatizen.makahanap.di.scopes.ApplicationScope;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = {ContextModule.class, PreferencesModule.class, RetrofitModule.class, DatabaseModule.class})
+@Module(includes = {ContextModule.class, PreferencesModule.class, RetrofitModule.class, DatabaseModule.class,
+        ServiceModule.class})
 public class ApplicationModule {
 
     private final Application application;

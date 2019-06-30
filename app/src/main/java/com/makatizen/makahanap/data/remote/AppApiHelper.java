@@ -7,7 +7,10 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
+import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -43,6 +46,26 @@ public class AppApiHelper implements ApiHelper {
         mMakatizenApiInterface = makatizenApiInterface;
     }
 
+    @Override
+    public Single<AddChatMessageResponse> addChatMessage(final int chatId, final int accountId,
+            final String message) {
+        return mApiInterface.addChatMessage(chatId, accountId, message);
+    }
+
+    @Override
+    public Single<CreateChatResponse> createChat(final int account1Id, final int account2Id, final String type) {
+        return mApiInterface.createChat(account1Id, account2Id, type);
+    }
+
+    @Override
+    public Maybe<List<String>> getAccountItemImages(final int accountId) {
+        return mApiInterface.getAccountItemImages(accountId);
+    }
+
+    @Override
+    public Single<GetLatestFeedResponse> getAccountLatestFeed(final int accountId) {
+        return mApiInterface.getAccountLatestFeed(accountId);
+    }
 
     @Override
     public Observable<List<BarangayData>> getAllBarangayData() {
@@ -60,8 +83,23 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Single<ChatMessagesResponse> getChatMessages(final int chatId) {
+        return mApiInterface.getChatMessages(chatId);
+    }
+
+    @Override
+    public Single<GetItemDetailsResponse> getItemDetails(final int itemId) {
+        return mApiInterface.getItemDetails(itemId);
+    }
+
+    @Override
     public Maybe<List<String>> getItemImages(final int itemId) {
         return mApiInterface.getItemImages(itemId);
+    }
+
+    @Override
+    public Single<GetLatestFeedResponse> getLatestFeed() {
+        return mApiInterface.getLatestFeed();
     }
 
     @Override
@@ -82,6 +120,11 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<RegisterReponse> registerNewAccount(final MakahanapAccount makahanapAccount) {
         return mApiInterface.registerNewAccount(makahanapAccount);
+    }
+
+    @Override
+    public Single<RegisterTokenResponse> registerTokenToServer(final String token, final int accountId) {
+        return mApiInterface.registerTokenToServer(token, accountId);
     }
 
     @Override
@@ -207,31 +250,6 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<VerifyMakatizenIdResponse> verifyMakatizenId(final String makatizenId) {
         return mMakatizenApiInterface.validateMakatizenNumber(makatizenId);
-    }
-
-    @Override
-    public Single<RegisterTokenResponse> registerTokenToServer(final String token, final int accountId) {
-        return mApiInterface.registerTokenToServer(token, accountId);
-    }
-
-    @Override
-    public Single<GetItemDetailsResponse> getItemDetails(final int itemId) {
-        return mApiInterface.getItemDetails(itemId);
-    }
-
-    @Override
-    public Maybe<List<String>> getAccountItemImages(final int accountId) {
-        return mApiInterface.getAccountItemImages(accountId);
-    }
-
-    @Override
-    public Single<GetLatestFeedResponse> getAccountLatestFeed(final int accountId) {
-        return mApiInterface.getAccountLatestFeed(accountId);
-    }
-
-    @Override
-    public Single<GetLatestFeedResponse> getLatestFeed() {
-        return mApiInterface.getLatestFeed();
     }
 
     @NonNull

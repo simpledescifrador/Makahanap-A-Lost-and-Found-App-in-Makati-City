@@ -2,7 +2,10 @@ package com.makatizen.makahanap.data.remote;
 
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
+import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -29,6 +32,22 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
+    @FormUrlEncoded
+    @POST(ApiConstants.GET_CHAT_URL + "{chat_id}/messages/add")
+    Single<AddChatMessageResponse> addChatMessage(
+            @Path("chat_id") int chatId,
+            @Field("account_id") int accountId,
+            @Field("message") String message
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CREATE_CHAT_URL)
+    Single<CreateChatResponse> createChat(
+            @Field("account1_id") int account1Id,
+            @Field("account2_id") int account2Id,
+            @Field("type") String type
+    );
+
     @GET(ApiConstants.GET_ACCOUNT_ITEM_IMAGES_URL + "{account_id}/images")
     Maybe<List<String>> getAccountItemImages(@Path("account_id") int accountId);
 
@@ -41,10 +60,13 @@ public interface ApiInterface {
     @GET(ApiConstants.GET_BARANGAY_DATA_URL + "{barangay_id}")
     Single<BarangayData> getBarangayData(int barangayId);
 
-    @GET(ApiConstants.GET_CHAT_LIST_URL)
+    @GET(ApiConstants.GET_CHAT_URL)
     Single<ChatResponse> getChatList(
             @Query("account_id") int accountId
     );
+
+    @GET(ApiConstants.GET_CHAT_URL + "{chat_id}/messages")
+    Single<ChatMessagesResponse> getChatMessages(@Path("chat_id") int chatId);
 
     @GET(ApiConstants.GET_ITEM_DETAILS_URL + "{item_id}")
     Single<GetItemDetailsResponse> getItemDetails(@Path("item_id") int itemId);

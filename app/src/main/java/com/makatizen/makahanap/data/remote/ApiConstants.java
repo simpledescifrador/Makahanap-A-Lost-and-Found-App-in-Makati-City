@@ -47,7 +47,8 @@ public class ApiConstants {
     static final String GET_ITEM_DETAILS_URL = "api/v1/items/"/*itemID */;
 
     //Chat
-    static final String GET_CHAT_LIST_URL = "api/v1/chats";
+    static final String GET_CHAT_URL = "api/v1/chats/";
+    static final String CREATE_CHAT_URL = "api/v1/chats/create";
     /* ------------- END OF API URL'S ------------ */
 
 

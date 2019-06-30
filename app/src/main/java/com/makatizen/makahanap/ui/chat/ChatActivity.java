@@ -1,6 +1,11 @@
 package com.makatizen.makahanap.ui.chat;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +23,9 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.pojo.ChatItem;
 import com.makatizen.makahanap.ui.base.BaseActivity;
+import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
+import com.makatizen.makahanap.utils.IntentExtraKeys;
+import com.makatizen.makahanap.utils.RecyclerItemUtils;
 import com.makatizen.makahanap.utils.RecyclerItemUtils.OnItemClickListener;
 import java.util.List;
 import javax.inject.Inject;
@@ -69,6 +77,21 @@ public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemCli
     @Inject
     ChatMvpPresenter<ChatMvpView> mPresenter;
 
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            if (intent.getExtras() != null) {
+                String messageId = intent.getStringExtra("message_id");
+                String senderId = intent.getStringExtra("sender_id");
+                String messageTime = intent.getStringExtra("message_time");
+                String message = intent.getStringExtra("message");
+                String chatRoomId = intent.getStringExtra("chat_room_id");
+                mChatRvList.smoothScrollToPosition(0);
+                mChatAdapter.updateChatRoom(chatRoomId, message, messageTime);
+            }
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +101,19 @@ public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemCli
         setContentView(R.layout.activity_chat);
         setUnBinder(ButterKnife.bind(this));
         init();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(mBroadcastReceiver, new IntentFilter("com.makatizen.makahanap.messages"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
     }
 
     @Override
@@ -130,14 +166,19 @@ public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemCli
 
     @Override
     public void onItemClicked(final RecyclerView recyclerView, final int position, final View v) {
-        // TODO: 6/27/19 On Chat Item Clicked
+        ChatItem chatItem = mChatAdapter.getItem(position);
+        Intent intent = new Intent(this, ChatConvoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(IntentExtraKeys.SELECTED_POSITION, position);
+        intent.putExtra(IntentExtraKeys.ACCOUNT, ChatAdapter.senderAccounts.get(position));
+        intent.putExtra(IntentExtraKeys.CHAT_ID, chatItem.getId());
+        startActivity(intent);
     }
 
     @Override
     public void setChatList(final List<ChatItem> chatItemList, final int currentAccountId) {
         mChatSrlRefresh.setRefreshing(false);
         mChatRvList.setVisibility(View.VISIBLE);
-
 
         mChatAdapter.setCurrentAccountId(currentAccountId);
         mChatAdapter.setData(chatItemList);
@@ -148,6 +189,8 @@ public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemCli
     protected void init() {
         mChatRvList.setAdapter(mChatAdapter);
         mChatRvList.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerItemUtils.addTo(mChatRvList).setOnItemClickListener(this);
+
         mChatSrlRefresh.setRefreshing(true);
         mPresenter.loadChatList();
 

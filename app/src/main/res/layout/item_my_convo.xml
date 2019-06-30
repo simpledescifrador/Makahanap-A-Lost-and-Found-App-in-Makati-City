@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingBottom="8dp"
+    android:paddingEnd="8dp"
+    android:paddingStart="60dp"
+    android:paddingTop="8dp">
+
+    <android.support.text.emoji.widget.EmojiTextView
+        android:id="@+id/my_convo_message_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:background="@drawable/ic_my_message"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/lato"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="10dp"
+        android:text="dasdas dsadsada sda da dasd sa7dasdas"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/my_convo_created_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/my_convo_message_body"
+        android:layout_below="@+id/my_convo_message_body"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="0dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:visibility="gone"
+        tools:text="a moments ago" />
+
+    <TextView
+        android:id="@+id/my_convo_sending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/my_convo_message_body"
+        android:layout_below="@+id/my_convo_message_body"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="0dp"
+        android:text="Sending . . ."
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/my_convo_send_failed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/my_convo_message_body"
+        android:layout_below="@+id/my_convo_message_body"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="0dp"
+        android:text="Sending Failed! Double click the message to retry"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone" />
+
+</RelativeLayout>

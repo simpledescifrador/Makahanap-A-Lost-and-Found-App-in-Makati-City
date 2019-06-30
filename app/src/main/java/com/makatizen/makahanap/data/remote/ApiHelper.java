@@ -5,7 +5,10 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
+import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
@@ -21,6 +24,10 @@ import java.util.List;
 
 public interface ApiHelper {
 
+    Single<AddChatMessageResponse> addChatMessage(int chatId, int accountId, String message);
+
+    Single<CreateChatResponse> createChat(int account1Id, int account2Id, String type);
+
     Maybe<List<String>> getAccountItemImages(int accountId);
 
     Single<GetLatestFeedResponse> getAccountLatestFeed(int accountId);
@@ -30,6 +37,8 @@ public interface ApiHelper {
     Single<BarangayData> getBarangayData(int barangayId);
 
     Single<ChatResponse> getChatList(int accountId);
+
+    Single<ChatMessagesResponse> getChatMessages(int chatId);
 
     Single<GetItemDetailsResponse> getItemDetails(int itemId);
 
