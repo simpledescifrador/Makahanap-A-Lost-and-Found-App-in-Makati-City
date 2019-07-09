@@ -24,30 +24,42 @@ public class ApiConstants {
     /* -------------  API URL'S ------------ */
     //Authentication
     static final String LOGIN_REQUEST_URL = "api/v1/auth/login";
+
     static final String REGISTER_ACCOUNT_URL = "api/v1/auth/register";
+
     static final String REGISTER_ACCOUNT_TOKEN_URL = "api/auth/token/register";
 
     //Account
     static final String GET_ACCOUNT_DATA_URL = "api/v1/account/";
+
     static final String GET_LATEST_ACCOUNT_FEED_URL = "api/v1/accounts/";
+
     static final String GET_ACCOUNT_ITEM_IMAGES_URL = "api/v1/accounts/";
+
+    static final String GET_ACCOUNTS_URL = "api/v1/accounts/";
 
     //Barangay
     static final String GET_ALL_BARANGAY_DATA_URL = "api/v1/barangay";
+
     static final String GET_BARANGAY_DATA_URL = "api/v1/barangay/";
 
     //Report
     static final String REPORT_PERSONAL_THING_URL = "api/v1/report/pt";
+
     static final String REPORT_PET_URL = "api/v1/report/pet";
+
     static final String REPORT_PERSON_URL = "api/v1/report/person";
 
     //Items
     static final String GET_LATEST_FEED_URL = "api/v1/items";
+
     static final String GET_ITEM_IMAGES_URL = "api/v1/items/"/*itemID*/;
+
     static final String GET_ITEM_DETAILS_URL = "api/v1/items/"/*itemID */;
 
     //Chat
     static final String GET_CHAT_URL = "api/v1/chats/";
+
     static final String CREATE_CHAT_URL = "api/v1/chats/create";
     /* ------------- END OF API URL'S ------------ */
 

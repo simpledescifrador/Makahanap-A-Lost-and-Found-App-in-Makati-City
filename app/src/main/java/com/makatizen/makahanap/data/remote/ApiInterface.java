@@ -5,6 +5,7 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
@@ -79,6 +80,18 @@ public interface ApiInterface {
 
     @GET(ApiConstants.GET_ACCOUNT_DATA_URL + "{account_id}")
     Single<MakahanapAccount> getMakahanapAccountData(@Path("account_id") int accountId);
+
+    @GET(ApiConstants.GET_ACCOUNTS_URL + "{account_id}/items/status")
+    Single<CountResponse> getStatusCount(
+            @Path("account_id") int accountId,
+            @Query("status") String status
+    );
+
+    @GET(ApiConstants.GET_ACCOUNTS_URL + "{account_id}/items/type")
+    Single<CountResponse> getTypeCount(
+            @Path("account_id") int accountId,
+            @Query("type") String type
+    );
 
     @FormUrlEncoded
     @POST(ApiConstants.LOGIN_REQUEST_URL)

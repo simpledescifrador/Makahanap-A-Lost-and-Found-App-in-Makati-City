@@ -5,17 +5,20 @@ import com.makatizen.makahanap.ui.base.BaseMvpView;
 import java.util.List;
 
 public interface ItemDetailsMvpView extends BaseMvpView {
-    void setItemImages(List<String> itemImages);
+
+    void hideItemDetailsLoading();
 
     void hideItemImageLoading();
 
-    void hideItemDetailsLoading();
+    void onPersonData(GetItemDetailsResponse response);
 
     void onPersonalThingData(GetItemDetailsResponse response);
 
     void onPetData(GetItemDetailsResponse response);
 
-    void onPersonData(GetItemDetailsResponse response);
+    void onSuccessGetChatId(int chatId);
 
     void removeMessageButton();
+
+    void setItemImages(List<String> itemImages);
 }

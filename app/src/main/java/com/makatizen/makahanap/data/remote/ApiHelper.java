@@ -8,6 +8,7 @@ import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
@@ -49,6 +50,10 @@ public interface ApiHelper {
     Single<MakahanapAccount> getMakahanapAccountData(int accountId);
 
     Single<MakatizenGetDataResponse> getMakatizenData(String makatizenId);
+
+    Single<CountResponse> getStatusCount(int accountId, String status);
+
+    Single<CountResponse> getTypeCount(int accountId, String type);
 
     Single<LoginResponse> loginAppRequest(String makatizenNumber, String password);
 

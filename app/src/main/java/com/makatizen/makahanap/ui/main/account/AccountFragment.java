@@ -136,6 +136,21 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
     }
 
     @Override
+    public void setFoundCount(final int count) {
+        mAccountTvFoundCount.setText(String.valueOf(count));
+    }
+
+    @Override
+    public void setLostCount(final int count) {
+        mAccountTvLostCount.setText(String.valueOf(count));
+    }
+
+    @Override
+    public void setReturnedCount(final int count) {
+        mAccountTvReturnedCount.setText(String.valueOf(count));
+    }
+
+    @Override
     protected void init() {
         mPresenter.loadAccountData(); //Load Account Data
         setUpViewPagerAdapter();
@@ -170,6 +185,9 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
                 return true;
             }
         });
+        mPresenter.getFoundCount();
+        mPresenter.getLostCount();
+        mPresenter.getReturnedCount();
     }
 
     private void setUpViewPagerAdapter() {

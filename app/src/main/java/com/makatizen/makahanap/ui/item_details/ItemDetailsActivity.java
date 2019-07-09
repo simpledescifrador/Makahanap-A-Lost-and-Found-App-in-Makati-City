@@ -23,8 +23,10 @@ import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.remote.ApiConstants;
+import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.ui.base.BaseActivity;
+import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerActivity;
 import com.makatizen.makahanap.ui.item_details.ImageSliderAdapter.OnItemClickListener;
 import com.makatizen.makahanap.utils.DateUtils;
@@ -178,7 +180,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
 
     private Handler handler = new Handler();
 
-    private int mAccountId;
+    private MakahanapAccount itemOwnerAccount = new MakahanapAccount();
 
     private int mCurrentPage = 0;
 
@@ -248,6 +250,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
 
     @Override
     public void onPersonData(final GetItemDetailsResponse response) {
+        itemOwnerAccount = response.getAccount();
         switch (response.getType()) {
             case LOST:
                 mItemDetailsTvType.setText("Lost");
@@ -282,7 +285,6 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
             mItemDetailsTvDescription.setText(description);
         }
 
-        mAccountId = response.getAccount().getId(); //Pass ID to local variable for messaging
         Glide.with(this)
                 .load(ApiConstants.MAKATIZEN_API_BASE_URL + response.getAccount().getProfileImageUrl())
                 .into(mItemDetailsIvAccountImage);
@@ -306,6 +308,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
 
     @Override
     public void onPersonalThingData(final GetItemDetailsResponse response) {
+        itemOwnerAccount = response.getAccount();
         switch (response.getType()) {
             case LOST:
                 mItemDetailsTvType.setText("Lost");
@@ -346,7 +349,6 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
             mItemDetailsTvDescription.setText(description);
         }
 
-        mAccountId = response.getAccount().getId(); //Pass ID to local variable for messaging
         Glide.with(this)
                 .load(ApiConstants.MAKATIZEN_API_BASE_URL + response.getAccount().getProfileImageUrl())
                 .into(mItemDetailsIvAccountImage);
@@ -381,6 +383,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
 
     @Override
     public void onPetData(final GetItemDetailsResponse response) {
+        itemOwnerAccount = response.getAccount();
         switch (response.getType()) {
             case LOST:
                 mItemDetailsTvType.setText("Lost");
@@ -411,7 +414,6 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
             mItemDetailsTvDescription.setText(description);
         }
 
-        mAccountId = response.getAccount().getId(); //Pass ID to local variable for messaging
         Glide.with(this)
                 .load(ApiConstants.MAKATIZEN_API_BASE_URL + response.getAccount().getProfileImageUrl())
                 .into(mItemDetailsIvAccountImage);
@@ -436,12 +438,22 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         }
     }
 
+    @Override
+    public void onSuccessGetChatId(final int chatId) {
+        Intent intent = new Intent(this, ChatConvoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(IntentExtraKeys.ACCOUNT, itemOwnerAccount);
+        intent.putExtra(IntentExtraKeys.CHAT_ID, String.valueOf(chatId));
+        startActivity(intent);
+    }
+
     @OnClick({R.id.item_details_ibtn_map, R.id.item_details_btn_account_message})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_details_ibtn_map:
                 break;
             case R.id.item_details_btn_account_message:
+                mPresenter.openChat(itemOwnerAccount.getId(), "Single");
                 break;
         }
     }

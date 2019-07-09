@@ -13,6 +13,7 @@ import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
@@ -141,6 +142,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<MakatizenGetDataResponse> getMakatizenData(final String makatizenId) {
         return apiHelper.getMakatizenData(makatizenId);
+    }
+
+    @Override
+    public Single<CountResponse> getStatusCount(final int accountId, final String status) {
+        return apiHelper.getStatusCount(accountId, status);
+    }
+
+    @Override
+    public Single<CountResponse> getTypeCount(final int accountId, final String type) {
+        return apiHelper.getTypeCount(accountId, type);
     }
 
     @Override

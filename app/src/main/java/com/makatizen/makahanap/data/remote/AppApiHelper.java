@@ -10,6 +10,7 @@ import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
@@ -110,6 +111,16 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<MakatizenGetDataResponse> getMakatizenData(final String makatizenId) {
         return mMakatizenApiInterface.getMakatizenData(makatizenId);
+    }
+
+    @Override
+    public Single<CountResponse> getStatusCount(final int accountId, final String status) {
+        return mApiInterface.getStatusCount(accountId, status);
+    }
+
+    @Override
+    public Single<CountResponse> getTypeCount(final int accountId, final String type) {
+        return mApiInterface.getTypeCount(accountId, type);
     }
 
     @Override
