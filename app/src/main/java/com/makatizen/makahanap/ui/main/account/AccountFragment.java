@@ -20,9 +20,7 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.bumptech.glide.Glide;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.remote.ApiConstants;
@@ -34,8 +32,13 @@ import com.makatizen.makahanap.ui.main.account.about.AccountAboutFragment;
 import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryFragment;
 import com.makatizen.makahanap.ui.main.account.reports.AccountReportsFragment;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
-import de.hdodenhof.circleimageview.CircleImageView;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountFragment extends BaseFragment implements AccountMvpView {
 
@@ -80,7 +83,7 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+                             @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         getActivityFragmentComponent().inject(this);

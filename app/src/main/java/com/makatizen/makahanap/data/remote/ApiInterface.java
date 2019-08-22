@@ -10,14 +10,21 @@ import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationDeleteResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+
 import java.util.List;
 import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -26,12 +33,31 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+
+    @GET(ApiConstants.GET_NOTIFICATIONS_URL)
+    Single<NotificationResponse> getNotifications(@Query("account_id") String accountId);
+
+    @GET(ApiConstants.GET_TOTAL_UNVIEWED_NOTIFICATION_URL + "{account_id}")
+    Single<NotificationTotalResponse> getTotalUnViewedNotifications(@Path("account_id") String accountId);
+
+    @GET(ApiConstants.GET_TOTAL_ACCOUNT_NOTIFICATION_URL + "{account_id}")
+    Single<NotificationTotalResponse> getTotalNotifications(@Path("account_id") String accountId);
+
+    @PUT(ApiConstants.PUT_NOTIFICATION_UNVIEWED_URL + "{id}")
+    Single<NotificationUpdateResponse> setNotificationUnviewed(@Path("id") String id);
+
+    @PUT(ApiConstants.PUT_NOTIFICATION_VIEWED_URL + "{id}")
+    Single<NotificationUpdateResponse> setNotificationViewed(@Path("id") String id);
+
+    @PUT(ApiConstants.PUT_NOTIFICATION_DELETE_URL + "{id}")
+    Single<NotificationDeleteResponse> deleteNotification(@Path("id") String id);
 
     @FormUrlEncoded
     @POST(ApiConstants.GET_CHAT_URL + "{chat_id}/messages/add")

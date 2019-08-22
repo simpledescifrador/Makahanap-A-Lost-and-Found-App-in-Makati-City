@@ -61,6 +61,20 @@ public class ApiConstants {
     static final String GET_CHAT_URL = "api/v1/chats/";
 
     static final String CREATE_CHAT_URL = "api/v1/chats/create";
+
+    //Notification
+    static final String GET_NOTIFICATIONS_URL = "api/v1/account/notifications";
+
+    static final String PUT_NOTIFICATION_VIEWED_URL = "api/v1/account/notification/mark/viewed/";
+
+    static final String PUT_NOTIFICATION_UNVIEWED_URL = "api/v1/account/notification/mark/unviewed/";
+
+    static final String PUT_NOTIFICATION_DELETE_URL = "api/v1/account/notification/delete/";
+
+    static final String GET_TOTAL_UNVIEWED_NOTIFICATION_URL = "api/v1/account/notification/unviewed/";
+
+    static final String GET_TOTAL_ACCOUNT_NOTIFICATION_URL = "api/v1/account/notification/total/";
+
     /* ------------- END OF API URL'S ------------ */
 
 

@@ -14,6 +14,10 @@ import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationDeleteResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
@@ -24,6 +28,18 @@ import io.reactivex.Single;
 import java.util.List;
 
 public interface ApiHelper {
+
+    Single<NotificationResponse> getNotifications(String accountId);
+
+    Single<NotificationTotalResponse> getTotalNotifications(String accountId);
+
+    Single<NotificationTotalResponse> getTotalUnviewedNotifications(String accountId);
+
+    Single<NotificationUpdateResponse> setNotificationUnviewed(String id);
+
+    Single<NotificationUpdateResponse> setNotificationViewed(String id);
+
+    Single<NotificationDeleteResponse> deleteNotification(String id);
 
     Single<AddChatMessageResponse> addChatMessage(int chatId, int accountId, String message);
 

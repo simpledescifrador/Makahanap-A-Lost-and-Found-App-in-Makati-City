@@ -16,6 +16,10 @@ import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationDeleteResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
@@ -45,6 +49,36 @@ public class AppApiHelper implements ApiHelper {
     public AppApiHelper(final ApiInterface apiInterface, final MakatizenApiInterface makatizenApiInterface) {
         mApiInterface = apiInterface;
         mMakatizenApiInterface = makatizenApiInterface;
+    }
+
+    @Override
+    public Single<NotificationResponse> getNotifications(String accountId) {
+        return mApiInterface.getNotifications(accountId);
+    }
+
+    @Override
+    public Single<NotificationTotalResponse> getTotalNotifications(String accountId) {
+        return mApiInterface.getTotalNotifications(accountId);
+    }
+
+    @Override
+    public Single<NotificationTotalResponse> getTotalUnviewedNotifications(String accountId) {
+        return mApiInterface.getTotalUnViewedNotifications(accountId);
+    }
+
+    @Override
+    public Single<NotificationUpdateResponse> setNotificationUnviewed(String id) {
+        return mApiInterface.setNotificationUnviewed(id);
+    }
+
+    @Override
+    public Single<NotificationUpdateResponse> setNotificationViewed(String id) {
+        return mApiInterface.setNotificationViewed(id);
+    }
+
+    @Override
+    public Single<NotificationDeleteResponse> deleteNotification(String id) {
+        return mApiInterface.deleteNotification(id);
     }
 
     @Override

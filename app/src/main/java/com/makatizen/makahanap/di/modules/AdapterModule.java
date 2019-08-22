@@ -11,6 +11,7 @@ import com.makatizen.makahanap.ui.item_details.ImageSliderAdapter;
 import com.makatizen.makahanap.ui.main.account.gallery.ImageGalleryAdapter;
 import com.makatizen.makahanap.ui.main.account.reports.AccountReportsAdapter;
 import com.makatizen.makahanap.ui.main.feed.FeedAdapter;
+import com.makatizen.makahanap.ui.main.notification.NotificationAdapter;
 import com.makatizen.makahanap.ui.report.adapter.ItemImagesAdapter;
 import dagger.Module;
 import dagger.Provides;
@@ -71,4 +72,11 @@ public class AdapterModule {
     static ItemImagesAdapter provideItemImageAdapter(@ActivityContext Context context) {
         return new ItemImagesAdapter(context);
     }
+
+    @Provides
+    @ActivityScope
+    static NotificationAdapter provideNotificationAdapter(@ActivityContext Context context) {
+        return new NotificationAdapter(context);
+    }
+
 }

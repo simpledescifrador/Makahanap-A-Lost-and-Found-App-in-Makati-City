@@ -17,8 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.pojo.ChatItem;
@@ -27,8 +26,13 @@ import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
 import com.makatizen.makahanap.utils.RecyclerItemUtils;
 import com.makatizen.makahanap.utils.RecyclerItemUtils.OnItemClickListener;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemClickListener {
 

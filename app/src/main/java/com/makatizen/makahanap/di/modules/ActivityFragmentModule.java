@@ -44,6 +44,12 @@ import com.makatizen.makahanap.ui.main.feed.FeedPresenter;
 import com.makatizen.makahanap.ui.main.home.HomeMvpPresenter;
 import com.makatizen.makahanap.ui.main.home.HomeMvpView;
 import com.makatizen.makahanap.ui.main.home.HomePresenter;
+import com.makatizen.makahanap.ui.main.map.MapMvpPresenter;
+import com.makatizen.makahanap.ui.main.map.MapMvpView;
+import com.makatizen.makahanap.ui.main.map.MapPresenter;
+import com.makatizen.makahanap.ui.main.notification.NotificationMvpPresenter;
+import com.makatizen.makahanap.ui.main.notification.NotificationMvpView;
+import com.makatizen.makahanap.ui.main.notification.NotificationPresenter;
 import com.makatizen.makahanap.ui.register.RegisterMvpPresenter;
 import com.makatizen.makahanap.ui.register.RegisterMvpView;
 import com.makatizen.makahanap.ui.register.RegisterPresenter;
@@ -174,6 +180,13 @@ public class ActivityFragmentModule {
 
     @Provides
     @ActivityScope
+    static NotificationMvpPresenter<NotificationMvpView> provideNotificationPresenter(
+            NotificationPresenter<NotificationMvpView> notificationMvpViewNotificationPresenter) {
+        return notificationMvpViewNotificationPresenter;
+    }
+
+    @Provides
+    @ActivityScope
     static RegisterMvpPresenter<RegisterMvpView> provideRegisterPresenter(
             RegisterPresenter<RegisterMvpView> registerMvpViewRegisterPresenter) {
         return registerMvpViewRegisterPresenter;
@@ -198,5 +211,11 @@ public class ActivityFragmentModule {
     static ReportPetMvpPresenter<ReportPetMvpView> provideReportPetPresenter(
             ReportPetPresenter<ReportPetMvpView> reportPetMvpViewReportPetPresenter) {
         return reportPetMvpViewReportPetPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    static MapMvpPresenter<MapMvpView> provideMapPresenter(MapPresenter<MapMvpView> mapMvpViewMapPresenter) {
+        return mapMvpViewMapPresenter;
     }
 }

@@ -2,7 +2,7 @@
     <string name="app_name">Makahanap</string>
 
     <!--  API Keys -->
-    <string name="google_map_api_key" templateMergeStrategy="preserve" translatable="false"> AIzaSyBVwsaV3KxPINGt4o-vumAwHZiaOKIR6Do</string>
+    <string name="google_map_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBVwsaV3KxPINGt4o-vumAwHZiaOKIR6Do</string>
     <!--  Title -->
     <string name="title_type_lost">What did you lose?</string>
     <string name="title_type_found">What did you found?</string>
@@ -60,5 +60,7 @@
     <string name="hint_mobile_verification">Tap Next to verify your makatizen card with your phone number.\nAfter pressing next the verification code will be sent to your mobile number. </string>
     <string name="title_no_chat_content">No Message Yet</string>
     <string name="message_no_chat_content">No Messages in your inbox yet!\nStart chatting with other user</string>
+    <string name="title_no_notification">No Notification</string>
+    <string name="message_no_notification">You don\'t have notifications yet</string>
 
 </resources>

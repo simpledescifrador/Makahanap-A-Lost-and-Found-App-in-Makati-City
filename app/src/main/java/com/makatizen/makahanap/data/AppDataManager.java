@@ -19,6 +19,10 @@ import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationDeleteResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
+import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
@@ -56,6 +60,36 @@ public class AppDataManager implements DataManager {
     @Override
     public void addBarangayDataToDb(final BarangayData barangayData) {
         dbHelper.addBarangayDataToDb(barangayData);
+    }
+
+    @Override
+    public Single<NotificationResponse> getNotifications(String accountId) {
+        return apiHelper.getNotifications(accountId);
+    }
+
+    @Override
+    public Single<NotificationTotalResponse> getTotalNotifications(String accountId) {
+        return apiHelper.getTotalNotifications(accountId);
+    }
+
+    @Override
+    public Single<NotificationTotalResponse> getTotalUnviewedNotifications(String accountId) {
+        return apiHelper.getTotalUnviewedNotifications(accountId);
+    }
+
+    @Override
+    public Single<NotificationUpdateResponse> setNotificationUnviewed(String id) {
+        return apiHelper.setNotificationUnviewed(id);
+    }
+
+    @Override
+    public Single<NotificationUpdateResponse> setNotificationViewed(String id) {
+        return apiHelper.setNotificationViewed(id);
+    }
+
+    @Override
+    public Single<NotificationDeleteResponse> deleteNotification(String id) {
+        return apiHelper.deleteNotification(id);
     }
 
     @Override

@@ -8,44 +8,42 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/feed_account_account_layout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:background="?colorPrimary">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/account_iv_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:src="@color/colorAccent"
             app:civ_border_color="@android:color/white"
             app:civ_border_width="5dp"
             app:civ_circle_background_color="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/account_iv_more" />
 
         <ImageView
             android:id="@+id/account_iv_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_more_vert_white_24dp" />
 
         <TextView
             android:id="@+id/account_tv_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/lato"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/colorWhiteText"
@@ -81,17 +79,16 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/feed_account_account_layout"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/account_iv_chat"
+            app:layout_constraintEnd_toEndOf="@+id/button2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/account_tv_name"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintStart_toStartOf="@+id/button2"
+            app:layout_constraintTop_toBottomOf="@+id/button2">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -199,8 +196,8 @@
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:text="Honesty Rating"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/colorWhiteText"
@@ -221,6 +218,18 @@
             app:layout_constraintTop_toTopOf="@+id/account_iv_image"
             app:srcCompat="@drawable/ic_chat_white_24dp" />
 
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Messages"
+            app:layout_constraintEnd_toEndOf="@+id/account_tv_name"
+            app:layout_constraintStart_toEndOf="@+id/account_iv_image"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.TabLayout
@@ -235,12 +244,6 @@
         app:tabIndicatorFullWidth="false"
         app:tabBackground="@color/quantum_grey100"
         app:tabIndicatorColor="@color/colorAccent">
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/account_tab_item_about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="About" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/account_tab_item_reports"

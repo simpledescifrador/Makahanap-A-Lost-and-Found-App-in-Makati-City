@@ -19,6 +19,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.RemoteViews;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -35,14 +37,17 @@ import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
 import com.makatizen.makahanap.ui.item_details.ItemDetailsActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
 import com.makatizen.makahanap.utils.RequestCodes;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjection;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import javax.inject.Inject;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -113,6 +118,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 String type = remoteMessage.getData().get("type");
                 int refId = Integer.parseInt(remoteMessage.getData().get("ref_id"));
                 int totalNotifications = Integer.parseInt(remoteMessage.getData().get("total_notifications"));
+                int totalUnviewedNotifications = Integer.parseInt(remoteMessage.getData().get("total_unviewed_notifications"));
 
                 Intent intent = new Intent("com.makatizen.makahanap.notification");
                 intent.putExtra("id", id);
@@ -123,6 +129,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 intent.putExtra("viewed", viewed.equalsIgnoreCase("Yes"));
                 intent.putExtra("account_id", accountId);
                 intent.putExtra("total_notification", totalNotifications);
+                intent.putExtra("total_unviewed_notification", totalUnviewedNotifications);
                 intent.putExtra("type", type);
                 intent.putExtra("ref_id", refId);
 
@@ -244,7 +251,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .into(new SimpleTarget<Bitmap>() {
                                 @Override
                                 public void onResourceReady(@NonNull final Bitmap resource,
-                                        @Nullable final Transition<? super Bitmap> transition) {
+                                                            @Nullable final Transition<? super Bitmap> transition) {
                                     notificationBuilder.setLargeIcon(resource);
                                     notificationManager.notify(1, notificationBuilder.build());
 
@@ -270,10 +277,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void showNotification(RemoteMessage remoteMessage) {
+        RemoteViews collapsedView = new RemoteViews(getPackageName(), R.layout.custom_notification_collapsed);
+        final RemoteViews expandedView = new RemoteViews(getPackageName(), R.layout.custom_notification_expanded);
+
         String title = remoteMessage.getNotification().getTitle();
         String content = StringEscapeUtils.unescapeEcmaScript(remoteMessage.getNotification().getBody());
         String clickAction = remoteMessage.getNotification().getClickAction();
-        NotificationManager notificationManager = (NotificationManager) getSystemService(
+        final NotificationManager notificationManager = (NotificationManager) getSystemService(
                 Context.NOTIFICATION_SERVICE);
         /*Android Oreo and Above Notification */
         {
@@ -281,7 +291,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 NotificationChannel notificationChannel = new NotificationChannel("Maka-Hanap",
                         "Maka-Hanap Notification",
                         NotificationManager.IMPORTANCE_DEFAULT);
-                notificationChannel.setDescription("Maka-Hanap Channel Test");
+                notificationChannel.setDescription("Maka-Hanap Channel");
                 notificationChannel.enableLights(true);
                 notificationChannel.setLightColor(Color.RED);
                 notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
@@ -290,19 +300,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 notificationManager.createNotificationChannel(notificationChannel);
             }
         }
+
+        collapsedView.setTextViewText(R.id.collapsed_title, title);
+        collapsedView.setTextViewText(R.id.collapsed_subtitle, content);
+
+        expandedView.setTextViewText(R.id.expanded_title, title);
+        expandedView.setTextViewText(R.id.expanded_location_tv, content);
+
         Bitmap icon = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.ic_launcher_round);
         Uri defaultBoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         /*Android Below Oreo Notification*/
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "Maka-Hanap")
+        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "Maka-Hanap")
                 .setAutoCancel(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(R.drawable.ic_info_black_24dp)
                 .setSound(defaultBoundUri)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setContentInfo(remoteMessage.getData().get("type"));
+                .setCustomContentView(collapsedView)
+                .setCustomBigContentView(expandedView)
+                .setContentTitle(title);
+
         int itemId = Integer.parseInt(remoteMessage.getData().get("ref_id"));
         /* Notification Type Mak */
         if (clickAction.equals("Item Detail")) {
@@ -330,6 +346,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .getActivity(this, RequestCodes.ITEM_DETAILS, intent, PendingIntent.FLAG_ONE_SHOT);
             notificationBuilder.setContentIntent(pendingIntent);
         }
-        notificationManager.notify(1, notificationBuilder.build());
+
+        final String imageUrl = remoteMessage.getData().get("image_url");
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Glide.with(getApplicationContext())
+                        .asBitmap()
+                        .load(imageUrl)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull final Bitmap resource,
+                                                        @Nullable final Transition<? super Bitmap> transition) {
+                                notificationBuilder.setStyle(
+                                        new NotificationCompat.BigPictureStyle().bigPicture(resource));
+                                expandedView.setImageViewBitmap(R.id.expanded_image, resource);
+                                notificationManager.notify(1, notificationBuilder.build());
+                            }
+                        });
+            }
+        });
     }
 }

@@ -7,16 +7,19 @@ import android.support.text.emoji.EmojiCompat;
 import android.support.text.emoji.FontRequestEmojiCompatConfig;
 import android.support.v4.provider.FontRequest;
 import android.util.Log;
+
 import com.google.android.libraries.places.api.Places;
 import com.makatizen.makahanap.di.components.ApplicationComponent;
 import com.makatizen.makahanap.di.components.DaggerApplicationComponent;
 import com.makatizen.makahanap.di.modules.ApplicationModule;
 import com.makatizen.makahanap.di.modules.ContextModule;
 import com.makatizen.makahanap.di.modules.RoomModule;
+
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasServiceInjector;
-import javax.inject.Inject;
 
 public class MakahanapApplication extends Application implements HasServiceInjector {
 
@@ -35,7 +38,7 @@ public class MakahanapApplication extends Application implements HasServiceInjec
         initApplicationDaggerComponent();
         initEmojiTextViewSupport();
         // Initialize Places.
-        Places.initialize(this, getResources().getString(R.string.google_api_key));
+        Places.initialize(this, getResources().getString(R.string.google_map_api_key));
     }
 
     @Override

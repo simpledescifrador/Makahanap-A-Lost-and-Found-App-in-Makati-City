@@ -1,14 +1,26 @@
 package com.makatizen.makahanap.ui.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.main.account.AccountFragment;
@@ -16,9 +28,13 @@ import com.makatizen.makahanap.ui.main.feed.FeedFragment;
 import com.makatizen.makahanap.ui.main.home.HomeFragment;
 import com.makatizen.makahanap.ui.main.map.MapFragment;
 import com.makatizen.makahanap.ui.main.notification.NotificationFragment;
+
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity implements MainMvpView {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MainActivity extends BaseActivity implements MainMvpView, NotificationFragment.NotificationUpdateListener {
 
     @BindView(R.id.main_bnav_navigation)
     BottomNavigationView mMainBnavNavigation;
@@ -29,7 +45,18 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
 
+    boolean doubleBackToExitPressedOnce = false;
+
     private MenuItem mPrevMenuItem;
+
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            String accountId = intent.getStringExtra("account_id");
+            int unViewedNotif = intent.getIntExtra("total_unviewed_notification", 0);
+            mPresenter.setNotificationBadge(unViewedNotif);
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +77,17 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof NotificationFragment) {
+            NotificationFragment notificationFragment = (NotificationFragment) fragment;
+            notificationFragment.setOnNotificationUpdateListener(this);
+        }
+    }
+
+    @Override
     protected void init() {
+
+        mPresenter.loadNotificationBadge();
         //Set-up Bottom Navigation Listener
         mMainBnavNavigation.setOnNavigationItemSelectedListener(new OnNavigationItemSelectedListener() {
             @Override
@@ -113,5 +150,67 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         mMainVpContent.setOffscreenPageLimit(mainViewPagerAdapter.getCount() - 1);
         mMainVpContent.setAdapter(mainViewPagerAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void addBadge(int position, int number) {
+        if (number == 0) {
+            return;
+        }
+        BottomNavigationMenuView bottomNavigationView = (BottomNavigationMenuView) mMainBnavNavigation
+                .getChildAt(0);
+        android.view.View v = bottomNavigationView.getChildAt(position);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+        android.view.View badge = LayoutInflater.from(this)
+                .inflate(R.layout.notification_badge, itemView, true);
+        TextView count = badge.findViewById(R.id.notif_count);
+        count.setVisibility(android.view.View.VISIBLE);
+        if (number < 10 && number > 0) {
+            count.setText(String.valueOf(number));
+        } else {
+            count.setText("9+");
+        }
+    }
+
+    @Override
+    public void setUnViewedNotification(int number) {
+        addBadge(3, number);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(mBroadcastReceiver, new IntentFilter("com.makatizen.makahanap.notification"));
     }
 }

@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+
 import javax.inject.Inject;
 
 public class PermissionUtils {
@@ -49,5 +53,22 @@ public class PermissionUtils {
         });
         builder.show();
 
+    }
+    public boolean getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(mActivity.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            ActivityCompat.requestPermissions(mActivity,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    RequestCodes.LOCATION_PERMISSION);
+        }
+        return false;
     }
 }
