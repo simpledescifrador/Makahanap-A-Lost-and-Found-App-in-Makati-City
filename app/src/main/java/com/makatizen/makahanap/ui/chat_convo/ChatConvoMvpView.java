@@ -44,4 +44,6 @@ public interface ChatConvoMvpView extends BaseMvpView {
     void meetupFailed();
 
     void showReturnItemOption();
+
+    void hideReturnItemOption();
 }

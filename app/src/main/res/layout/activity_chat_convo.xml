@@ -384,7 +384,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:fontFamily="@font/open_sans"
-                android:text="You have returned the item to its owner. \nPlease set as return the item"
+                android:text="You have returned the item to its owner. \nPlease set the item as return"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
             <Button

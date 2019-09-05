@@ -358,6 +358,11 @@ public class ChatConvoActivity extends BaseActivity implements ChatConvoMvpView 
     }
 
     @Override
+    public void hideReturnItemOption() {
+        mItemReturnInfo.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onNewConvo() {
         Glide.with(this)
                 .load(ApiConstants.MAKATIZEN_API_BASE_URL + mSenderAccount.getProfileImageUrl())

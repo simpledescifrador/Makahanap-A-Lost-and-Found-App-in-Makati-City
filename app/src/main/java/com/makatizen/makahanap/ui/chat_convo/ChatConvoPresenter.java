@@ -274,6 +274,7 @@ public class ChatConvoPresenter<V extends ChatConvoMvpView> extends BasePresente
                                         if (currentAccountId != mGetItemDetailsResponse.getAccount().getId()) {
                                             getMvpView().hideTransactionOption();
                                             getMvpView().hideMeetingConfirmationButtons();
+                                            getMvpView().hideReturnItemOption();
                                         }
                                     }
 
