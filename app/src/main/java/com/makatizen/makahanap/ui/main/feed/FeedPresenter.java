@@ -1,20 +1,24 @@
 package com.makatizen.makahanap.ui.main.feed;
 
 import android.util.Log;
+
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.DataManager;
 import com.makatizen.makahanap.pojo.FeedItem;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.ui.base.BasePresenter;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
+
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 public class FeedPresenter<V extends FeedMvpView> extends BasePresenter<V> implements FeedMvpPresenter<V> {
 
@@ -127,5 +131,35 @@ public class FeedPresenter<V extends FeedMvpView> extends BasePresenter<V> imple
                         }
                     });
         }
+    }
+
+    @Override
+    public void setSortFeed(String sortState) {
+        getDataManager().setSortFeedState(sortState);
+        if (sortState.equals("Lost")) {
+            getMvpView().sortFeedByLost();
+        } else if (sortState.equals("Found")) {
+            getMvpView().sortFeedByFound();
+        } else {
+            getMvpView().sortFeedByAll();
+        }
+    }
+
+    @Override
+    public void setPostViewState(String viewState) {
+        getDataManager().setPostViewState(viewState);
+        if (viewState.equals("Grid")) {
+            getMvpView().gridView();
+        } else {
+            getMvpView().listView();
+        }
+    }
+
+    @Override
+    public void loadFeedState() {
+        String sortState = getDataManager().getSortFeedState();
+        String viewState = getDataManager().getPostViewState();
+        setSortFeed(sortState);
+        setPostViewState(viewState);
     }
 }

@@ -1,12 +1,22 @@
 package com.makatizen.makahanap.ui.loader;
 
+import android.os.Handler;
 import android.util.Log;
+
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.DataManager;
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.ui.base.BasePresenter;
+
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
@@ -14,11 +24,6 @@ import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import javax.inject.Inject;
 
 public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> implements LoaderMvpPresenter<V> {
 
@@ -41,6 +46,7 @@ public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> i
                         @Override
                         public void accept(final Disposable disposable) throws Exception {
                             getMvpView().nextLoadingMessage();
+                            getMvpView().updateProgress(20);
                         }
                     })
                     .subscribe(new Observer<List<BarangayData>>() {
@@ -113,6 +119,7 @@ public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> i
                         @Override
                         public void accept(final Disposable disposable) throws Exception {
                             getMvpView().nextLoadingMessage();
+                            getMvpView().updateProgress(20);
                         }
                     })
                     .subscribe(new SingleObserver<MakahanapAccount>() {
@@ -162,6 +169,7 @@ public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> i
                     @Override
                     public void accept(final Disposable disposable) throws Exception {
                         getMvpView().nextLoadingMessage();
+                        getMvpView().updateProgress(20);
                     }
                 })
                 .subscribe(new SingleObserver<RegisterTokenResponse>() {
@@ -179,7 +187,13 @@ public class LoaderPresenter<V extends LoaderMvpView> extends BasePresenter<V> i
                     public void onSuccess(final RegisterTokenResponse registerTokenResponse) {
                         Log.d(TAG, "onSuccess: Register Token");
                         if (registerTokenResponse.isSucessful()) {
-                            getMvpView().onCompletedLoader();
+                            getMvpView().updateProgress(20);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getMvpView().onCompletedLoader();
+                                }
+                            },2000);
                         }
                     }
                 });

@@ -62,6 +62,8 @@ public class ApiConstants {
 
     static final String CREATE_CHAT_URL = "api/v1/chats/create";
 
+    static final String NEW_ITEM_CHAT_URL = "api/v1/chats/new";
+
     //Notification
     static final String GET_NOTIFICATIONS_URL = "api/v1/account/notifications";
 
@@ -74,6 +76,22 @@ public class ApiConstants {
     static final String GET_TOTAL_UNVIEWED_NOTIFICATION_URL = "api/v1/account/notification/unviewed/";
 
     static final String GET_TOTAL_ACCOUNT_NOTIFICATION_URL = "api/v1/account/notification/total/";
+
+    //Search
+    static final String GET_SEARCH_ITEMS_URL = "api/v1/items/search";
+
+    //Transaction
+    static final String POST_TRANSACTION_ITEM_CONFIRM_URL = "api/v1/transactions/confirm";
+
+    static final String GET_TRANSACTION_CONFIRMATION_STATUS_URL = "api/v1/transactions/confirmation/status/";
+
+    static final String POST_TRANSACTION_NEW_MEETUP_URL = "api/v1/transactions/meetup/new";
+
+    static final String GET_CHECK_TRANSACTION_STATUS_URL = "api/v1/transactions/confirmation/check";
+
+    static final String GET_MEETUP_DETAILS_URL = "api/v1/transactions/meet/";
+
+    static final String PUT_MEETUP_CONFIRMATION_URL = "api/v1/transactions/meet/confirmation";
 
     /* ------------- END OF API URL'S ------------ */
 

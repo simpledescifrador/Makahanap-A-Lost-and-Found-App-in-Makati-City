@@ -2,7 +2,9 @@ package com.makatizen.makahanap.data.remote;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+
 import com.makatizen.makahanap.pojo.BarangayData;
+import com.makatizen.makahanap.pojo.LocationData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
@@ -10,30 +12,40 @@ import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
+import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
+import com.makatizen.makahanap.pojo.api_response.MeetTransactionConfirmationResponse;
+import com.makatizen.makahanap.pojo.api_response.MeetUpDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationDeleteResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
+import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
+import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import com.makatizen.makahanap.utils.enums.Type;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.inject.Inject;
+
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.MultipartBody.Part;
@@ -49,6 +61,56 @@ public class AppApiHelper implements ApiHelper {
     public AppApiHelper(final ApiInterface apiInterface, final MakatizenApiInterface makatizenApiInterface) {
         mApiInterface = apiInterface;
         mMakatizenApiInterface = makatizenApiInterface;
+    }
+
+    @Override
+    public Single<MeetTransactionConfirmationResponse> updateMeetConfirmation(String meetupId, String confirmation) {
+        return mApiInterface.updateMeetConfirmation(meetupId, confirmation);
+    }
+
+    @Override
+    public Single<MeetUpDetailsResponse> getMeetingPlaceDetails(String id) {
+        return mApiInterface.getMeetingPlaceDetails(id);
+    }
+
+    @Override
+    public Single<CheckTransactionStatusResponse> checkTransactionStatus(String itemId, String accountId) {
+        return mApiInterface.checkTransactionStatus(itemId, accountId);
+    }
+
+    @Override
+    public Single<TransactionNewMeetupResponse> createNewMeetup(LocationData locationData, String date, String transactionId) {
+        String locationId = locationData.getId();
+        String locationName = locationData.getName();
+        String locationAddress = locationData.getAddress();
+        String locationLat = String.valueOf(locationData.getLatlng().latitude);
+        String locationLong = String.valueOf(locationData.getLatlng().longitude);
+        return mApiInterface.createNewMeetup(locationId, locationName, locationAddress, locationLat, locationLong, date, transactionId);
+    }
+
+    @Override
+    public Single<ConfirmationStatusResponse> getConfirmationStatus(int itemId) {
+        return mApiInterface.getConfrimationStatus(String.valueOf(itemId));
+    }
+
+    @Override
+    public Single<TransactionConfirmResponse> confirmItemTransaction(String itemId, String accountId) {
+        return mApiInterface.confirmItemTransaction(itemId, accountId);
+    }
+
+    @Override
+    public Single<CreateChatResponse> getItemChatId(int itemId, int accountId) {
+        return mApiInterface.getItemChatId(String.valueOf(itemId), String.valueOf(accountId));
+    }
+
+    @Override
+    public Single<SearchItemResponse> searchItems(String query, String limit) {
+        return mApiInterface.searchItems(query, limit);
+    }
+
+    @Override
+    public Single<SearchItemResponse> searchItemsFiltered(String query, String filter) {
+        return mApiInterface.searchItemsFiltered(query, filter);
     }
 
     @Override
@@ -83,7 +145,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<AddChatMessageResponse> addChatMessage(final int chatId, final int accountId,
-            final String message) {
+                                                         final String message) {
         return mApiInterface.addChatMessage(chatId, accountId, message);
     }
 

@@ -1,6 +1,7 @@
 package com.makatizen.makahanap.data.local.preference;
 
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.utils.enums.Type;
 
 public interface PreferencesHelper {
 
@@ -22,4 +23,12 @@ public interface PreferencesHelper {
     void saveCurrentAccount(MakahanapAccount account);
 
     MakahanapAccount getCurrentAccount();
+
+    void setSortFeedState(String state);
+
+    String getSortFeedState();
+
+    void setPostViewState(String state);
+
+    String getPostViewState();
 }

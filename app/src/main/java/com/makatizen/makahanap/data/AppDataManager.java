@@ -6,6 +6,7 @@ import com.makatizen.makahanap.data.local.preference.PreferencesHelper;
 import com.makatizen.makahanap.data.remote.ApiHelper;
 import com.makatizen.makahanap.di.qualifiers.ApplicationContext;
 import com.makatizen.makahanap.pojo.BarangayData;
+import com.makatizen.makahanap.pojo.LocationData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
@@ -13,18 +14,25 @@ import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
+import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
+import com.makatizen.makahanap.pojo.api_response.MeetTransactionConfirmationResponse;
+import com.makatizen.makahanap.pojo.api_response.MeetUpDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationDeleteResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
+import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
+import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
@@ -60,6 +68,51 @@ public class AppDataManager implements DataManager {
     @Override
     public void addBarangayDataToDb(final BarangayData barangayData) {
         dbHelper.addBarangayDataToDb(barangayData);
+    }
+
+    @Override
+    public Single<MeetTransactionConfirmationResponse> updateMeetConfirmation(String meetupId, String confirmation) {
+        return apiHelper.updateMeetConfirmation(meetupId, confirmation);
+    }
+
+    @Override
+    public Single<MeetUpDetailsResponse> getMeetingPlaceDetails(String id) {
+        return apiHelper.getMeetingPlaceDetails(id);
+    }
+
+    @Override
+    public Single<CheckTransactionStatusResponse> checkTransactionStatus(String itemId, String accountId) {
+        return apiHelper.checkTransactionStatus(itemId, accountId);
+    }
+
+    @Override
+    public Single<TransactionNewMeetupResponse> createNewMeetup(LocationData locationData, String date, String transactionId) {
+        return apiHelper.createNewMeetup(locationData, date, transactionId);
+    }
+
+    @Override
+    public Single<ConfirmationStatusResponse> getConfirmationStatus(int itemId) {
+        return apiHelper.getConfirmationStatus(itemId) ;
+    }
+
+    @Override
+    public Single<TransactionConfirmResponse> confirmItemTransaction(String itemId, String accountId) {
+        return apiHelper.confirmItemTransaction(itemId, accountId);
+    }
+
+    @Override
+    public Single<CreateChatResponse> getItemChatId(int itemId, int accountId) {
+        return apiHelper.getItemChatId(itemId, accountId);
+    }
+
+    @Override
+    public Single<SearchItemResponse> searchItems(String query, String limit) {
+        return apiHelper.searchItems(query, limit);
+    }
+
+    @Override
+    public Single<SearchItemResponse> searchItemsFiltered(String query, String filter) {
+        return apiHelper.searchItemsFiltered(query, filter);
     }
 
     @Override
@@ -151,6 +204,26 @@ public class AppDataManager implements DataManager {
     @Override
     public MakahanapAccount getCurrentAccount() {
         return applicationPreferences.getCurrentAccount();
+    }
+
+    @Override
+    public void setSortFeedState(String state) {
+        applicationPreferences.setSortFeedState(state);
+    }
+
+    @Override
+    public String getSortFeedState() {
+        return applicationPreferences.getSortFeedState();
+    }
+
+    @Override
+    public void setPostViewState(String state) {
+        applicationPreferences.setPostViewState(state);
+    }
+
+    @Override
+    public String getPostViewState() {
+        return applicationPreferences.getPostViewState();
     }
 
     @Override

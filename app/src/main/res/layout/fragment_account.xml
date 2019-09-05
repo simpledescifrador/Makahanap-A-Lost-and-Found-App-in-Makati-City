@@ -85,10 +85,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/button2"
+            app:layout_constraintEnd_toEndOf="@+id/account_chat_btn"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/button2"
-            app:layout_constraintTop_toBottomOf="@+id/button2">
+            app:layout_constraintStart_toStartOf="@+id/account_chat_btn"
+            app:layout_constraintTop_toBottomOf="@+id/account_chat_btn">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -213,13 +213,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginTop="76dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/account_iv_image"
             app:layout_constraintStart_toStartOf="@+id/account_iv_image"
             app:layout_constraintTop_toTopOf="@+id/account_iv_image"
             app:srcCompat="@drawable/ic_chat_white_24dp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/account_chat_btn"
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

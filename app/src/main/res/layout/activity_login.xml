@@ -47,18 +47,17 @@
             android:id="@+id/login_et_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/all_et_bg"
-            android:drawablePadding="8dp"
             android:drawableStart="@drawable/ic_login_password"
+            android:drawablePadding="8dp"
             android:ems="10"
             android:hint="********"
             android:inputType="textPassword"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -66,13 +65,14 @@
             android:id="@+id/login_btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/primary_btn_bg"
             android:text="Login"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_et_password" />
 
@@ -80,10 +80,11 @@
             android:id="@+id/login_tv_forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
             android:text="Forgot Password?"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_btn_login" />
@@ -142,6 +143,19 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_et_makatizen_number" />
+
+        <ImageButton
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:id="@+id/login_iv_password_toggle"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/login_et_password"
+            app:layout_constraintEnd_toEndOf="@+id/login_et_password"
+            app:layout_constraintTop_toTopOf="@+id/login_et_password"
+            mask:srcCompat="@drawable/ic_visibility_off_grey_700_24dp" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

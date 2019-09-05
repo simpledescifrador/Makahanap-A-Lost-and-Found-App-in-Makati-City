@@ -12,6 +12,10 @@ public class AppPreferencesHelper implements PreferencesHelper, AccountPreferenc
 
     static final String PREF_KEY_ACCOUNT = "PREF_KEY_ACCOUNT";
 
+    static final String PREF_KEY_SORT_STATE = "PREF_KEY_SORT_STATE";
+
+    static final String PREF_KEY_POST_VIEW_STATE = "PREF_KEY_POST_VIEW_STATE";
+
     private CommonPreferencesHelper commonPreferencesHelper;
 
     @Inject
@@ -43,6 +47,26 @@ public class AppPreferencesHelper implements PreferencesHelper, AccountPreferenc
     @Override
     public MakahanapAccount getCurrentAccount() {
         return commonPreferencesHelper.getAccountFromPrefs();
+    }
+
+    @Override
+    public void setSortFeedState(String state) {
+        commonPreferencesHelper.setStringToPrefs(PREF_KEY_SORT_STATE, state);
+    }
+
+    @Override
+    public String getSortFeedState() {
+        return commonPreferencesHelper.getStringFromPrefs(PREF_KEY_SORT_STATE);
+    }
+
+    @Override
+    public void setPostViewState(String state) {
+        commonPreferencesHelper.setStringToPrefs(PREF_KEY_POST_VIEW_STATE, state);
+    }
+
+    @Override
+    public String getPostViewState() {
+        return commonPreferencesHelper.getStringFromPrefs(PREF_KEY_POST_VIEW_STATE);
     }
 
     @Override

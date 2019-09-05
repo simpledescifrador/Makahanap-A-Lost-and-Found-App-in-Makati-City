@@ -10,8 +10,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
@@ -60,6 +58,8 @@ import com.makatizen.makahanap.pojo.LocationData;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerActivity;
+import com.makatizen.makahanap.ui.main.account.AccountFragment;
+import com.makatizen.makahanap.ui.main.feed.FeedFragment;
 import com.makatizen.makahanap.ui.report.adapter.ItemImagesAdapter;
 import com.makatizen.makahanap.utils.AppAlertDialog;
 import com.makatizen.makahanap.utils.AppAlertDialog.AlertType;
@@ -436,6 +436,7 @@ public class ReportPersonalThingActivity extends BaseActivity implements ReportP
             public void onClick(final View view) {
                 dialog.dismiss();
                 setResult(RESULT_OK);
+                refreshFeed();
                 finish();
             }
         });
@@ -444,10 +445,18 @@ public class ReportPersonalThingActivity extends BaseActivity implements ReportP
             @Override
             public void onClick(final View view) {
                 dialog.dismiss();
+                refreshFeed();
                 setResult(RESULT_OK);
                 finish();
             }
         });
+    }
+
+    private void refreshFeed() {
+        FeedFragment feedFragment = FeedFragment.getInstance();
+        AccountFragment accountFragment = AccountFragment.getInstance();
+        feedFragment.refreshData();
+        accountFragment.refreshData();
     }
 
     @OnClick({R.id.report_pt_cat_mobile, R.id.report_pt_cat_laptop, R.id.report_pt_cat_school_supplies,

@@ -18,4 +18,10 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
     public void reportItem(final Type type) {
         getMvpView().showOptionDialog(type);
     }
+
+    @Override
+    public void showAccountMessages() {
+        int accountId = getDataManager().getCurrentAccount().getId();
+        getMvpView().openChatBox(accountId); //It Opens Account ChatItem Box
+    }
 }

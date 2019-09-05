@@ -15,4 +15,6 @@ public interface RegisterMvpPresenter<V extends RegisterMvpView & BaseMvpView> e
     void verifyMakatizenId(String id);
 
     boolean verifyPasswordIsMatch(String password, String repeatedPassword);
+
+    void passwordToggle(boolean showPass);
 }

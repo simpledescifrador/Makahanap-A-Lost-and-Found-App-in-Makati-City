@@ -1,9 +1,11 @@
 package com.makatizen.makahanap.di.modules;
 
 import android.content.Context;
+
 import com.makatizen.makahanap.di.qualifiers.ActivityContext;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.chat.ChatAdapter;
+import com.makatizen.makahanap.ui.chat.ChatItemAdapter;
 import com.makatizen.makahanap.ui.chat_convo.ChatConvoAdapter;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerAdapter;
 import com.makatizen.makahanap.ui.intro.IntroAdapter;
@@ -13,23 +15,13 @@ import com.makatizen.makahanap.ui.main.account.reports.AccountReportsAdapter;
 import com.makatizen.makahanap.ui.main.feed.FeedAdapter;
 import com.makatizen.makahanap.ui.main.notification.NotificationAdapter;
 import com.makatizen.makahanap.ui.report.adapter.ItemImagesAdapter;
+import com.makatizen.makahanap.ui.search.SearchAdapter;
+
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class AdapterModule {
-
-    @Provides
-    @ActivityScope
-    ChatAdapter provideChatAdapter(@ActivityContext Context context) {
-        return new ChatAdapter(context);
-    }
-
-    @Provides
-    @ActivityScope
-    ImageSliderAdapter provideImageSliderAdapter(@ActivityContext Context context) {
-        return new ImageSliderAdapter(context);
-    }
 
     @Provides
     @ActivityScope
@@ -77,6 +69,30 @@ public class AdapterModule {
     @ActivityScope
     static NotificationAdapter provideNotificationAdapter(@ActivityContext Context context) {
         return new NotificationAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    static SearchAdapter provideSearchAdapter(@ActivityContext Context context) {
+        return new SearchAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    ChatAdapter provideChatAdapter(@ActivityContext Context context) {
+        return new ChatAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    ImageSliderAdapter provideImageSliderAdapter(@ActivityContext Context context) {
+        return new ImageSliderAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    ChatItemAdapter provideChatItemAdapter(@ActivityContext Context context) {
+        return new ChatItemAdapter(context);
     }
 
 }

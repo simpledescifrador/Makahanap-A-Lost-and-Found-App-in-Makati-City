@@ -51,7 +51,7 @@ public class AccountReportsAdapter extends BaseRecyclerViewAdapter<AccountReport
         @BindView(R.id.feed_item_tv_title)
         TextView mFeedItemTvTitle;
 
-        @BindView(R.id.feed_item_tv_type)
+        @BindView(R.id.classic_item_report_type)
         TextView mFeedItemTvType;
 
         ViewHolder(@NonNull final View itemView) {

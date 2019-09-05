@@ -5,7 +5,7 @@
     <string name="google_map_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBVwsaV3KxPINGt4o-vumAwHZiaOKIR6Do</string>
     <!--  Title -->
     <string name="title_type_lost">What did you lose?</string>
-    <string name="title_type_found">What did you found?</string>
+    <string name="title_type_found">What did you find?</string>
     <string name="title_no_feed_content">No Lost and Found Reported</string>
     <string name="title_account_no_feed_content">No Reports Found</string>
     <string name="title_no_network">No Internet Connection</string>
@@ -15,8 +15,8 @@
     <!-- Hints for Personal Thing Forms-->
     <string name="hint_lost_pt_item_name">What specific item did you lose?</string>
     <string name="hint_found_pt_item_name">What specific item did you found?</string>
-    <string name="hint_lost_pt_description">How do you describe your lost item?</string>
-    <string name="hint_found_pt_description">How do you describe your found item?</string>
+    <string name="hint_lost_pt_description">Other Description</string>
+    <string name="hint_found_pt_description">Other Description</string>
     <string name="hint_lost_pt_brand">What brand does your lost item has?</string>
     <string name="hint_found_pt_brand">What brand does your found item has?</string>
     <string name="hint_lost_pt_color">What is the color of your lost item?</string>
@@ -28,8 +28,8 @@
     <string name="hint_pt_add_image">Tap here to add image</string>
     <!-- Hints for Pet Forms-->
     <string name="hint_lost_pet_name">What is the name of your lost pet?</string>
-    <string name="hint_lost_pet_description">How do you describe your lost pet?</string>
-    <string name="hint_found_pet_description">How do you describe the pet you found?</string>
+    <string name="hint_lost_pet_description">Other Description</string>
+    <string name="hint_found_pet_description">Other Description</string>
     <string name="hint_lost_pet_date">When did you lose your pet?</string>
     <string name="hint_found_pet_date">When did you find the pet?</string>
     <string name="hint_lost_pet_location">Where did you lose your pet?</string>
@@ -62,5 +62,6 @@
     <string name="message_no_chat_content">No Messages in your inbox yet!\nStart chatting with other user</string>
     <string name="title_no_notification">No Notification</string>
     <string name="message_no_notification">You don\'t have notifications yet</string>
+    <string name="guide_chat_transaction">Start chatting to verify the owner\'s identity before clicking \"return item\" and meet-up button at the top</string>
 
 </resources>

@@ -17,4 +17,7 @@ public class IntentExtraKeys {
     public static final String CHAT_ID = "CHAT_ID";
 
     public static final String ACCOUNT = "ACCOUNT";
+
+    public static final String TRANSACTION_ID = "TRANSACTION_ID";
+    public static final String MEET_ID = "MEET_ID";
 }

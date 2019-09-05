@@ -16,19 +16,25 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.ui.base.BaseFragment;
+import com.makatizen.makahanap.ui.chat.ChatActivity;
 import com.makatizen.makahanap.ui.report.person.ReportPersonActivity;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingActivity;
 import com.makatizen.makahanap.ui.report.pet.ReportPetActivity;
+import com.makatizen.makahanap.ui.search.SearchActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
 import com.makatizen.makahanap.utils.RequestCodes;
 import com.makatizen.makahanap.utils.enums.Type;
+
 import java.util.Objects;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomeFragment extends BaseFragment implements HomeMvpView {
 
@@ -50,7 +56,7 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+                             @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         getActivityFragmentComponent().inject(this);
@@ -66,7 +72,7 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
         mPresenter.detachView();
     }
 
-    @OnClick({R.id.home_report_lost, R.id.home_report_found})
+    @OnClick({R.id.home_report_lost, R.id.home_report_found, R.id.home_tv_search_scan, R.id.home_tv_search, R.id.home_iv_chat})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.home_report_lost:
@@ -75,6 +81,15 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
             case R.id.home_report_found:
                 mPresenter.reportItem(Type.FOUND);
                 break;
+            case R.id.home_tv_search_scan:
+                break;
+            case R.id.home_tv_search:
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
+            case R.id.home_iv_chat:
+                mPresenter.showAccountMessages();
+                break;
+
         }
     }
 
@@ -127,6 +142,14 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
     }
 
     @Override
+    public void openChatBox(int accountId) {
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(IntentExtraKeys.ACCOUNT_ID, accountId);
+        startActivity(intent);
+    }
+
+    @Override
     protected void init() {
         mDialog = new Dialog(getContext());
         mDialog.setContentView(R.layout.dialog_type);
@@ -135,4 +158,5 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
         mDialog.getWindow().setGravity(Gravity.CENTER);
         mDialog.getWindow().setWindowAnimations(R.style.DialogAnimation);
     }
+
 }

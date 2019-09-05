@@ -72,4 +72,21 @@
         <item>Quaker Parrots</item>
         <item>Others</item>
     </string-array>
+    <string-array name="filter_item_type">
+        <item>All</item>
+        <item>Lost</item>
+        <item>Found</item>
+    </string-array>
+    <string-array name="filter_report_type">
+        <item>All</item>
+        <item>Personal Thing</item>
+        <item>Pet</item>
+        <item>Person</item>
+    </string-array>
+    <string-array name="filter_status">
+        <item>All</item>
+        <item>New</item>
+        <item>Claimed</item>
+        <item>Returned</item>
+    </string-array>
 </resources>

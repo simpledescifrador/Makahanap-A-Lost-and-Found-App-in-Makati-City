@@ -15,4 +15,8 @@ public interface LoginMvpView extends BaseMvpView {
     void setMakatizenNumberError(int stringId);
 
     void setPasswordError(int stringId);
+
+    void showPassword();
+
+    void hidePassword();
 }

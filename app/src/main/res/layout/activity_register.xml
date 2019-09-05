@@ -16,11 +16,11 @@
             android:id="@+id/register_back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_back_arrow"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,12 +121,12 @@
             android:id="@+id/register_password_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/all_et_bg"
-            android:drawablePadding="8dp"
             android:drawableStart="@drawable/ic_login_password"
+            android:drawablePadding="8dp"
             android:ems="10"
             android:inputType="textPassword"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -231,6 +231,19 @@
             app:layout_constraintBottom_toBottomOf="@+id/register_tv_makatizenNumberLabel"
             app:layout_constraintStart_toEndOf="@+id/register_tv_makatizenNumberLabel"
             app:layout_constraintTop_toTopOf="@+id/register_tv_makatizenNumberLabel" />
+
+        <ImageButton
+            android:id="@+id/register_password_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/register_password_et"
+            app:layout_constraintEnd_toEndOf="@+id/register_password_et"
+            app:layout_constraintTop_toTopOf="@+id/register_password_et"
+            mask:srcCompat="@drawable/ic_visibility_off_grey_700_24dp" />
 
 
     </android.support.constraint.ConstraintLayout>

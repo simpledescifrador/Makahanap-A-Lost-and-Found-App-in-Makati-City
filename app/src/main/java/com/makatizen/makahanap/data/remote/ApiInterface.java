@@ -5,26 +5,32 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
+import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
+import com.makatizen.makahanap.pojo.api_response.MeetTransactionConfirmationResponse;
+import com.makatizen.makahanap.pojo.api_response.MeetUpDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationDeleteResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
+import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
+import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
+
+import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-
-import java.util.List;
-import java.util.Map;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -40,6 +46,67 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+
+    @FormUrlEncoded
+    @PUT(ApiConstants.PUT_MEETUP_CONFIRMATION_URL)
+    Single<MeetTransactionConfirmationResponse> updateMeetConfirmation(
+            @Field("id") String meetUpId,
+            @Field("confirmation") String confirmation
+    );
+
+    @GET(ApiConstants.GET_MEETUP_DETAILS_URL + "{id}/details")
+    Single<MeetUpDetailsResponse> getMeetingPlaceDetails(
+            @Path("id") String id
+    );
+
+    @GET(ApiConstants.GET_CHECK_TRANSACTION_STATUS_URL)
+    Single<CheckTransactionStatusResponse> checkTransactionStatus(
+            @Query("item_id") String itemId,
+            @Query("account_id") String accountId
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_TRANSACTION_NEW_MEETUP_URL)
+    Single<TransactionNewMeetupResponse> createNewMeetup(
+            @Field("location_id") String locationId,
+            @Field("location_name") String locationName,
+            @Field("location_address") String locationAddress,
+            @Field("location_latitude") String locationLatitude,
+            @Field("location_longitude") String locationLongitude,
+            @Field("date") String date,
+            @Field("transaction_id") String transactionid
+    );
+
+    @GET(ApiConstants.GET_TRANSACTION_CONFIRMATION_STATUS_URL + "{item_id}")
+    Single<ConfirmationStatusResponse> getConfrimationStatus(
+            @Path("item_id") String itemId
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_TRANSACTION_ITEM_CONFIRM_URL)
+    Single<TransactionConfirmResponse> confirmItemTransaction(
+            @Field("item_id") String itemId,
+            @Field("account_id") String accountId
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.NEW_ITEM_CHAT_URL)
+    Single<CreateChatResponse> getItemChatId(
+            @Field("item_id") String itemId,
+            @Field("account_id") String accountId
+    );
+
+    @GET(ApiConstants.GET_SEARCH_ITEMS_URL)
+    Single<SearchItemResponse> searchItems(
+            @Query("q") String query,
+            @Query("limit") String limit
+    );
+
+    @GET(ApiConstants.GET_SEARCH_ITEMS_URL)
+    Single<SearchItemResponse> searchItemsFiltered(
+            @Query("q") String query,
+            @Query("filter") String filter
+    );
 
     @GET(ApiConstants.GET_NOTIFICATIONS_URL)
     Single<NotificationResponse> getNotifications(@Query("account_id") String accountId);

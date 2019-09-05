@@ -41,8 +41,8 @@
                     android:id="@+id/textView54"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginBottom="3dp"
                     android:text="Lost and Found Feed"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@android:color/white"
@@ -72,95 +72,145 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?actionBarSize">
 
-
-        <RelativeLayout
-            android:id="@+id/feed_rel_layout_content"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:orientation="vertical"
-            android:visibility="visible"
-            tools:visibility="visible">
+            android:layout_height="wrap_content">
 
-            <RadioGroup
-                android:id="@+id/feed_rg_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/all_bg_primary_outline"
-                android:checkedButton="@id/feed_rb_item_all"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <RadioButton
-                    android:id="@+id/feed_rb_item_all"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/all_toggle_rb_bg"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="All"
-                    android:textColor="@color/colorWhiteText" />
-
-                <RadioButton
-                    android:id="@+id/feed_rb_item_lost"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/all_toggle_rb_bg"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="Lost"
-                    android:textColor="@color/colorWhiteText" />
-
-                <RadioButton
-                    android:id="@+id/feed_rb_item_found"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/all_toggle_rb_bg"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="Found"
-                    android:textColor="@color/colorWhiteText" />
-            </RadioGroup>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/feed_rv_latest_reports"
+            <LinearLayout
+                android:id="@+id/feed_rel_layout_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/feed_rg_filter"
-                android:layout_centerHorizontal="true"
-                tools:listitem="@layout/item_feed" />
+                android:background="@android:color/transparent"
+                android:orientation="vertical"
+                android:visibility="visible"
+                tools:visibility="visible">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <include layout="@layout/layout_no_internet" />
+                    <TextView
+                        android:id="@+id/feed_post_sort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_grey_800_24dp"
+                        android:drawablePadding="3dp"
+                        android:focusable="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="All Posts"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <include layout="@layout/layout_no_content" />
-            </FrameLayout>
+                    <ImageView
+                        android:id="@+id/feed_post_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?selectableItemBackground"
+                        android:paddingStart="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_view_agenda_grey_800_24dp" />
 
-        </RelativeLayout>
+                </android.support.constraint.ConstraintLayout>
+
+                <RadioGroup
+                    android:id="@+id/feed_rg_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/all_bg_primary_outline"
+                    android:checkedButton="@id/feed_rb_item_all"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/feed_rb_item_all"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/all_toggle_rb_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="All"
+                        android:textColor="@color/colorWhiteText" />
+
+                    <RadioButton
+                        android:id="@+id/feed_rb_item_lost"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/all_toggle_rb_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="Lost"
+                        android:textColor="@color/colorWhiteText" />
+
+                    <RadioButton
+                        android:id="@+id/feed_rb_item_found"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/all_toggle_rb_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="Found"
+                        android:textColor="@color/colorWhiteText" />
+                </RadioGroup>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/feed_rv_latest_reports"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/feed_rg_filter"
+                    android:layout_centerHorizontal="true"
+                    tools:listitem="@layout/item_feed" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <include layout="@layout/layout_no_internet" />
+
+                    <include layout="@layout/layout_no_content" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
         <!--<android.support.v4.widget.NestedScrollView-->
         <!--android:layout_width="match_parent"-->

@@ -3,6 +3,7 @@ package com.makatizen.makahanap.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.makatizen.makahanap.utils.enums.ChatType;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -57,6 +58,10 @@ public class ChatItem {
     @SerializedName("type")
     @Expose
     private ChatType type;
+
+    @SerializedName("item_id")
+    @Expose
+    private Integer itemId;
 
     public ChatItem() {
     }
@@ -115,5 +120,13 @@ public class ChatItem {
 
     public void setIsViewed(final Boolean viewed) {
         isViewed = viewed;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 }

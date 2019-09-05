@@ -40,7 +40,7 @@ public class IntroAdapter extends PagerAdapter {
             "Welcome to Maka-Hanap",
             "Report your Lost or Found Item",
             "Post Whenever Wherever",
-            "Communicate Better with Realtime ChatItem",
+            "Communicate Better with Realtime Chat",
             "Search a Lost or Found Item",
             "Be Notified"
     };

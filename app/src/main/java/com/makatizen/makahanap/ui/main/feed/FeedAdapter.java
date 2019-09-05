@@ -13,7 +13,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
@@ -56,7 +56,7 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<ViewHolder, FeedItem> i
         @BindView(R.id.feed_item_tv_title)
         TextView mFeedItemTvTitle;
 
-        @BindView(R.id.feed_item_tv_type)
+        @BindView(R.id.classic_item_report_type)
         TextView mFeedItemTvType;
 
         ViewHolder(@NonNull final View itemView) {

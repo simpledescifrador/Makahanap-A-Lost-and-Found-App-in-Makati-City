@@ -21,4 +21,6 @@ public class RequestCodes {
     public static final int LOCATION_PERMISSION = 90;
 
     public static final int ENABLE_GPS = 100;
+
+    public static final int MEETUP_TRANSACTION = 110;
 }

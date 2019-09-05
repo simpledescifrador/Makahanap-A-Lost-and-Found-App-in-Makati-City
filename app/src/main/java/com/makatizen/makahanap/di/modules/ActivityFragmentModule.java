@@ -3,6 +3,7 @@ package com.makatizen.makahanap.di.modules;
 import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.BottomSheetDialog;
+
 import com.makatizen.makahanap.di.qualifiers.ActivityContext;
 import com.makatizen.makahanap.di.scopes.ActivityScope;
 import com.makatizen.makahanap.ui.chat.ChatMvpPresenter;
@@ -62,6 +63,13 @@ import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingPrese
 import com.makatizen.makahanap.ui.report.pet.ReportPetMvpPresenter;
 import com.makatizen.makahanap.ui.report.pet.ReportPetMvpView;
 import com.makatizen.makahanap.ui.report.pet.ReportPetPresenter;
+import com.makatizen.makahanap.ui.search.SearchMvpPresenter;
+import com.makatizen.makahanap.ui.search.SearchMvpView;
+import com.makatizen.makahanap.ui.search.SearchPresenter;
+import com.makatizen.makahanap.ui.transaction.MeetTransactionMvpPresenter;
+import com.makatizen.makahanap.ui.transaction.MeetTransactionMvpView;
+import com.makatizen.makahanap.ui.transaction.MeetTransactionPresenter;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -72,30 +80,6 @@ public class ActivityFragmentModule {
 
     public ActivityFragmentModule(Activity activity) {
         this.activity = activity;
-    }
-
-    @Provides
-    @ActivityScope
-    AccountMvpPresenter<AccountMvpView> provideAccountPresenter(
-            AccountPresenter<AccountMvpView> accountMvpViewAccountPresenter) {
-        return accountMvpViewAccountPresenter;
-    }
-
-    @Provides
-    Activity provideActivity() {
-        return activity;
-    }
-
-    @Provides
-    @ActivityContext
-    Context provideActivityContext() {
-        return activity;
-    }
-
-    @Provides
-    @ActivityScope
-    BottomSheetDialog provideBottomSheetDialog() {
-        return new BottomSheetDialog(activity);
     }
 
     @Provides
@@ -218,4 +202,42 @@ public class ActivityFragmentModule {
     static MapMvpPresenter<MapMvpView> provideMapPresenter(MapPresenter<MapMvpView> mapMvpViewMapPresenter) {
         return mapMvpViewMapPresenter;
     }
+
+    @Provides
+    @ActivityScope
+    AccountMvpPresenter<AccountMvpView> provideAccountPresenter(
+            AccountPresenter<AccountMvpView> accountMvpViewAccountPresenter) {
+        return accountMvpViewAccountPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    SearchMvpPresenter<SearchMvpView> provideSearchPresenter(SearchPresenter<SearchMvpView> searchMvpViewSearchPresenter) {
+        return searchMvpViewSearchPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    MeetTransactionMvpPresenter<MeetTransactionMvpView> provideMeetTransactionPresenter(MeetTransactionPresenter<MeetTransactionMvpView> meetTransactionMvpViewMeetTransactionPresenter) {
+        return meetTransactionMvpViewMeetTransactionPresenter;
+    }
+
+    @Provides
+    Activity provideActivity() {
+        return activity;
+    }
+
+    @Provides
+    @ActivityContext
+    Context provideActivityContext() {
+        return activity;
+    }
+
+    @Provides
+    @ActivityScope
+    BottomSheetDialog provideBottomSheetDialog() {
+        return new BottomSheetDialog(activity);
+    }
+
+
 }

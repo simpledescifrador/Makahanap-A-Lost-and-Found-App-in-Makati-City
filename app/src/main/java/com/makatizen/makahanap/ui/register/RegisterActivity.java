@@ -2,6 +2,8 @@ package com.makatizen.makahanap.ui.register;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,10 +12,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import br.com.sapereaude.maskedEditText.MaskedEditText;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.MakatizenAccount;
@@ -21,7 +20,13 @@ import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.loader.LoaderActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
+
 import javax.inject.Inject;
+
+import br.com.sapereaude.maskedEditText.MaskedEditText;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RegisterActivity extends BaseActivity implements RegisterMvpView {
 
@@ -66,6 +71,9 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
 
     @BindView(R.id.register_tv_verifiedMakatizenCard)
     TextView mRegisterTvVerifiedMakatizenCard;
+    @BindView(R.id.register_password_toggle)
+    ImageButton mRegisterPasswordToggle;
+    private boolean mShowPassword = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,7 +131,7 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
         finish();
     }
 
-    @OnClick({R.id.register_back_btn, R.id.register_makatizen_verify_btn, R.id.register_now_btn})
+    @OnClick({R.id.register_back_btn, R.id.register_makatizen_verify_btn, R.id.register_now_btn, R.id.register_password_toggle})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.register_back_btn:
@@ -147,6 +155,13 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
                         mRegisterNowBtn.setText("Loading . . .");
                         mPresenter.getMakatizenData(mRegisterMakatizenNumberEt.getRawText());
                     }
+                }
+                break;
+            case R.id.register_password_toggle:
+                if (mShowPassword) {
+                    mPresenter.passwordToggle(true);
+                } else {
+                    mPresenter.passwordToggle(false);
                 }
                 break;
         }
@@ -196,6 +211,20 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
         mRegisterConfirmPasswordEt.setVisibility(View.VISIBLE);
         mRegisterTermsAndPolicyTv.setVisibility(View.VISIBLE);
         mRegisterNowBtn.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showPassword() {
+        mRegisterPasswordEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        mRegisterPasswordToggle.setImageDrawable(getResources().getDrawable(R.drawable.ic_visibility_grey_700_24dp));
+        mShowPassword = false;
+    }
+
+    @Override
+    public void hidePassword() {
+        mRegisterPasswordEt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        mRegisterPasswordToggle.setImageDrawable(getResources().getDrawable(R.drawable.ic_visibility_grey_700_24dp));
+        mShowPassword = true;
     }
 
     @Override

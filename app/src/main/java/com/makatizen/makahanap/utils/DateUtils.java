@@ -24,6 +24,20 @@ public class DateUtils {
         return newDate;
     }
 
+    public  static String TimeFormat(String oldDate) {
+        String newDate;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh aa", new Locale(getCountry()));
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(oldDate);
+            newDate = dateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            newDate = oldDate;
+        }
+
+        return newDate;
+    }
+
     public static String DateToTimeFormat(String oldStringDate) {
         PrettyTime p = new PrettyTime(new Locale(getCountry()));
         String isTime = null;

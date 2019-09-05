@@ -2,6 +2,7 @@ package com.makatizen.makahanap.pojo;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.makatizen.makahanap.utils.enums.Type;
@@ -50,8 +51,8 @@ public class FeedItem {
     }
 
     public FeedItem(final String accountImageUrl, final String accountName, final String itemCreatedAt,
-            final String itemDescription,
-            final Integer itemId, final String itemImageUrl, final String itemTitle) {
+                    final String itemDescription,
+                    final Integer itemId, final String itemImageUrl, final String itemTitle) {
         this.accountImageUrl = accountImageUrl;
         this.accountName = accountName;
         this.itemCreatedAt = itemCreatedAt;

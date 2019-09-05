@@ -91,30 +91,46 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/home_nsv_content_"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <android.support.constraint.ConstraintLayout
+            android:background="@drawable/home_bg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="112dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/app_logo_with_text" />
 
             <android.support.v7.widget.CardView
                 android:id="@+id/home_report_lost"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?selectableItemBackground"
                 app:cardBackgroundColor="@color/defaultRed"
                 app:cardCornerRadius="8dp"
                 app:contentPadding="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/home_report_found"
+                app:layout_constraintBottom_toTopOf="@+id/home_report_found"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -132,9 +148,13 @@
                         android:id="@+id/textView84"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="48dp"
                         android:layout_weight="1"
-                        android:text="I Lost\nSomething"
+                        android:fontFamily="@font/lato"
+                        android:text="I Lost Something"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />
 
@@ -143,21 +163,21 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/home_report_found"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?selectableItemBackground"
                 app:cardBackgroundColor="@color/defaultGreen"
                 app:cardCornerRadius="8dp"
                 app:contentPadding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.552"
-                app:layout_constraintStart_toEndOf="@+id/home_report_lost"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -175,9 +195,13 @@
                         android:id="@+id/textView841"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="48dp"
                         android:layout_weight="1"
-                        android:text="I Found\nSomething"
+                        android:fontFamily="@font/lato"
+                        android:text="I Found Something"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />
 

@@ -143,10 +143,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, Notificat
         // TODO: 6/8/19 Fix Dependency Injection
         final MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mainViewPagerAdapter.addFragment(new HomeFragment());
-        mainViewPagerAdapter.addFragment(new FeedFragment());
+        mainViewPagerAdapter.addFragment(FeedFragment.getInstance());
         mainViewPagerAdapter.addFragment(new MapFragment());
         mainViewPagerAdapter.addFragment(new NotificationFragment());
-        mainViewPagerAdapter.addFragment(new AccountFragment());
+        mainViewPagerAdapter.addFragment(AccountFragment.getInstance());
 
         mMainVpContent.setOffscreenPageLimit(mainViewPagerAdapter.getCount() - 1);
         mMainVpContent.setAdapter(mainViewPagerAdapter);

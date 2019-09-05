@@ -209,4 +209,13 @@ public class RegisterPresenter<V extends RegisterMvpView> extends BasePresenter<
         }
         return false;
     }
+
+    @Override
+    public void passwordToggle(boolean showPass) {
+        if (showPass) {
+            getMvpView().showPassword();
+        } else {
+            getMvpView().hidePassword();
+        }
+    }
 }

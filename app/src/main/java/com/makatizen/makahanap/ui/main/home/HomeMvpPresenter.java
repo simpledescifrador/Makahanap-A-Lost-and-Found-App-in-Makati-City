@@ -6,4 +6,6 @@ import com.makatizen.makahanap.utils.enums.Type;
 
 public interface HomeMvpPresenter<V extends HomeMvpView & BaseMvpView> extends Presenter<V> {
     void reportItem(Type type);
+
+    void showAccountMessages();
 }

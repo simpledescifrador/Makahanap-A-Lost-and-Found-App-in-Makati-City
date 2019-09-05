@@ -7,4 +7,10 @@ public interface FeedMvpPresenter<V extends FeedMvpView & BaseMvpView>  extends 
     void loadLatestFeed();
 
     void refreshFeed();
+
+    void setSortFeed(String sortState);
+
+    void setPostViewState(String viewState);
+
+    void loadFeedState();
 }

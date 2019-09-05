@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -15,15 +16,18 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
 import com.makatizen.makahanap.ui.main.MainActivity;
 import com.makatizen.makahanap.ui.register.RegisterActivity;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class IntroActivity extends BaseActivity implements OnPageChangeListener, IntroMvpView {
 
@@ -58,6 +62,20 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
 
     private TextView[] mDots;
 
+    private int autoScrollDelay = 2000;
+
+    private Handler handler = new Handler();
+
+    Runnable runnable = new Runnable() {
+        public void run() {
+            if (mIntroAdapter.getCount() != mCurrentPage) {
+                mCurrentPage++;
+            }
+            mIntroPager.setCurrentItem(mCurrentPage, true);
+            handler.postDelayed(this, autoScrollDelay);
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +87,18 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.postDelayed(runnable, autoScrollDelay);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
     }
 
     @Override
@@ -133,7 +163,7 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
                 mIntroPrevBtn.setVisibility(View.VISIBLE);
                 mIntroNextBtn.setText("Next");
                 mIntroNextBtn.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                mIntroPrevBtn.setText("Back");
+                mIntroPrevBtn.setText("Skip");
 
                 break;
             case 2:
@@ -142,29 +172,28 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
                 mIntroPrevBtn.setEnabled(true);
                 mIntroPrevBtn.setVisibility(View.VISIBLE);
                 mIntroNextBtn.setText("Next");
-                mIntroPrevBtn.setText("Back");
+                mIntroPrevBtn.setText("Skip");
                 break;
             case 3:
                 mIntroNextBtn.setEnabled(true);
                 mIntroPrevBtn.setEnabled(true);
                 mIntroPrevBtn.setVisibility(View.VISIBLE);
                 mIntroNextBtn.setText("Next");
-                mIntroPrevBtn.setText("Back");
+                mIntroPrevBtn.setText("Skip");
                 break;
             case 4:
                 mIntroNextBtn.setEnabled(true);
                 mIntroPrevBtn.setEnabled(true);
                 mIntroPrevBtn.setVisibility(View.VISIBLE);
                 mIntroNextBtn.setText("Next");
-                mIntroPrevBtn.setText("Back");
+                mIntroPrevBtn.setText("Skip");
                 break;
             case 5:
                 mIntroRepeatCb.setVisibility(View.VISIBLE);
                 mIntroNextBtn.setEnabled(true);
                 mIntroPrevBtn.setEnabled(true);
-                mIntroPrevBtn.setVisibility(View.VISIBLE);
-                mIntroNextBtn.setText("Get Started");
-                mIntroPrevBtn.setText("Back");
+                mIntroPrevBtn.setVisibility(View.INVISIBLE);
+                mIntroNextBtn.setText("Register");
                 break;
         }
     }
@@ -184,7 +213,8 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
                 mIntroPager.setCurrentItem(mCurrentPage + 1);
                 break;
             case R.id.intro_prev_btn:
-                mIntroPager.setCurrentItem(mCurrentPage - 1);
+                startActivity(new Intent(this, RegisterActivity.class));
+                finish();
                 break;
         }
     }

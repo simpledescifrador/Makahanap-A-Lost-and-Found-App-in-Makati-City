@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:id="@+id/search_history_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bordered_grey_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/lato"
+        android:padding="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@color/md_grey_900"
+        tools:text="laptop" />
+
+</FrameLayout>

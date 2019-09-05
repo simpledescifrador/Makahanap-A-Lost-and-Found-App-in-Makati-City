@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
@@ -41,44 +42,41 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountFragment extends BaseFragment implements AccountMvpView {
-
+    private static AccountFragment instance;
     @BindView(R.id.account_iv_chat)
     ImageView mAccountIvChat;
-
     @BindView(R.id.account_iv_image)
     CircleImageView mAccountIvImage;
-
     @BindView(R.id.account_iv_more)
     ImageView mAccountIvMore;
-
     @BindView(R.id.account_tab_layout)
     TabLayout mAccountTabLayout;
-
     @BindView(R.id.account_tv_found_count)
     TextView mAccountTvFoundCount;
-
     @BindView(R.id.account_tv_lost_count)
     TextView mAccountTvLostCount;
-
     @BindView(R.id.account_tv_name)
     TextView mAccountTvName;
-
     @BindView(R.id.account_tv_rating)
     TextView mAccountTvRating;
-
     @BindView(R.id.account_tv_returned_count)
     TextView mAccountTvReturnedCount;
-
     @BindView(R.id.account_view_pager)
     ViewPager mAccountViewPager;
-
     @BindView(R.id.feed_account_account_layout)
     ConstraintLayout mFeedAccountAccountLayout;
-
     @Inject
     AccountMvpPresenter<AccountMvpView> mPresenter;
-
+    @BindView(R.id.account_chat_btn)
+    Button mAccountChatBtn;
     private PopupMenu mPopupMenu;
+
+    public static AccountFragment getInstance() {
+        if (instance == null) {
+            instance = new AccountFragment();
+        }
+        return instance;
+    }
 
     @Nullable
     @Override
@@ -153,6 +151,12 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
         mAccountTvReturnedCount.setText(String.valueOf(count));
     }
 
+    public void refreshData() {
+        mPresenter.getFoundCount();
+        mPresenter.getLostCount();
+        mPresenter.getReturnedCount();
+    }
+
     @Override
     protected void init() {
         mPresenter.loadAccountData(); //Load Account Data
@@ -202,5 +206,10 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
         mAccountViewPager.setOffscreenPageLimit(accountPagerAdapter.getCount() - 1);
         mAccountViewPager.setAdapter(accountPagerAdapter);
         mAccountTabLayout.setupWithViewPager(mAccountViewPager);
+    }
+
+    @OnClick(R.id.account_chat_btn)
+    public void onViewClicked() {
+        mPresenter.showAccountMessages();
     }
 }

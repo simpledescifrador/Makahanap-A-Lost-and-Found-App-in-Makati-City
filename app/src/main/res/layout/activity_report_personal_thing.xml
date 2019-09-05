@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="8dp"
-        android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:paddingTop="8dp">
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/textView53"
@@ -37,9 +37,9 @@
                     android:id="@+id/report_pt_cat_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -79,9 +79,9 @@
                     android:id="@+id/report_pt_cat_laptop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -120,9 +120,9 @@
                     android:id="@+id/report_pt_cat_school_supplies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -161,9 +161,9 @@
                     android:id="@+id/report_pt_cat_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -202,9 +202,9 @@
                     android:id="@+id/report_pt_cat_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -243,9 +243,9 @@
                     android:id="@+id/report_pt_cat_umbrella"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -284,9 +284,9 @@
                     android:id="@+id/report_pt_cat_bag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -325,9 +325,9 @@
                     android:id="@+id/report_pt_cat_keys"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -368,9 +368,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|right"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -402,8 +402,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:drawablePadding="5dp"
             android:drawableStart="@drawable/ic_assignment_turned_in_black_24dp"
+            android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:text="Selected Category: Nothing Selected"
             android:textColor="@android:color/holo_red_light"
@@ -425,26 +425,6 @@
             android:background="@drawable/all_et_bg"
             android:ems="10"
             android:inputType="textMultiLine|textCapSentences"
-            android:padding="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-        <TextView
-            android:id="@+id/report_pt_tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Description"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-        <EditText
-            android:id="@+id/report_pt_et_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/all_et_bg"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:lines="3"
             android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -570,11 +550,15 @@
             <ImageButton
                 android:id="@+id/report_pt_ibtn_date_picker"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="0"
-                android:background="@android:color/transparent"
-                android:padding="8dp"
-                app:srcCompat="@drawable/ic_calendar" />
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:srcCompat="@drawable/ic_event_grey_800_24dp" />
         </LinearLayout>
 
         <TextView
@@ -617,13 +601,33 @@
             android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
+        <TextView
+            android:id="@+id/report_pt_tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <EditText
+            android:id="@+id/report_pt_et_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/all_et_bg"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
         <Button
             android:id="@+id/report_pt_btn_add_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:drawablePadding="5dp"
             android:drawableStart="@drawable/ic_camera_alt_grey_800_24dp"
+            android:drawablePadding="5dp"
             android:text="Add Image" />
 
         <android.support.v7.widget.RecyclerView
@@ -690,8 +694,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/all_et_bg"
-                android:drawablePadding="8dp"
                 android:drawableStart="@drawable/ic_peso_sign"
+                android:drawablePadding="8dp"
                 android:ems="10"
                 android:hint="Amount in Peso"
                 android:inputType="numberDecimal"

@@ -22,6 +22,9 @@ import com.makatizen.makahanap.ui.register.RegisterActivity;
 import com.makatizen.makahanap.ui.report.person.ReportPersonActivity;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingActivity;
 import com.makatizen.makahanap.ui.report.pet.ReportPetActivity;
+import com.makatizen.makahanap.ui.search.SearchActivity;
+import com.makatizen.makahanap.ui.transaction.MeetTransactionActivity;
+
 import dagger.Component;
 
 @ActivityScope
@@ -67,4 +70,8 @@ public interface ActivityFragmentComponent {
     void inject(ChatActivity chatActivity);
 
     void inject(ChatConvoActivity chatConvoActivity);
+
+    void inject(SearchActivity searchActivity);
+
+    void inject(MeetTransactionActivity meetTransactionActivity);
 }

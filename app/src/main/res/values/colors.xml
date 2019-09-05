@@ -14,4 +14,8 @@
     <color name="defaultGreen">#00C853</color>
     <color name="defaultRed">#FF5252</color>
     <color name="blackSemiTransparent">#99000000</color>
+    <color name="search_input_bg">#80EEEEEE</color>
+    <color name="md_grey_900">#212121</color>
+    <color name="md_grey_500">#9E9E9E</color>
+    <color name="placeholder_bg">#DDDDDD</color>
 </resources>

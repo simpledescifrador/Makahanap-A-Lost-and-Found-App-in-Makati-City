@@ -17,4 +17,14 @@ public interface FeedMvpView extends BaseMvpView {
     void setFeedItem(FeedItem feedItem);
 
     void showFeedLoading();
+
+    void sortFeedByAll();
+
+    void sortFeedByLost();
+
+    void sortFeedByFound();
+
+    void gridView();
+
+    void listView();
 }

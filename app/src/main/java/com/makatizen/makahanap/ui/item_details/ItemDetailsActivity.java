@@ -443,6 +443,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         Intent intent = new Intent(this, ChatConvoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(IntentExtraKeys.ACCOUNT, itemOwnerAccount);
+        intent.putExtra(IntentExtraKeys.ITEM_ID, mItemId);
         intent.putExtra(IntentExtraKeys.CHAT_ID, String.valueOf(chatId));
         startActivity(intent);
     }
@@ -453,7 +454,8 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
             case R.id.item_details_ibtn_map:
                 break;
             case R.id.item_details_btn_account_message:
-                mPresenter.openChat(itemOwnerAccount.getId(), "Single");
+//                mPresenter.openChat(itemOwnerAccount.getId(), "Single");
+                mPresenter.openItemChat(mItemId);
                 break;
         }
     }

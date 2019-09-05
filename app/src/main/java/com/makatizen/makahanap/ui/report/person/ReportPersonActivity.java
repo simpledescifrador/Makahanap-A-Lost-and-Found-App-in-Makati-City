@@ -32,10 +32,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import br.com.sapereaude.maskedEditText.MaskedEditText;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
@@ -60,6 +57,8 @@ import com.makatizen.makahanap.pojo.LocationData;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerActivity;
+import com.makatizen.makahanap.ui.main.account.AccountFragment;
+import com.makatizen.makahanap.ui.main.feed.FeedFragment;
 import com.makatizen.makahanap.ui.report.adapter.ItemImagesAdapter;
 import com.makatizen.makahanap.utils.AppAlertDialog;
 import com.makatizen.makahanap.utils.AppAlertDialog.AlertType;
@@ -74,13 +73,20 @@ import com.makatizen.makahanap.utils.RequestCodes;
 import com.makatizen.makahanap.utils.enums.AgeGroup;
 import com.makatizen.makahanap.utils.enums.Type;
 import com.yalantis.ucrop.UCrop;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import br.com.sapereaude.maskedEditText.MaskedEditText;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ReportPersonActivity extends BaseActivity implements ReportPersonMvpView, OnDateSetListener,
         OnItemClickListener, OnLongClickListener {
@@ -366,6 +372,7 @@ public class ReportPersonActivity extends BaseActivity implements ReportPersonMv
             @Override
             public void onClick(final View view) {
                 dialog.dismiss();
+                refreshFeed();
                 setResult(RESULT_OK);
                 finish();
             }
@@ -375,10 +382,18 @@ public class ReportPersonActivity extends BaseActivity implements ReportPersonMv
             @Override
             public void onClick(final View view) {
                 dialog.dismiss();
+                refreshFeed();
                 setResult(RESULT_OK);
                 finish();
             }
         });
+    }
+
+    private void refreshFeed() {
+        FeedFragment feedFragment = FeedFragment.getInstance();
+        AccountFragment accountFragment = AccountFragment.getInstance();
+        feedFragment.refreshData();
+        accountFragment.refreshData();
     }
 
     @OnClick({R.id.report_person_age_child, R.id.report_person_age_teen, R.id.report_person_age_adult,

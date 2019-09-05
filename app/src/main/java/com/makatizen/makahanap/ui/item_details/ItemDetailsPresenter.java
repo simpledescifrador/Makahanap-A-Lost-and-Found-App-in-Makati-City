@@ -117,6 +117,56 @@ public class ItemDetailsPresenter<V extends ItemDetailsMvpView> extends BasePres
     }
 
     @Override
+    public void openItemChat(int itemId) {
+
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().onError(R.string.title_no_network);
+        } else {
+            getDataManager().getItemChatId(itemId, getDataManager().getCurrentAccount().getId())
+                    .observeOn(getSchedulerProvider().ui())
+                    .subscribeOn(getSchedulerProvider().io())
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(final Disposable disposable) throws Exception {
+                            getMvpView().showLoading();
+                        }
+                    })
+                    .doFinally(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            getMvpView().hideLoading();
+                        }
+                    })
+                    .subscribe(new SingleObserver<CreateChatResponse>() {
+                        @Override
+                        public void onError(final Throwable e) {
+                            Log.e(TAG, "onError: Loading Item Images", e);
+                            if (e instanceof SocketTimeoutException
+                                    || e instanceof SocketException) {
+                                getMvpView().onError(R.string.error_network_failed);
+                            }
+                        }
+
+                        @Override
+                        public void onSubscribe(final Disposable d) {
+                            getCompositeDisposable().add(d);
+                        }
+
+                        @Override
+                        public void onSuccess(final CreateChatResponse createChatResponse) {
+                            Log.d(TAG, "onSuccess: Open Chat");
+                            if (isViewAttached() && createChatResponse.isSuccess()) {
+                                getMvpView().onSuccessGetChatId(createChatResponse.getChatId());
+                            } else {
+                                getMvpView().onError("Unable to open chat. Try again.");
+                            }
+                        }
+                    });
+
+        }
+    }
+
+    @Override
     public void openChat(final int account1Id, final String type) {
         Log.d(TAG, "openChat: ");
 

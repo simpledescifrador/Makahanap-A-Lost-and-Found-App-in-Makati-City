@@ -20,4 +20,8 @@ public interface RegisterMvpView extends BaseMvpView {
     void setPasswordError(int stringId);
 
     void validMakatizenId();
+
+    void showPassword();
+
+    void hidePassword();
 }

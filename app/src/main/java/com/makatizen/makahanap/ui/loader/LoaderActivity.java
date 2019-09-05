@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -25,7 +25,14 @@ import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.main.MainActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LoaderActivity extends BaseActivity implements LoaderMvpView {
 
@@ -37,8 +44,12 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
 
     @Inject
     LoaderPresenter<LoaderMvpView> mPresenter;
+    @BindView(R.id.loader_progress_percentage)
+    ProgressBar mLoaderProgressPercentage;
 
     private int mCurrentIndex = 0;
+
+    private int mCurrentProgress = 0;
 
     private String[] mLoadingMessages = {
             "Preparing app resources",
@@ -47,6 +58,7 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
             "Sending your registration token",
             "Loading the app . . ."
     };
+    private int count = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,7 +129,24 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
     }
 
     @Override
+    public void updateProgress(final int count) {
+        this.count += count;
+    }
+
+    @Override
     protected void init() {
+        final Timer mTimer = new Timer();
+        TimerTask mTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                mLoaderProgressPercentage.setProgress(count);
+                if (count == 100) {
+                    mTimer.cancel();
+                }
+            }
+        };
+        mTimer.schedule(mTimerTask, 0, 100);
+        mLoaderProgressPercentage.setMax(100);
         final Animation rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
         rotateAnimation.setFillAfter(true);
 
@@ -144,6 +173,7 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
         mLoaderTsMessages.setText(mLoadingMessages[mCurrentIndex]);
 
         mLoaderIvLogo.startAnimation(rotateAnimation); //Start Loading Animation
+        count = 20;
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -152,5 +182,6 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
                 mPresenter.getCurrentAccountData(accountId);
             }
         }, 2000);
+
     }
 }

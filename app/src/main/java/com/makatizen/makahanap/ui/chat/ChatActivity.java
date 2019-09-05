@@ -21,11 +21,13 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.pojo.ChatItem;
+import com.makatizen.makahanap.pojo.ChatItemV2;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
 import com.makatizen.makahanap.utils.RecyclerItemUtils;
 import com.makatizen.makahanap.utils.RecyclerItemUtils.OnItemClickListener;
+import com.makatizen.makahanap.utils.SimpleDividerItemDecoration;
 
 import java.util.List;
 
@@ -38,6 +40,9 @@ public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemCli
 
     @Inject
     ChatAdapter mChatAdapter;
+
+    @Inject
+    ChatItemAdapter mChatItemAdapter;
 
     @BindView(R.id.chat_rv_list)
     RecyclerView mChatRvList;
@@ -91,7 +96,7 @@ public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemCli
                 String message = intent.getStringExtra("message");
                 String chatRoomId = intent.getStringExtra("chat_room_id");
                 mChatRvList.smoothScrollToPosition(0);
-                mChatAdapter.updateChatRoom(chatRoomId, message, messageTime);
+                mChatItemAdapter.updateChatRoom(chatRoomId, message, messageTime);
             }
         }
     };
@@ -170,11 +175,12 @@ public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemCli
 
     @Override
     public void onItemClicked(final RecyclerView recyclerView, final int position, final View v) {
-        ChatItem chatItem = mChatAdapter.getItem(position);
+        ChatItemV2 chatItem = mChatItemAdapter.getItem(position);
         Intent intent = new Intent(this, ChatConvoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(IntentExtraKeys.SELECTED_POSITION, position);
-        intent.putExtra(IntentExtraKeys.ACCOUNT, ChatAdapter.senderAccounts.get(position));
+        intent.putExtra(IntentExtraKeys.ITEM_ID, chatItem.getItemId());
+        intent.putExtra(IntentExtraKeys.ACCOUNT, ChatItemAdapter.senderAccounts.get(position));
         intent.putExtra(IntentExtraKeys.CHAT_ID, chatItem.getId());
         startActivity(intent);
     }
@@ -190,9 +196,28 @@ public class ChatActivity extends BaseActivity implements ChatMvpView, OnItemCli
     }
 
     @Override
+    public void setItemChatList(List<ChatItemV2> chatList, int currentAccountId) {
+        mChatSrlRefresh.setRefreshing(false);
+        mChatRvList.setVisibility(View.VISIBLE);
+
+        mChatItemAdapter.setCurrentAccountId(currentAccountId);
+        mChatItemAdapter.setData(chatList);
+        mChatItemAdapter.sort(ChatItemV2.byLatestMessageDate);
+    }
+
+    @Override
+    public void onItemChatListRefresh(List<ChatItemV2> chatItemList) {
+        mChatSrlRefresh.setRefreshing(false);
+
+        mChatItemAdapter.updateChatList(chatItemList);
+        mChatItemAdapter.sort(ChatItemV2.byLatestMessageDate);
+    }
+
+    @Override
     protected void init() {
-        mChatRvList.setAdapter(mChatAdapter);
+        mChatRvList.setAdapter(mChatItemAdapter);
         mChatRvList.setLayoutManager(new LinearLayoutManager(this));
+        mChatRvList.addItemDecoration(new SimpleDividerItemDecoration(this));
         RecyclerItemUtils.addTo(mChatRvList).setOnItemClickListener(this);
 
         mChatSrlRefresh.setRefreshing(true);

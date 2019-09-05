@@ -98,4 +98,13 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
         }
         return false;
     }
+
+    @Override
+    public void passwordToggle(boolean showPass) {
+        if (showPass) {
+            getMvpView().showPassword();
+        } else {
+            getMvpView().hidePassword();
+        }
+    }
 }

@@ -10,4 +10,6 @@ public interface ItemDetailsMvpPresenter<V extends ItemDetailsMvpView & BaseMvpV
     void loadItemDetails(int itemId);
 
     void loadItemImages(int itemId);
+
+    void openItemChat(int itemId);
 }

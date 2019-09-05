@@ -32,10 +32,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import br.com.sapereaude.maskedEditText.MaskedEditText;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
@@ -57,6 +54,8 @@ import com.makatizen.makahanap.pojo.LocationData;
 import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerActivity;
+import com.makatizen.makahanap.ui.main.account.AccountFragment;
+import com.makatizen.makahanap.ui.main.feed.FeedFragment;
 import com.makatizen.makahanap.ui.report.adapter.ItemImagesAdapter;
 import com.makatizen.makahanap.utils.AppAlertDialog;
 import com.makatizen.makahanap.utils.AppAlertDialog.AlertType;
@@ -71,141 +70,111 @@ import com.makatizen.makahanap.utils.RequestCodes;
 import com.makatizen.makahanap.utils.enums.PetType;
 import com.makatizen.makahanap.utils.enums.Type;
 import com.yalantis.ucrop.UCrop;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import br.com.sapereaude.maskedEditText.MaskedEditText;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ReportPetActivity extends BaseActivity implements ReportPetMvpView, OnDateSetListener,
         OnItemClickListener, OnLongClickListener {
-
     @Inject
     AppAlertDialog mAppAlertDialog;
-
     @Inject
     BottomSheetDialog mBottomSheetDialog;
-
     @Inject
     ImageUtils mImageUtils;
-
     @Inject
     ItemImagesAdapter mItemImagesAdapter;
-
     @Inject
     PermissionUtils mPermissionUtils;
-
     @Inject
     ReportPetMvpPresenter<ReportPetMvpView> mPresenter;
-
     @BindView(R.id.report_pet_btn_add_image)
     Button mReportPetBtnAddImage;
-
     @BindView(R.id.report_pet_btn_cancel_delete)
     Button mReportPetBtnCancelDelete;
-
     @BindView(R.id.report_pet_btn_delete)
     Button mReportPetBtnDelete;
-
     @BindView(R.id.report_pet_btn_submit_report)
     Button mReportPetBtnSubmitReport;
-
     @BindView(R.id.report_pet_condition_rg)
     RadioGroup mReportPetConditionRg;
-
     @BindView(R.id.report_pet_et_date)
     MaskedEditText mReportPetEtDate;
-
     @BindView(R.id.report_pet_et_description)
     EditText mReportPetEtDescription;
-
     @BindView(R.id.report_pet_et_location)
     EditText mReportPetEtLocation;
-
     @BindView(R.id.report_pet_et_more_location_info)
     EditText mReportPetEtMoreLocationInfo;
-
     @BindView(R.id.report_pet_et_name)
     EditText mReportPetEtName;
-
     @BindView(R.id.report_pet_et_reward_amount)
     EditText mReportPetEtRewardAmount;
-
     @BindView(R.id.report_pet_good_rb)
     RadioButton mReportPetGoodRb;
-
     @BindView(R.id.report_pet_ibtn_date_picker)
     ImageButton mReportPetIbtnDatePicker;
-
     @BindView(R.id.report_pet_ibtn_place_picker)
     ImageButton mReportPetIbtnPlacePicker;
-
     @BindView(R.id.report_pet_injured_rb)
     RadioButton mReportPetInjuredRb;
-
     @BindView(R.id.report_pet_linearl_delete)
     LinearLayout mReportPetLinearlDelete;
-
     @BindView(R.id.report_pet_reward_layout)
     LinearLayout mReportPetRewardLayout;
-
     @BindView(R.id.report_pet_rv_images)
     RecyclerView mReportPetRvImages;
-
     @BindView(R.id.report_pet_select_type)
     TextView mReportPetSelectType;
-
     @BindView(R.id.report_pet_switch_reward)
     Switch mReportPetSwitchReward;
-
     @BindView(R.id.report_pet_tv_add_location_info)
     TextView mReportPetTvAddLocationInfo;
-
     @BindView(R.id.report_pet_tv_condition)
     TextView mReportPetTvCondition;
-
     @BindView(R.id.report_pet_tv_date)
     TextView mReportPetTvDate;
-
     @BindView(R.id.report_pet_tv_description)
     TextView mReportPetTvDescription;
-
     @BindView(R.id.report_pet_tv_location)
     TextView mReportPetTvLocation;
-
     @BindView(R.id.report_pet_tv_more_location_info)
     TextView mReportPetTvMoreLocationInfo;
-
     @BindView(R.id.report_pet_tv_name)
     TextView mReportPetTvName;
-
     @BindView(R.id.report_pet_type_bird)
     CardView mReportPetTypeBird;
-
     @BindView(R.id.report_pet_type_cat)
     CardView mReportPetTypeCat;
-
     @BindView(R.id.report_pet_type_dog)
     CardView mReportPetTypeDog;
-
     @BindView(R.id.report_pet_type_others)
     CardView mReportPetTypeOthers;
-
     private List<String> mImagePaths = new ArrayList<>();
-
     private List<FrameLayout> mItemsMarkDeleteLayouts = new ArrayList<>();
-
     private LocationData mLocationData = new LocationData();
-
     private List<Integer> mMarkToDeleteItems = new ArrayList<>();
-
     private String mSelectedSubType;
-
     private String mSelectedType;
-
     private Type mType;
+
+    private void refreshFeed() {
+        FeedFragment feedFragment = FeedFragment.getInstance();
+        AccountFragment accountFragment = AccountFragment.getInstance();
+        feedFragment.refreshData();
+        accountFragment.refreshData();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -358,6 +327,7 @@ public class ReportPetActivity extends BaseActivity implements ReportPetMvpView,
             @Override
             public void onClick(final View view) {
                 dialog.dismiss();
+                refreshFeed();
                 setResult(RESULT_OK);
                 finish();
             }
@@ -367,6 +337,7 @@ public class ReportPetActivity extends BaseActivity implements ReportPetMvpView,
             @Override
             public void onClick(final View view) {
                 dialog.dismiss();
+                refreshFeed();
                 setResult(RESULT_OK);
                 finish();
             }

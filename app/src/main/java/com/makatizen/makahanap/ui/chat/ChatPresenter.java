@@ -1,16 +1,20 @@
 package com.makatizen.makahanap.ui.chat;
 
 import android.util.Log;
+
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.DataManager;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
 import com.makatizen.makahanap.ui.base.BasePresenter;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
+
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 public class ChatPresenter<V extends ChatMvpView> extends BasePresenter<V> implements ChatMvpPresenter<V> {
 
@@ -54,7 +58,7 @@ public class ChatPresenter<V extends ChatMvpView> extends BasePresenter<V> imple
                         public void onSuccess(final ChatResponse chatResponse) {
                             Log.d(TAG, "onSuccess: Loading Chat List");
                             if (isViewAttached() && chatResponse.getTotalChatRooms() != 0) {
-                                getMvpView().setChatList(chatResponse.getChatRooms(), currentId);
+                                getMvpView().setItemChatList(chatResponse.getChats(), currentId);
                             } else {
                                 //NO Chat or Messages
                                 getMvpView().noContent();
@@ -96,7 +100,7 @@ public class ChatPresenter<V extends ChatMvpView> extends BasePresenter<V> imple
                         public void onSuccess(final ChatResponse chatResponse) {
                             Log.d(TAG, "onSuccess: Loading Chat List");
                             if (isViewAttached() && chatResponse.getTotalChatRooms() != 0) {
-                                getMvpView().onChatListRefresh(chatResponse.getChatRooms());
+                                getMvpView().onItemChatListRefresh(chatResponse.getChats());
                             } else {
                                 //NO Chat or Messages
                                 getMvpView().noContent();

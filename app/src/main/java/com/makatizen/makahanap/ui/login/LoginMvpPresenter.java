@@ -9,4 +9,5 @@ public interface LoginMvpPresenter<V extends LoginMvpView & BaseMvpView> extends
 
     boolean validateLoginDetails(String makatizenNumber, String password);
 
+    void passwordToggle(boolean showPass);
 }
