@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.transaction.MeetTransactionActivity"></activity>
+        <activity android:name=".ui.return_item.ReturnItemActivity" />
+        <activity android:name=".ui.transaction.MeetTransactionActivity" />
         <activity
             android:name=".ui.search.SearchActivity"
             android:launchMode="singleTop"

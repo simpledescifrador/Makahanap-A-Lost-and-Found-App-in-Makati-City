@@ -5,6 +5,7 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckReturnStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
@@ -20,9 +21,12 @@ import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+import com.makatizen.makahanap.pojo.api_response.ReturnItemTransactionResponse;
+import com.makatizen.makahanap.pojo.api_response.ReturnPendingTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
+import com.makatizen.makahanap.pojo.api_response.UpdateReturnTransactionResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +50,43 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_NEW_RATING_URL)
+    Completable newAccountRating(
+            @Field("rated_to") String ratedToAccount,
+            @Field("rated_by") String ratedByAccount,
+            @Field("feed_back") String feedBack,
+            @Field("rating") String rating
+    );
+
+    @FormUrlEncoded
+    @PUT(ApiConstants.PUT_CONFIRM_RETURN_TRANSACTION_URL)
+    Single<UpdateReturnTransactionResponse> confirmReturnTransaction(
+            @Field("transaction_id") String transactionId
+    );
+
+    @FormUrlEncoded
+    @PUT(ApiConstants.PUT_DENIED_RETURN_TRANSACTION_URL)
+    Single<UpdateReturnTransactionResponse> deniedReturnTransaction(
+            @Field("transaction_id") String transactionId
+    );
+
+    @GET(ApiConstants.GET_CHECK_PENDING_TRANSACTION_URL + "{item_id}/{account_id}")
+    Single<ReturnPendingTransactionResponse> checkPendingReturnAgreement(
+            @Path("item_id") String itemId,
+            @Path("account_id") String accountId
+    );
+
+    @Multipart
+    @POST(ApiConstants.POST_RETURN_ITEM_TRANSACTION_URL)
+    Completable returnItemTransaction(
+            @PartMap Map<String, RequestBody> data,
+            @Part MultipartBody.Part transactionImage
+    );
+
+    @GET(ApiConstants.GET_CHECK_RETURN_STATUS_URL + "{item_id}/return/status")
+    Single<CheckReturnStatusResponse> checkItemReturnStatus(@Path("item_id") String itemId);
 
     @FormUrlEncoded
     @PUT(ApiConstants.PUT_MEETUP_CONFIRMATION_URL)

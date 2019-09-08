@@ -66,6 +66,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/classic_item_report_type"
-        app:layout_constraintTop_toBottomOf="@+id/classic_item_title"
-        tools:text="@ University of Makati" />
+        app:layout_constraintTop_toBottomOf="@+id/classic_item_title" />
 </android.support.constraint.ConstraintLayout>

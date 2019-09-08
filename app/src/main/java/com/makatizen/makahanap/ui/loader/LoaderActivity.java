@@ -51,13 +51,22 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
 
     private int mCurrentProgress = 0;
 
+//    private String[] mLoadingMessages = {
+//            "Preparing app resources",
+//            "Getting your account data",
+//            "Retrieving all barangay repositories",
+//            "Sending your registration token",
+//            "Loading the app . . ."
+//    };
+
     private String[] mLoadingMessages = {
-            "Preparing app resources",
-            "Getting your account data",
-            "Retrieving all barangay repositories",
-            "Sending your registration token",
+            "Loading . . .",
+            "Please wait .",
+            "Please wait . .",
+            "Please wait . . .",
             "Loading the app . . ."
     };
+
     private int count = 0;
 
     @Override
@@ -163,8 +172,8 @@ public class LoaderActivity extends BaseActivity implements LoaderMvpView {
         });
 
         // Declare the in and out animations and initialize them
-        final Animation inAnimation = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-        final Animation outAnimation = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+        final Animation inAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        final Animation outAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
 
         mLoaderTsMessages.setInAnimation(inAnimation);
         mLoaderTsMessages.setOutAnimation(outAnimation);

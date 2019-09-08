@@ -461,6 +461,10 @@ public class ChatConvoActivity extends BaseActivity implements ChatConvoMvpView 
     @Override
     protected void init() {
         mItemId = getIntent().getIntExtra(IntentExtraKeys.ITEM_ID, 0);
+        int meetupId = getIntent().getIntExtra(IntentExtraKeys.MEET_ID, 0);
+        if (meetupId != 0) {
+            mPresenter.setMeetupId(meetupId);
+        }
         showBackButton(true);
         mConvoRvMessages.setAdapter(mChatConvoAdapter);
         mConvoRvMessages.setLayoutManager(new LinearLayoutManager(this));

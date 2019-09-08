@@ -143,7 +143,7 @@ public class FeedFragment extends BaseFragment implements FeedMvpView, OnItemCli
     @Override
     public void noNetworkConnection() {
 //        final Dialog dialog = mAppAlertDialog.showCustomDialog(AlertType.DANGER, "No Network Connection",
-//                "Please make to turn on your internet connection.", "Retry", "animations/no_internet.json");
+//                "Please make to turn on your internet connection.", "Retry", "animations/no_internet1.json");
 //        dialog.setCancelable(true);
 //        dialog.findViewById(R.id.custom_alert_btn_positive).setOnClickListener(new OnClickListener() {
 //            @Override
@@ -200,6 +200,7 @@ public class FeedFragment extends BaseFragment implements FeedMvpView, OnItemCli
         mFeedAdapter.insert(feedItem, mFeedAdapter.getItemCount());
         mFeedAdapter.feedItemsListTempHolder.add(feedItem);
         mPresenter.loadFeedState();
+        mPresenter.refreshFeed();
 
     }
 

@@ -33,6 +33,7 @@ import com.makatizen.makahanap.data.DataManager;
 import com.makatizen.makahanap.data.remote.ApiConstants;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+import com.makatizen.makahanap.ui.chat.ChatItemAdapter;
 import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
 import com.makatizen.makahanap.ui.item_details.ItemDetailsActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
@@ -222,8 +223,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         senderAccount.setLastName("");
 
         String chatId = remoteMessage.getData().get("chat_room_id");
+        int itemId = Integer.parseInt(remoteMessage.getData().get("item_id"));
 
         intent.putExtra(IntentExtraKeys.ACCOUNT, senderAccount);
+        intent.putExtra(IntentExtraKeys.ITEM_ID, itemId);
         intent.putExtra(IntentExtraKeys.CHAT_ID, chatId);
         PendingIntent pendingIntent = PendingIntent
                 .getActivity(this, RequestCodes.MESSAGE_CONVO, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -345,6 +348,50 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             PendingIntent pendingIntent = PendingIntent
                     .getActivity(this, RequestCodes.ITEM_DETAILS, intent, PendingIntent.FLAG_ONE_SHOT);
             notificationBuilder.setContentIntent(pendingIntent);
+        }
+
+        if (clickAction.equals("Meetup")) {
+            int chatRoomId = Integer.parseInt(remoteMessage.getData().get("ref_id"));
+            int meetupId = Integer.parseInt(remoteMessage.getData().get("meetup_id"));
+            int itemId2 = Integer.parseInt(remoteMessage.getData().get("item_id"));
+
+            String lat = remoteMessage.getData().get("location_lat");
+            String lng = remoteMessage.getData().get("location_lng");
+            final String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng+ "&zoom=15&scale=1&size=600x300&maptype=roadmap&key=" + getResources().getString(R.string.google_map_api_key) + "&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff5050%7Clabel:%7C" + lat + "," + lng;
+            MakahanapAccount senderAccount = new MakahanapAccount();
+            senderAccount.setId(Integer.parseInt(remoteMessage.getData().get("sender_id")));
+            senderAccount.setFirstName(remoteMessage.getData().get("sender_name"));
+            senderAccount.setLastName("");
+            Intent intent = new Intent(this, ChatConvoActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra(IntentExtraKeys.CHAT_ID, String.valueOf(chatRoomId));
+            intent.putExtra(IntentExtraKeys.ACCOUNT, senderAccount);
+            intent.putExtra(IntentExtraKeys.MEET_ID, meetupId);
+            intent.putExtra(IntentExtraKeys.ITEM_ID, itemId2);
+
+            PendingIntent pendingIntent = PendingIntent
+                    .getActivity(this, RequestCodes.MESSAGE_CONVO, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationBuilder.setContentIntent(pendingIntent);
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    Glide.with(getApplicationContext())
+                            .asBitmap()
+                            .load(url)
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull final Bitmap resource,
+                                                            @Nullable final Transition<? super Bitmap> transition) {
+                                    notificationBuilder.setStyle(
+                                            new NotificationCompat.BigPictureStyle().bigPicture(resource));
+                                    expandedView.setImageViewBitmap(R.id.expanded_image, resource);
+                                    notificationManager.notify(1, notificationBuilder.build());
+                                }
+                            });
+                }
+            });
+            return;
         }
 
         final String imageUrl = remoteMessage.getData().get("image_url");

@@ -1,6 +1,7 @@
 package com.makatizen.makahanap.data;
 
 import android.content.Context;
+
 import com.makatizen.makahanap.data.local.database.DbHelper;
 import com.makatizen.makahanap.data.local.preference.PreferencesHelper;
 import com.makatizen.makahanap.data.remote.ApiHelper;
@@ -14,6 +15,7 @@ import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckReturnStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
@@ -30,16 +32,21 @@ import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+import com.makatizen.makahanap.pojo.api_response.ReturnPendingTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
+import com.makatizen.makahanap.pojo.api_response.UpdateReturnTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import java.util.List;
-import javax.inject.Inject;
 
 public class AppDataManager implements DataManager {
 
@@ -53,7 +60,7 @@ public class AppDataManager implements DataManager {
 
     @Inject
     public AppDataManager(@ApplicationContext Context context, DbHelper dbHelper,
-            PreferencesHelper applicationPreferences, ApiHelper apiHelper) {
+                          PreferencesHelper applicationPreferences, ApiHelper apiHelper) {
         this.context = context;
         this.dbHelper = dbHelper;
         this.applicationPreferences = applicationPreferences;
@@ -68,6 +75,36 @@ public class AppDataManager implements DataManager {
     @Override
     public void addBarangayDataToDb(final BarangayData barangayData) {
         dbHelper.addBarangayDataToDb(barangayData);
+    }
+
+    @Override
+    public Completable newAccountRating(String ratedToAccount, String ratedByAccount, String feedBack, String rating) {
+        return apiHelper.newAccountRating(ratedToAccount, ratedByAccount, feedBack, rating);
+    }
+
+    @Override
+    public Single<UpdateReturnTransactionResponse> confirmReturnTransaction(String transaction) {
+        return apiHelper.confirmReturnTransaction(transaction);
+    }
+
+    @Override
+    public Single<UpdateReturnTransactionResponse> deniedReturnTransaction(String transaction) {
+        return apiHelper.deniedReturnTransaction(transaction);
+    }
+
+    @Override
+    public Single<ReturnPendingTransactionResponse> checkPendingReturnAgreement(String itemId, String accountId) {
+        return apiHelper.checkPendingReturnAgreement(itemId, accountId);
+    }
+
+    @Override
+    public Completable returnItemTransaction(String meetUpId, String itemId, String imagePath) {
+        return apiHelper.returnItemTransaction(meetUpId, itemId, imagePath);
+    }
+
+    @Override
+    public Single<CheckReturnStatusResponse> checkItemReturnStatus(String itemId) {
+        return apiHelper.checkItemReturnStatus(itemId);
     }
 
     @Override
@@ -92,7 +129,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Single<ConfirmationStatusResponse> getConfirmationStatus(int itemId) {
-        return apiHelper.getConfirmationStatus(itemId) ;
+        return apiHelper.getConfirmationStatus(itemId);
     }
 
     @Override
@@ -147,7 +184,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Single<AddChatMessageResponse> addChatMessage(final int chatId, final int accountId,
-            final String message) {
+                                                         final String message) {
         return apiHelper.addChatMessage(chatId, accountId, message);
     }
 
@@ -207,23 +244,23 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void setSortFeedState(String state) {
-        applicationPreferences.setSortFeedState(state);
-    }
-
-    @Override
     public String getSortFeedState() {
         return applicationPreferences.getSortFeedState();
     }
 
     @Override
-    public void setPostViewState(String state) {
-        applicationPreferences.setPostViewState(state);
+    public void setSortFeedState(String state) {
+        applicationPreferences.setSortFeedState(state);
     }
 
     @Override
     public String getPostViewState() {
         return applicationPreferences.getPostViewState();
+    }
+
+    @Override
+    public void setPostViewState(String state) {
+        applicationPreferences.setPostViewState(state);
     }
 
     @Override

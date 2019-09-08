@@ -12,4 +12,16 @@ public interface ItemDetailsMvpPresenter<V extends ItemDetailsMvpView & BaseMvpV
     void loadItemImages(int itemId);
 
     void openItemChat(int itemId);
+
+    void checkReturnStatus(int itemId);
+
+    void startReturnActivity();
+
+    void checkItemPendingReturnAgreement(int itemId);
+
+    void agreeAgreement();
+
+    void disgreeAgreement();
+
+    void rateAccount(String rating, String feedBack);
 }

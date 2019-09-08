@@ -26,4 +26,6 @@ public interface ChatConvoMvpPresenter<V extends ChatConvoMvpView & BaseMvpView>
     void toggleMeetingDetails(boolean showDetails);
 
     void updateMeetUpConfirmation(String confirmation);
+
+    void setMeetupId(int meetupId);
 }

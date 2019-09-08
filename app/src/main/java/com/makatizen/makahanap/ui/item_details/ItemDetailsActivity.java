@@ -1,26 +1,34 @@
 package com.makatizen.makahanap.ui.item_details;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.remote.ApiConstants;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
@@ -29,13 +37,23 @@ import com.makatizen.makahanap.ui.base.BaseActivity;
 import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
 import com.makatizen.makahanap.ui.image_viewer.ImageViewerActivity;
 import com.makatizen.makahanap.ui.item_details.ImageSliderAdapter.OnItemClickListener;
+import com.makatizen.makahanap.ui.main.account.AccountFragment;
+import com.makatizen.makahanap.ui.main.feed.FeedFragment;
+import com.makatizen.makahanap.ui.return_item.ReturnItemActivity;
 import com.makatizen.makahanap.utils.DateUtils;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
-import de.hdodenhof.circleimageview.CircleImageView;
+import com.makatizen.makahanap.utils.RequestCodes;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpView, OnItemClickListener {
 
@@ -173,6 +191,28 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
 
     @Inject
     ItemDetailsMvpPresenter<ItemDetailsMvpView> mPresenter;
+    @BindView(R.id.return_item_okay)
+    TextView mReturnItemOkay;
+    @BindView(R.id.item_return_layout)
+    CardView mItemReturnLayout;
+    @BindView(R.id.cardView)
+    CardView cardView;
+    @BindView(R.id.divider3)
+    View divider3;
+    @BindView(R.id.textView19)
+    TextView textView19;
+    @BindView(R.id.divider4)
+    View divider4;
+    @BindView(R.id.textView20)
+    TextView textView20;
+    @BindView(R.id.progressBar3)
+    ProgressBar progressBar3;
+    @BindView(R.id.return_agreement_agree)
+    TextView mReturnAgreementAgree;
+    @BindView(R.id.return_agreement_disagree)
+    TextView mReturnAgreementDisagree;
+    @BindView(R.id.item_return_agreement_layout)
+    CardView mItemReturnAgreementLayout;
 
     private int autoScrollDelay = 5000;
 
@@ -448,7 +488,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         startActivity(intent);
     }
 
-    @OnClick({R.id.item_details_ibtn_map, R.id.item_details_btn_account_message})
+    @OnClick({R.id.return_agreement_agree, R.id.return_agreement_disagree, R.id.item_details_ibtn_map, R.id.item_details_btn_account_message, R.id.return_item_okay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_details_ibtn_map:
@@ -456,6 +496,64 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
             case R.id.item_details_btn_account_message:
 //                mPresenter.openChat(itemOwnerAccount.getId(), "Single");
                 mPresenter.openItemChat(mItemId);
+                break;
+            case R.id.return_item_okay:
+                mPresenter.startReturnActivity();
+                break;
+            case R.id.return_agreement_agree:
+                final Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.dialog_return_agreement);
+                dialog.setTitle("Confirmation");
+                dialog.getWindow().setLayout(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                dialog.show();
+
+                final Button confirmed = dialog.findViewById(R.id.return_agreement_ok_btn);
+                Button cancel = dialog.findViewById(R.id.return_agreement_cancel_btn);
+                final CheckBox agree = dialog.findViewById(R.id.return_agreement_yes_cb);
+
+                agree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(final CompoundButton compoundButton, final boolean isChecked) {
+                        if (isChecked) {
+                            confirmed.setEnabled(true);
+                        } else {
+                            confirmed.setEnabled(false);
+                        }
+                    }
+                });
+
+                confirmed.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View view) {
+                        // TODO: 3/11/19 Set the transaction as accepted
+                        mPresenter.agreeAgreement();
+                        dialog.dismiss();
+                    }
+                });
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View view) {
+                        dialog.dismiss();
+                    }
+                });
+                break;
+            case R.id.return_agreement_disagree:
+                new AlertDialog.Builder(this)
+                        .setTitle("Confirmation")
+                        .setMessage("Are you sure to disagree?")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.disgreeAgreement();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create().show();
                 break;
         }
     }
@@ -469,6 +567,95 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
     public void setItemImages(final List<String> itemImages) {
         mImageSliderAdapter.setImages(itemImages);
         addDotsIndicator(0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == RequestCodes.RETURN_ITEM) {
+                mItemReturnLayout.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
+    public void showReturnOption() {
+        mItemReturnLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void openReturnItemActivity(int meetupId) {
+        Intent intent = new Intent(this, ReturnItemActivity.class);
+        intent.putExtra(IntentExtraKeys.ITEM_ID, mItemId);
+        intent.putExtra(IntentExtraKeys.MEET_ID, meetupId);
+        startActivityForResult(intent, RequestCodes.RETURN_ITEM);
+    }
+
+    @Override
+    public void showReturnAgreement() {
+        mItemReturnAgreementLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showRatingDialog(String profileUrl, String name) {
+        mItemReturnAgreementLayout.setVisibility(View.GONE);
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_rating);
+        dialog.getWindow().setLayout(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+
+        ImageView accountImage = dialog.findViewById(R.id.rating_account_image);
+        TextView accountName = dialog.findViewById(R.id.rating_account_name);
+        final RatingBar accountRating = dialog.findViewById(R.id.rating_account_bar);
+        Button goodJob = dialog.findViewById(R.id.rating_feedback_goodjob_btn);
+        Button helpFul = dialog.findViewById(R.id.rating_feedback_sohelpful_btn);
+        Button badAttitude = dialog.findViewById(R.id.rating_feedback_badattitude_btn);
+
+        Glide.with(this)
+                .load(ApiConstants.MAKATIZEN_API_BASE_URL + profileUrl)
+                .apply(RequestOptions.overrideOf(300, 300).circleCrop())
+                .into(accountImage);
+
+        accountName.setText(name);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        goodJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                dialog.dismiss();
+                mPresenter.rateAccount(String.valueOf(accountRating.getRating()), "Good Job");
+            }
+        });
+        helpFul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                dialog.dismiss();
+                mPresenter.rateAccount(String.valueOf(accountRating.getRating()), "Helpful");
+
+            }
+        });
+        badAttitude.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                dialog.dismiss();
+                mPresenter.rateAccount(String.valueOf(accountRating.getRating()), "Bad Attitude");
+            }
+        });
+    }
+
+    @Override
+    public void hideReturnAgreement() {
+        mItemReturnAgreementLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSuccessReturn() {
+        FeedFragment feedFragment = FeedFragment.getInstance();
+        AccountFragment accountFragment = AccountFragment.getInstance();
+        feedFragment.refreshData();
+        accountFragment.refreshData();
+        finish();
     }
 
     @Override
@@ -486,6 +673,8 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         mPresenter.loadItemImages(mItemId);
         //Load Item Details
         mPresenter.loadItemDetails(mItemId);
+        mPresenter.checkReturnStatus(mItemId);
+        mPresenter.checkItemPendingReturnAgreement(mItemId);
 
         mImageSliderAdapter.setOnItemClickListener(this);
         mItemDetailsViewPager.addOnPageChangeListener(new OnPageChangeListener() {

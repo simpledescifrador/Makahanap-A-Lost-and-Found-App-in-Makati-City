@@ -61,7 +61,7 @@ public class AccountAboutFragment extends BaseFragment implements AccountAboutMv
 
     @Override
     public void setAccountAboutData(final MakahanapAccount makahanapAccount) {
-        mAccountAboutTvAge.setText(String.valueOf(makahanapAccount.getAge()) + " years old");
+        mAccountAboutTvAge.setText(makahanapAccount.getAge() + " years old");
         mAccountAboutTvAddress.setText(makahanapAccount.getAddress());
         mAccountAboutTvEmail.setText(makahanapAccount.getEmailAddress());
         mAccountAboutTvPhone.setText(makahanapAccount.getContactNumber());

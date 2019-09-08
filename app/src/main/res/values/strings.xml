@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Makahanap</string>
+    <string name="app_name">Maka-Hanap</string>
 
     <!--  API Keys -->
-    <string name="google_map_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBVwsaV3KxPINGt4o-vumAwHZiaOKIR6Do</string>
+    <string name="google_map_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCLvj1qEc2MIZgzjrd6P6MRTeQNDEXfwnU</string>
     <!--  Title -->
     <string name="title_type_lost">What did you lose?</string>
     <string name="title_type_found">What did you find?</string>
@@ -13,37 +13,37 @@
     <string name="message_no_feed_content">Did you lost or found something?\nReport it now</string>
     <string name="message_no_network">Make sure that Wi-Fi or mobile data is turned on, then try again.</string>
     <!-- Hints for Personal Thing Forms-->
-    <string name="hint_lost_pt_item_name">What specific item did you lose?</string>
-    <string name="hint_found_pt_item_name">What specific item did you found?</string>
+    <string name="hint_lost_pt_item_name">Specific Name</string>
+    <string name="hint_found_pt_item_name">Specific Name</string>
     <string name="hint_lost_pt_description">Other Description</string>
     <string name="hint_found_pt_description">Other Description</string>
-    <string name="hint_lost_pt_brand">What brand does your lost item has?</string>
-    <string name="hint_found_pt_brand">What brand does your found item has?</string>
-    <string name="hint_lost_pt_color">What is the color of your lost item?</string>
-    <string name="hint_found_pt_color">What is the color of your found item?</string>
-    <string name="hint_lost_pt_date">When did you lose the item?</string>
-    <string name="hint_found_pt_date">When did you found the item?</string>
-    <string name="hint_lost_pt_location">Where did you lose the item?</string>
-    <string name="hint_found_pt_location">Where did you found the item?</string>
+    <string name="hint_lost_pt_brand">Brand</string>
+    <string name="hint_found_pt_brand">Brand?</string>
+    <string name="hint_lost_pt_color">Color</string>
+    <string name="hint_found_pt_color">Color</string>
+    <string name="hint_lost_pt_date">Last Time Seen</string>
+    <string name="hint_found_pt_date">Date Found</string>
+    <string name="hint_lost_pt_location">Last Location Seen</string>
+    <string name="hint_found_pt_location">Location Found</string>
     <string name="hint_pt_add_image">Tap here to add image</string>
     <!-- Hints for Pet Forms-->
-    <string name="hint_lost_pet_name">What is the name of your lost pet?</string>
+    <string name="hint_lost_pet_name">Name</string>
     <string name="hint_lost_pet_description">Other Description</string>
     <string name="hint_found_pet_description">Other Description</string>
-    <string name="hint_lost_pet_date">When did you lose your pet?</string>
-    <string name="hint_found_pet_date">When did you find the pet?</string>
-    <string name="hint_lost_pet_location">Where did you lose your pet?</string>
-    <string name="hint_found_pet_location">Where did you find the pet?</string>
+    <string name="hint_lost_pet_date">Last Time seen</string>
+    <string name="hint_found_pet_date">Date Found</string>
+    <string name="hint_lost_pet_location">Last Location Seen</string>
+    <string name="hint_found_pet_location">Location Found</string>
     <!-- Hints for Person Forms-->
-    <string name="hint_lost_person_gender">Gender of the person you lost</string>
-    <string name="hint_found_person_gender">Gender of the person you found</string>
-    <string name="hint_lost_person_location">Where did you lose the person?</string>
-    <string name="hint_found_person_location">Where did you find the person?</string>
-    <string name="hint_lost_person_date">When did you lose the person?</string>
-    <string name="hint_found_person_date">When did you find the person?</string>
-    <string name="hint_lost_person_description">How did you describe him/her?</string>
-    <string name="hint_found_person_description">How did you describe him/her?</string>
-    <string name="hint_lost_person_name">Name of the lost person</string>
+    <string name="hint_lost_person_gender">Gender</string>
+    <string name="hint_found_person_gender">Gender</string>
+    <string name="hint_lost_person_location">Last Location Seen</string>
+    <string name="hint_found_person_location">Location Found</string>
+    <string name="hint_lost_person_date">Last Time Seen</string>
+    <string name="hint_found_person_date">Date Found</string>
+    <string name="hint_lost_person_description">Other Description</string>
+    <string name="hint_found_person_description">Other Description</string>
+    <string name="hint_lost_person_name">Name (optional)</string>
     <!-- Error Messages -->
     <string name="error_empty_makatizen_id">Please enter your Makatizen ID</string>
     <string name="error_invalid_makatizen_id">Please enter valid Makatizen ID</string>

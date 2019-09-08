@@ -35,9 +35,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </android.support.v4.view.ViewPager>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/item_details_image_slide_dots"
@@ -60,6 +58,144 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/item_return_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="8dp"
+                    app:contentPadding="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/return_item_close"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackground"
+                            android:padding="8dp"
+                            android:visibility="gone"
+                            app:srcCompat="@drawable/ic_close_red_800_24dp" />
+
+                        <TextView
+                            android:id="@+id/textView38"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/ic_done_green_a700_24dp"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/lato"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Set this item as returned"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/return_item_okay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0"
+                            android:background="@drawable/all_btn_success"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackground"
+                            android:padding="8dp"
+                            android:text="Okay"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/item_return_agreement_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="8dp"
+                    app:contentPadding="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView37"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lato"
+                            android:text="This item was returned to you"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/return_agreement_agree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/all_btn_success"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?selectableItemBackground"
+                                android:padding="12dp"
+                                android:text="Agree"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white" />
+
+                            <TextView
+                                android:id="@+id/return_agreement_disagree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/all_btn_danger"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?selectableItemBackground"
+                                android:padding="12dp"
+                                android:text="Disagree"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
             </android.support.constraint.ConstraintLayout>
 
             <android.support.v7.widget.Toolbar
@@ -105,8 +241,8 @@
                 android:id="@+id/item_details_tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="24dp"
                 android:text="HP Pavillion 523"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorPrimaryText"
@@ -120,8 +256,8 @@
                 android:id="@+id/cardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
                 app:cardBackgroundColor="@color/colorAccent"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
@@ -174,10 +310,10 @@
                 android:id="@+id/item_details_tv_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="3dp"
-                android:text="@ Canteen University of Makati makati City phillipines"
+                android:layout_marginEnd="8dp"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 app:layout_constraintBottom_toBottomOf="@+id/item_details_ibtn_map"
                 app:layout_constraintEnd_toStartOf="@+id/cardView"
@@ -200,8 +336,8 @@
                 android:id="@+id/item_details_tv_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="3dp"
+                android:layout_marginEnd="16dp"
                 android:text="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipis"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -247,9 +383,9 @@
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Other Information"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimaryText"
@@ -285,8 +421,8 @@
                     android:id="@+id/item_details_person_tv_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Mariel Turonary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -310,8 +446,8 @@
                     android:id="@+id/item_details_person_tv_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="August 10, 2017"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -345,8 +481,8 @@
                     android:id="@+id/item_details_pet_tv_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Dog"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -370,8 +506,8 @@
                     android:id="@+id/item_details_pet_tv_breed"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Beagle"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -395,8 +531,8 @@
                     android:id="@+id/item_details_pet_tv_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="August 10, 2017"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -420,8 +556,8 @@
                     android:id="@+id/item_details_pet_tv_condition"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Good Condition"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -456,8 +592,8 @@
                     android:id="@+id/item_details_pt_tv_category"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Mobile Phone"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -480,8 +616,8 @@
                     android:id="@+id/item_details_pt_tv_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="August 10, 2017"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -504,8 +640,8 @@
                     android:id="@+id/item_details_pt_tv_brand"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="HP"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -528,8 +664,8 @@
                     android:id="@+id/item_details_pt_tv_color"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Navy Blue"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -553,8 +689,8 @@
                     android:id="@+id/item_details_pt_tv_turnover"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Barangay East Rembo"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:visibility="gone"
@@ -578,9 +714,9 @@
                 android:id="@+id/item_details_reward_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="gone"
@@ -604,8 +740,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:drawablePadding="5dp"
                     android:drawableStart="@drawable/ic_philippine_peso"
+                    android:drawablePadding="5dp"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center_vertical"
                     android:text="1,000.00"
@@ -623,7 +759,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintVertical_bias="0.0"
+                tools:visibility="gone">
 
                 <ProgressBar
                     android:id="@+id/progressBar3"
@@ -631,7 +768,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:indeterminate="true" />
+                    android:indeterminate="true"
+                    tools:visibility="visible" />
             </FrameLayout>
 
         </android.support.constraint.ConstraintLayout>

@@ -39,7 +39,7 @@ public class ImageViewerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
         final LayoutInflater layoutInflater = (LayoutInflater) mContext
-                .getSystemService(mContext.LAYOUT_INFLATER_SERVICE);
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.item_image_viewer, container, false);
         final ImageView itemImage = view.findViewById(R.id.item_image_viewer_iv);
         Glide.with(mContext)

@@ -256,7 +256,7 @@ public class ReportPersonActivity extends BaseActivity implements ReportPersonMv
                     ItemImageDetails itemImageDetails = new ItemImageDetails();
                     itemImageDetails.setPath(mImagePaths.get(imageCount - 1));
                     itemImageDetails.setSize(
-                            String.valueOf(mImageUtils.getFileSizeInKb(new File(mImagePaths.get(imageCount - 1))))
+                            mImageUtils.getFileSizeInKb(new File(mImagePaths.get(imageCount - 1)))
                                     + " KB");
                     mItemImagesAdapter.insert(itemImageDetails, mItemImagesAdapter.getItemCount());
                     break;
@@ -617,7 +617,7 @@ public class ReportPersonActivity extends BaseActivity implements ReportPersonMv
         final TextView rangeText = promptView.findViewById(R.id.seek_bar_range_tv);
         final TextView minValueText = promptView.findViewById(R.id.seek_bar_min);
         final TextView maxValueText = promptView.findViewById(R.id.seek_bar_max);
-        final CrystalRangeSeekbar rangeSeekbar = (CrystalRangeSeekbar) promptView
+        final CrystalRangeSeekbar rangeSeekbar = promptView
                 .findViewById(R.id.range_seek_bar);
         switch (ageGroup) {
             case CHILD: //Age Range 1-12
@@ -665,8 +665,8 @@ public class ReportPersonActivity extends BaseActivity implements ReportPersonMv
         rangeSeekbar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {
             @Override
             public void finalValue(Number minValue, Number maxValue) {
-                Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
-                mSelectedAgeRanged = String.valueOf(minValue) + " to " + String.valueOf(maxValue);
+                Log.d("CRS=>", minValue + " : " + maxValue);
+                mSelectedAgeRanged = minValue + " to " + maxValue;
             }
         });
         AlertDialog alertDialog = new Builder(this)

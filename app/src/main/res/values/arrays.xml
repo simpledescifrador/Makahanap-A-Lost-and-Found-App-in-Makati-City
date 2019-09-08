@@ -89,4 +89,9 @@
         <item>Claimed</item>
         <item>Returned</item>
     </string-array>
+
+    <string-array name="return_transaction_terms">
+        <item>1. You agree to confide all necessary information to the systems administration in times of multiple claims</item>
+        <item>2. If proven that item is not yours, you agree to be bounded by the punishment of the existing law in the country and of the policy of Maka-Hanap</item>
+    </string-array>
 </resources>

@@ -6,9 +6,9 @@ public class ApiConstants {
 
     /*------- API HEADERS -------------*/
     //Base Urls
-    public static final String BASE_URL = "http://192.168.43.35/makahanap/";
+    public static final String BASE_URL = "http://makahanap.x10host.com/";
 
-    public static final String MAKATIZEN_API_BASE_URL = "http://192.168.43.35/makatizen/";
+    public static final String MAKATIZEN_API_BASE_URL = "http://makatizen.x10host.com/";
 
     public static final String API_KEY = "makahanap@key2018";
 
@@ -37,6 +37,10 @@ public class ApiConstants {
     static final String GET_ACCOUNT_ITEM_IMAGES_URL = "api/v1/accounts/";
 
     static final String GET_ACCOUNTS_URL = "api/v1/accounts/";
+
+    static final String POST_NEW_RATING_URL = "api/v1/accounts/rating/new";
+
+    static final String GET_ACCOUNT_AVERAGE_RATING_URL = "api/v1/accounts/rating/avg/";
 
     //Barangay
     static final String GET_ALL_BARANGAY_DATA_URL = "api/v1/barangay";
@@ -92,6 +96,16 @@ public class ApiConstants {
     static final String GET_MEETUP_DETAILS_URL = "api/v1/transactions/meet/";
 
     static final String PUT_MEETUP_CONFIRMATION_URL = "api/v1/transactions/meet/confirmation";
+
+    static final String GET_CHECK_RETURN_STATUS_URL = "api/v1/transaction/item/";
+
+    static final String GET_CHECK_PENDING_TRANSACTION_URL = "api/v1/transaction/pending/";
+
+    static final String POST_RETURN_ITEM_TRANSACTION_URL = "api/v1/transactions/item/return";
+
+    static final String PUT_CONFIRM_RETURN_TRANSACTION_URL = "api/v1/transaction/item/confirmed";
+
+    static final String PUT_DENIED_RETURN_TRANSACTION_URL = "api/v1/transaction/item/denied";
 
     /* ------------- END OF API URL'S ------------ */
 

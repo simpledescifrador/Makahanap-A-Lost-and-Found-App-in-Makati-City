@@ -63,6 +63,9 @@ import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingPrese
 import com.makatizen.makahanap.ui.report.pet.ReportPetMvpPresenter;
 import com.makatizen.makahanap.ui.report.pet.ReportPetMvpView;
 import com.makatizen.makahanap.ui.report.pet.ReportPetPresenter;
+import com.makatizen.makahanap.ui.return_item.ReturnItemMvpPresenter;
+import com.makatizen.makahanap.ui.return_item.ReturnItemMvpView;
+import com.makatizen.makahanap.ui.return_item.ReturnItemPresenter;
 import com.makatizen.makahanap.ui.search.SearchMvpPresenter;
 import com.makatizen.makahanap.ui.search.SearchMvpView;
 import com.makatizen.makahanap.ui.search.SearchPresenter;
@@ -223,6 +226,12 @@ public class ActivityFragmentModule {
     }
 
     @Provides
+    @ActivityScope
+    ReturnItemMvpPresenter<ReturnItemMvpView> provideReturnItemPresenter(ReturnItemPresenter<ReturnItemMvpView> returnItemMvpViewReturnItemPresenter) {
+        return returnItemMvpViewReturnItemPresenter;
+    }
+
+    @Provides
     Activity provideActivity() {
         return activity;
     }
@@ -238,6 +247,5 @@ public class ActivityFragmentModule {
     BottomSheetDialog provideBottomSheetDialog() {
         return new BottomSheetDialog(activity);
     }
-
 
 }

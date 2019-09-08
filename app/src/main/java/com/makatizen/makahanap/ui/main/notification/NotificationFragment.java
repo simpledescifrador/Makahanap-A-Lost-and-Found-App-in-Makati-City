@@ -25,8 +25,12 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.makatizen.makahanap.R;
+import com.makatizen.makahanap.data.remote.ApiConstants;
+import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Notification;
 import com.makatizen.makahanap.ui.base.BaseFragment;
+import com.makatizen.makahanap.ui.chat.ChatItemAdapter;
+import com.makatizen.makahanap.ui.chat_convo.ChatConvoActivity;
 import com.makatizen.makahanap.ui.item_details.ItemDetailsActivity;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
 import com.makatizen.makahanap.utils.RecyclerItemUtils;
@@ -160,6 +164,7 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
 
         mNotificationAdapter.updateNotifications(notificationList);
         mNotificationRvNotif.smoothScrollToPosition(0);
+
     }
 
     @OnClick(R.id.no_internet_btn_retry)
@@ -169,11 +174,7 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
     @Override
     public void setNotifications(final List<Notification> notificationList) {
         mNotificationSrlRefresh.setRefreshing(false);
-        mNotificationRvNotif.setAdapter(mNotificationAdapter);
-        mNotificationRvNotif.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecyclerItemUtils.addTo(mNotificationRvNotif).setOnItemClickListener(this);
         mNotificationAdapter.setData(notificationList);
-        mNotificationAdapter.setNotificationOptionListener(this);
     }
 
     @Override
@@ -198,7 +199,12 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
 
     @Override
     protected void init() {
+        mNotificationRvNotif.setAdapter(mNotificationAdapter);
+        mNotificationRvNotif.setLayoutManager(new LinearLayoutManager(getContext()));
+        mNotificationAdapter.setNotificationOptionListener(this);
+        RecyclerItemUtils.addTo(mNotificationRvNotif).setOnItemClickListener(this);
         mPresenter.loadNotification();
+
         mNotificationSrlRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -225,6 +231,25 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Notification notification = mNotificationAdapter.getItem(position);
+
+        if (notification.getMeetupId() != null && notification.getItemId() != null) {
+            MakahanapAccount senderAccount = new MakahanapAccount();
+            senderAccount.setProfileImageUrl(ApiConstants.MAKATIZEN_API_BASE_URL + notification.getSenderImage());
+            senderAccount.setId(notification.getSenderId());
+            senderAccount.setFirstName(notification.getSenderName());
+            senderAccount.setLastName("");
+
+            Intent intent = new Intent(getActivity(), ChatConvoActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra(IntentExtraKeys.SELECTED_POSITION, position);
+            intent.putExtra(IntentExtraKeys.ITEM_ID, notification.getItemId());
+            intent.putExtra(IntentExtraKeys.ACCOUNT, senderAccount);
+            intent.putExtra(IntentExtraKeys.MEET_ID, notification.getMeetupId());
+            intent.putExtra(IntentExtraKeys.CHAT_ID, String.valueOf(notification.getReferenceId()));
+            startActivity(intent);
+            return;
+        }
+
         Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);

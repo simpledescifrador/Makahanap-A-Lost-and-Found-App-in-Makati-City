@@ -9,6 +9,7 @@ import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckReturnStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
@@ -25,9 +26,11 @@ import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+import com.makatizen.makahanap.pojo.api_response.ReturnPendingTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
+import com.makatizen.makahanap.pojo.api_response.UpdateReturnTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 
 import java.util.List;
@@ -38,6 +41,19 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public interface ApiHelper {
+
+    Completable newAccountRating(String ratedToAccount, String ratedByAccount, String feedBack, String rating);
+
+    Single<UpdateReturnTransactionResponse> confirmReturnTransaction(String transaction);
+
+    Single<UpdateReturnTransactionResponse> deniedReturnTransaction(String transaction);
+
+    Single<ReturnPendingTransactionResponse> checkPendingReturnAgreement(String itemId, String accountId);
+
+    Completable returnItemTransaction(String meetUpId, String itemId, String imagePath);
+
+    Single<CheckReturnStatusResponse> checkItemReturnStatus(String itemId);
+
     Single<MeetTransactionConfirmationResponse> updateMeetConfirmation(String meetupId, String confirmation);
 
     Single<MeetUpDetailsResponse> getMeetingPlaceDetails(String id);

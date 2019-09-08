@@ -181,6 +181,7 @@ public class ChatConvoPresenter<V extends ChatConvoMvpView> extends BasePresente
                                 mTransactionId = transactionConfirmResponse.getTransactionId();
                                 getMvpView().alreadyConfirmedItem(transactionConfirmResponse.getTransactionId());
                             } else {
+                                mTransactionId = transactionConfirmResponse.getTransactionId();
                                 getMvpView().onSuccessConfirm(transactionConfirmResponse.getTransactionId());
                             }
                         }
@@ -247,9 +248,11 @@ public class ChatConvoPresenter<V extends ChatConvoMvpView> extends BasePresente
                                         int transactionId = status.getTransactionId();
                                         boolean alreadyConfirmed = status.isAlreadyConfirmed();
                                         String confirmation = status.getConfirmation();
+                                        boolean isToReturned = status.isToReturned();
 
-
-                                        if (confirmation != null && status.getConfirmation().equals("Accepted")) {
+                                        if (isToReturned) {
+                                            getMvpView().hideReturnItemOption();
+                                        } else if (confirmation != null && status.getConfirmation().equals("Accepted")) {
                                             getMvpView().meetupDone();
                                         } else if (confirmation != null && status.getConfirmation().equals("Denied")) {
                                             getMvpView().meetupFailed();
@@ -402,6 +405,11 @@ public class ChatConvoPresenter<V extends ChatConvoMvpView> extends BasePresente
                         }
                     });
         }
+    }
+
+    @Override
+    public void setMeetupId(int meetupId) {
+        mMeetId = meetupId;
     }
 
 

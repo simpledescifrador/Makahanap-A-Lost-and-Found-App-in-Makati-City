@@ -21,4 +21,16 @@ public interface ItemDetailsMvpView extends BaseMvpView {
     void removeMessageButton();
 
     void setItemImages(List<String> itemImages);
+
+    void showReturnOption();
+
+    void openReturnItemActivity(int meetupId);
+
+    void showReturnAgreement();
+
+    void showRatingDialog(String profileUrl ,String accountName);
+
+    void hideReturnAgreement();
+
+    void onSuccessReturn();
 }

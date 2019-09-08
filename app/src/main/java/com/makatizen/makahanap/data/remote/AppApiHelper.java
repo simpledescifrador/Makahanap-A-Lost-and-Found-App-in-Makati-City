@@ -12,6 +12,7 @@ import com.makatizen.makahanap.pojo.Pet;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckReturnStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
@@ -28,9 +29,11 @@ import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
+import com.makatizen.makahanap.pojo.api_response.ReturnPendingTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
+import com.makatizen.makahanap.pojo.api_response.UpdateReturnTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import com.makatizen.makahanap.utils.enums.Type;
 
@@ -61,6 +64,44 @@ public class AppApiHelper implements ApiHelper {
     public AppApiHelper(final ApiInterface apiInterface, final MakatizenApiInterface makatizenApiInterface) {
         mApiInterface = apiInterface;
         mMakatizenApiInterface = makatizenApiInterface;
+    }
+
+    @Override
+    public Completable newAccountRating(String ratedToAccount, String ratedByAccount, String feedBack, String rating) {
+        return mApiInterface.newAccountRating(ratedToAccount, ratedByAccount, feedBack, rating);
+    }
+
+    @Override
+    public Single<UpdateReturnTransactionResponse> confirmReturnTransaction(String transaction) {
+        return mApiInterface.confirmReturnTransaction(transaction);
+    }
+
+    @Override
+    public Single<UpdateReturnTransactionResponse> deniedReturnTransaction(String transaction) {
+        return mApiInterface.deniedReturnTransaction(transaction);
+    }
+
+    @Override
+    public Single<ReturnPendingTransactionResponse> checkPendingReturnAgreement(String itemId, String accountId) {
+        return mApiInterface.checkPendingReturnAgreement(itemId, accountId);
+    }
+
+    @Override
+    public Completable returnItemTransaction(String meetUpId, String itemId, String imagePath) {
+        Map<String, RequestBody> partMap = new HashMap<>();
+        Uri imageUri = Uri.fromFile(new File(imagePath));
+
+        partMap.put("meetup_id", createPartFromString(meetUpId));
+        partMap.put("item_id", createPartFromString(itemId));
+
+        Part imagePart = prepareFilePart("meetup_image", imageUri);
+
+        return mApiInterface.returnItemTransaction(partMap, imagePart);
+    }
+
+    @Override
+    public Single<CheckReturnStatusResponse> checkItemReturnStatus(String itemId) {
+        return mApiInterface.checkItemReturnStatus(itemId);
     }
 
     @Override

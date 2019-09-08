@@ -215,7 +215,7 @@ public class ReportPetActivity extends BaseActivity implements ReportPetMvpView,
                     ItemImageDetails itemImageDetails = new ItemImageDetails();
                     itemImageDetails.setPath(mImagePaths.get(imageCount - 1));
                     itemImageDetails.setSize(
-                            String.valueOf(mImageUtils.getFileSizeInKb(new File(mImagePaths.get(imageCount - 1))))
+                            mImageUtils.getFileSizeInKb(new File(mImagePaths.get(imageCount - 1)))
                                     + " KB");
                     mItemImagesAdapter.insert(itemImageDetails, mItemImagesAdapter.getItemCount());
                     break;
@@ -466,7 +466,7 @@ public class ReportPetActivity extends BaseActivity implements ReportPetMvpView,
                 pet.setBreed(mSelectedSubType);
                 pet.setPetType(mSelectedType);
                 pet.setDescription(mReportPetEtDescription.getText().toString());
-                String condition = mReportPetGoodRb.isChecked() ? "Good" : "Injured";
+                String condition = mReportPetGoodRb.isChecked() ? "Healthy" : "Injured";
                 pet.setCondition(condition);
                 pet.setDate(mReportPetEtDate.getRawText());
                 pet.setLocationData(mLocationData);

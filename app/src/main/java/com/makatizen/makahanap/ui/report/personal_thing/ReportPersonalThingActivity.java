@@ -270,7 +270,7 @@ public class ReportPersonalThingActivity extends BaseActivity implements ReportP
                     ItemImageDetails itemImageDetails = new ItemImageDetails();
                     itemImageDetails.setPath(mImagePaths.get(imageCount - 1));
                     itemImageDetails.setSize(
-                            String.valueOf(mImageUtils.getFileSizeInKb(new File(mImagePaths.get(imageCount - 1))))
+                            mImageUtils.getFileSizeInKb(new File(mImagePaths.get(imageCount - 1)))
                                     + " KB");
                     mItemImagesAdapter.insert(itemImageDetails, mItemImagesAdapter.getItemCount());
                     break;

@@ -159,9 +159,7 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
 
     private boolean checkMapServices(){
         if(isServicesOK()){
-            if(isMapsEnabled()){
-                return true;
-            }
+            return isMapsEnabled();
         }
         return false;
     }
