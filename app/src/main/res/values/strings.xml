@@ -51,6 +51,7 @@
     <string name="error_password_empty">Your password cannot be empty</string>
     <string name="error_password_invalid_length">At least 7 or more characters</string>
     <string name="error_confirm_password_not_match">Password is not matched</string>
+    <string name="error_invalid_password">Invalid Password</string>
 
     <!-- Success Messages -->
     <string name="success_register_message">Registration Successful</string>
@@ -63,5 +64,7 @@
     <string name="title_no_notification">No Notification</string>
     <string name="message_no_notification">You don\'t have notifications yet</string>
     <string name="guide_chat_transaction">Start chatting to verify the owner\'s identity before clicking \"return item\" and meet-up button at the top</string>
+    <string name="password_requirements">*Your password MUST have at least 8 characters in length.\n*Your password MUST have at least one number.\n*Your password MUST have at least one special character.\n*Your password MUST NOT contain spaces.
+    </string>
 
 </resources>

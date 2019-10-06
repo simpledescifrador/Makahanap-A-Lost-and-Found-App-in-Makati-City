@@ -24,6 +24,9 @@ import com.makatizen.makahanap.ui.loader.LoaderPresenter;
 import com.makatizen.makahanap.ui.login.LoginMvpPresenter;
 import com.makatizen.makahanap.ui.login.LoginMvpView;
 import com.makatizen.makahanap.ui.login.LoginPresenter;
+import com.makatizen.makahanap.ui.login.forgot_password.ForgotPasswordMvpPresenter;
+import com.makatizen.makahanap.ui.login.forgot_password.ForgotPasswordMvpView;
+import com.makatizen.makahanap.ui.login.forgot_password.ForgotPasswordPresenter;
 import com.makatizen.makahanap.ui.main.MainMvpPresenter;
 import com.makatizen.makahanap.ui.main.MainMvpView;
 import com.makatizen.makahanap.ui.main.MainPresenter;
@@ -33,6 +36,9 @@ import com.makatizen.makahanap.ui.main.account.AccountPresenter;
 import com.makatizen.makahanap.ui.main.account.about.AccountAboutMvpPresenter;
 import com.makatizen.makahanap.ui.main.account.about.AccountAboutMvpView;
 import com.makatizen.makahanap.ui.main.account.about.AccountAboutPresenter;
+import com.makatizen.makahanap.ui.main.account.change_password.ChangePasswordMvpPresenter;
+import com.makatizen.makahanap.ui.main.account.change_password.ChangePasswordMvpView;
+import com.makatizen.makahanap.ui.main.account.change_password.ChangePasswordPresenter;
 import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryMvpPresenter;
 import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryMvpView;
 import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryPresenter;
@@ -54,6 +60,12 @@ import com.makatizen.makahanap.ui.main.notification.NotificationPresenter;
 import com.makatizen.makahanap.ui.register.RegisterMvpPresenter;
 import com.makatizen.makahanap.ui.register.RegisterMvpView;
 import com.makatizen.makahanap.ui.register.RegisterPresenter;
+import com.makatizen.makahanap.ui.register.email_verification.EmailVerificationMvpPresenter;
+import com.makatizen.makahanap.ui.register.email_verification.EmailVerificationMvpView;
+import com.makatizen.makahanap.ui.register.email_verification.EmailVerificationPresenter;
+import com.makatizen.makahanap.ui.register.sms_verification.SmsVerificationMvpPresenter;
+import com.makatizen.makahanap.ui.register.sms_verification.SmsVerificationMvpView;
+import com.makatizen.makahanap.ui.register.sms_verification.SmsVerificationPresenter;
 import com.makatizen.makahanap.ui.report.person.ReportPersonMvpPresenter;
 import com.makatizen.makahanap.ui.report.person.ReportPersonMvpView;
 import com.makatizen.makahanap.ui.report.person.ReportPersonPresenter;
@@ -230,6 +242,31 @@ public class ActivityFragmentModule {
     ReturnItemMvpPresenter<ReturnItemMvpView> provideReturnItemPresenter(ReturnItemPresenter<ReturnItemMvpView> returnItemMvpViewReturnItemPresenter) {
         return returnItemMvpViewReturnItemPresenter;
     }
+
+    @Provides
+    @ActivityScope
+    EmailVerificationMvpPresenter<EmailVerificationMvpView> provideEmailVerificationPresenter(EmailVerificationPresenter<EmailVerificationMvpView> emailVerificationMvpViewEmailVerificationPresenter) {
+        return emailVerificationMvpViewEmailVerificationPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    SmsVerificationMvpPresenter<SmsVerificationMvpView> provideSmsVerificationPresenter(SmsVerificationPresenter<SmsVerificationMvpView> smsVerificationMvpViewSmsVerificationPresenter) {
+        return smsVerificationMvpViewSmsVerificationPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    ChangePasswordMvpPresenter<ChangePasswordMvpView> provideChangePasswordPresenter(ChangePasswordPresenter<ChangePasswordMvpView> changePasswordMvpViewChangePasswordPresenter) {
+        return changePasswordMvpViewChangePasswordPresenter;
+    }
+
+    @Provides
+    @ActivityScope
+    ForgotPasswordMvpPresenter<ForgotPasswordMvpView> provideForgotPasswordPresenter(ForgotPasswordPresenter<ForgotPasswordMvpView> forgotPasswordMvpViewForgotPasswordPresenter) {
+        return forgotPasswordMvpViewForgotPasswordPresenter;
+    }
+
 
     @Provides
     Activity provideActivity() {

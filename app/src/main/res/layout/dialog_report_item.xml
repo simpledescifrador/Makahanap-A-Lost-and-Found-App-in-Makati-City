@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:id="@+id/textView59"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/lato"
+            android:text="Report This Item"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/divider13"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/textView63"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:drawableStart="@drawable/ic_error_outline_amber_700_24dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/open_sans"
+            android:text="Help us understand what's happening with this item. How would you describe it?" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp">
+
+                <RadioButton
+                    android:id="@+id/report_item_reason_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_rb"
+                    android:button="@null"
+                    android:text="Offensive"
+                    android:textColor="@drawable/all_bw_txtcolor_selector"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <RadioButton
+                    android:id="@+id/report_item_reason_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_rb"
+                    android:button="@null"
+                    android:text="Sexually Inappropriate"
+                    android:textColor="@drawable/all_bw_txtcolor_selector"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/report_item_reason_1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <RadioButton
+                    android:id="@+id/report_item_reason_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_rb"
+                    android:button="@null"
+                    android:text="Violence"
+                    android:textColor="@drawable/all_bw_txtcolor_selector"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/report_item_reason_1" />
+
+                <RadioButton
+                    android:id="@+id/report_item_reason_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_rb"
+                    android:button="@null"
+                    android:text="Prohibited Content"
+                    android:textColor="@drawable/all_bw_txtcolor_selector"
+                    app:layout_constraintStart_toEndOf="@+id/report_item_reason_3"
+                    app:layout_constraintTop_toBottomOf="@+id/report_item_reason_2" />
+
+
+                <RadioButton
+                    android:id="@+id/report_item_reason_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_rb"
+                    android:button="@null"
+                    android:text="Spam"
+                    android:textColor="@drawable/all_bw_txtcolor_selector"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/report_item_reason_3" />
+
+                <RadioButton
+                    android:id="@+id/report_item_reason_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_rb"
+                    android:button="@null"
+                    android:text="False News"
+                    android:textColor="@drawable/all_bw_txtcolor_selector"
+                    app:layout_constraintStart_toEndOf="@+id/report_item_reason_5"
+                    app:layout_constraintTop_toBottomOf="@+id/report_item_reason_4" />
+
+                <RadioButton
+                    android:id="@+id/report_item_reason_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_rb"
+                    android:button="@null"
+                    android:text="Other"
+                    android:textColor="@drawable/all_bw_txtcolor_selector"
+                    app:layout_constraintStart_toEndOf="@+id/report_item_reason_6"
+                    app:layout_constraintTop_toBottomOf="@+id/report_item_reason_4" />
+            </android.support.constraint.ConstraintLayout>
+
+        </RadioGroup>
+
+        <View
+            android:id="@+id/divider14"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/report_item_submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/primary_btn_bg"
+            android:enabled="false"
+            android:text="Submit"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

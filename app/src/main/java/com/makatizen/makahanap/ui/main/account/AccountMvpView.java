@@ -17,4 +17,6 @@ public interface AccountMvpView extends BaseMvpView {
 
     void setReturnedCount(int count);
 
+    void setHonestyRating(String rating);
+
 }

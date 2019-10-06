@@ -171,7 +171,7 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<ViewHolder, FeedItem> i
         }
 
         Glide.with(mContext)
-                .load(ApiConstants.MAKATIZEN_API_BASE_URL + feedItem.getAccountImageUrl())
+                .load(feedItem.getAccountImageUrl())
                 .apply(requestOptions)
                 .into(viewHolder.mFeedItemIvAccountImage);
     }

@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.DataManager;
+import com.makatizen.makahanap.pojo.api_response.AccountAverageRatingResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.ui.base.BasePresenter;
 import io.reactivex.Completable;
@@ -13,6 +14,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.text.DecimalFormat;
+
 import javax.inject.Inject;
 
 public class AccountPresenter<V extends AccountMvpView> extends BasePresenter<V> implements AccountMvpPresenter<V> {
@@ -170,5 +173,42 @@ public class AccountPresenter<V extends AccountMvpView> extends BasePresenter<V>
     public void showAccountMessages() {
         int accountId = getDataManager().getCurrentAccount().getId();
         getMvpView().openChat(accountId); //It Opens Account ChatItem Box
+    }
+
+    @Override
+    public void getHonestyRating() {
+        getDataManager().getAccountAverageRating(String.valueOf(getDataManager().getCurrentAccount().getId()))
+                .observeOn(getSchedulerProvider().ui())
+                .subscribeOn(getSchedulerProvider().io())
+                .subscribe(new SingleObserver<AccountAverageRatingResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        getCompositeDisposable().add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(AccountAverageRatingResponse response) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        DecimalFormat df = new DecimalFormat("0.0");
+                        if (response.getAverageRating() != null) {
+                            getMvpView().setHonestyRating(String.valueOf(df.format(response.getAverageRating())));
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        if (e instanceof SocketTimeoutException
+                                || e instanceof SocketException) {
+                            getMvpView().onError(R.string.title_no_network);
+                        }
+                    }
+                });
+
     }
 }

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -30,9 +31,11 @@ import com.makatizen.makahanap.ui.base.BaseFragment;
 import com.makatizen.makahanap.ui.chat.ChatActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
 import com.makatizen.makahanap.ui.main.account.about.AccountAboutFragment;
+import com.makatizen.makahanap.ui.main.account.change_password.ChangePasswordActivity;
 import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryFragment;
 import com.makatizen.makahanap.ui.main.account.reports.AccountReportsFragment;
 import com.makatizen.makahanap.utils.IntentExtraKeys;
+import com.makatizen.makahanap.utils.RequestCodes;
 
 import javax.inject.Inject;
 
@@ -151,6 +154,30 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
         mAccountTvReturnedCount.setText(String.valueOf(count));
     }
 
+    @Override
+    public void setHonestyRating(String rating) {
+        mAccountTvRating.setText(rating);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodes.CHANGE_PASSWORD:
+                    Toast.makeText(getContext(), "You are about to logout in 5 secs", Toast.LENGTH_LONG).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(), "Logging out", Toast.LENGTH_SHORT).show();
+                            mPresenter.requestAccountLogout();
+                        }
+                    }, 5000);
+                    break;
+            }
+        }
+    }
+
     public void refreshData() {
         mPresenter.getFoundCount();
         mPresenter.getLostCount();
@@ -169,7 +196,8 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
             @Override
             public boolean onMenuItemClick(final MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.account_more_settings:
+                    case R.id.account_more_change_password:
+                        startActivityForResult(new Intent(getActivity(), ChangePasswordActivity.class), RequestCodes.CHANGE_PASSWORD);
                         break;
                     case R.id.account_more_logout:
                         new Builder(getContext())
@@ -195,6 +223,7 @@ public class AccountFragment extends BaseFragment implements AccountMvpView {
         mPresenter.getFoundCount();
         mPresenter.getLostCount();
         mPresenter.getReturnedCount();
+        mPresenter.getHonestyRating();
     }
 
     private void setUpViewPagerAdapter() {

@@ -100,6 +100,7 @@ public class AccountReportsFragment extends BaseFragment implements AccountRepor
 
     @Override
     public void noFeedContent() {
+        mAccountReportsSrlRefresh.setRefreshing(false);
         mAccountReportsLoadingLayout.setVisibility(View.GONE);
         mNoContentLayout.setVisibility(View.VISIBLE);
 
@@ -120,6 +121,7 @@ public class AccountReportsFragment extends BaseFragment implements AccountRepor
 
     @Override
     public void noNetworkConnection() {
+        mAccountReportsSrlRefresh.setRefreshing(false);
         mAccountReportsLoadingLayout.setVisibility(View.GONE);
         mAccountReportsRvItems.setVisibility(View.GONE);
 

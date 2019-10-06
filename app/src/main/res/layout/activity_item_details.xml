@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:fitsSystemWindows="true"
+            android:theme="@style/ToolbarItemDetails"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
@@ -133,6 +134,7 @@
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="16dp"
                     android:visibility="gone"
+                    app:cardBackgroundColor="@android:color/white"
                     app:cardCornerRadius="8dp"
                     app:contentPadding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -325,12 +327,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Description"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_details_tv_location" />
+                app:layout_constraintTop_toBottomOf="@+id/item_details_map_view" />
 
             <TextView
                 android:id="@+id/item_details_tv_description"
@@ -771,6 +773,20 @@
                     android:indeterminate="true"
                     tools:visibility="visible" />
             </FrameLayout>
+
+            <ImageView
+                android:id="@+id/item_details_map_view"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_details_tv_location"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>

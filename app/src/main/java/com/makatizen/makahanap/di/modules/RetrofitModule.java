@@ -6,11 +6,15 @@ import com.makatizen.makahanap.data.remote.ApiHelper;
 import com.makatizen.makahanap.data.remote.ApiInterface;
 import com.makatizen.makahanap.data.remote.AppApiHelper;
 import com.makatizen.makahanap.data.remote.MakatizenApiInterface;
+import com.makatizen.makahanap.data.remote.NexmoApiInterface;
 import com.makatizen.makahanap.di.qualifiers.MakatizenApi;
+import com.makatizen.makahanap.di.qualifiers.NexmoApi;
 import com.makatizen.makahanap.di.scopes.ApplicationScope;
+
+import java.io.IOException;
+
 import dagger.Module;
 import dagger.Provides;
-import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -52,6 +56,12 @@ public class RetrofitModule {
 
     @Provides
     @ApplicationScope
+    static NexmoApiInterface provideNexmoApiInterface(@NexmoApi Retrofit retrofit) {
+        return retrofit.create(NexmoApiInterface.class);
+    }
+
+    @Provides
+    @ApplicationScope
     @MakatizenApi
     static OkHttpClient provideMakatizenOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -69,6 +79,39 @@ public class RetrofitModule {
         }).addNetworkInterceptor(httpLoggingInterceptor);
 
         return builder.build();
+    }
+
+    @Provides
+    @ApplicationScope
+    @NexmoApi
+    static OkHttpClient provideNexmoOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(final Chain chain) throws IOException {
+                Request request = chain.request();
+
+                Builder builder = request.newBuilder()
+                        .addHeader("x-rapidapi-host", "nexmo-nexmo-sms-verify-v1.p.rapidapi.com")
+                        .addHeader("x-rapidapi-key", "3a734ac8bfmshe5ece28f4cf1d77p118dd0jsn2b53b5176dc8")
+                        .addHeader("content-type", "application/x-www-form-urlencoded");
+                return chain.proceed(builder.build());
+            }
+        }).addNetworkInterceptor(httpLoggingInterceptor);
+
+        return builder.build();
+    }
+
+    @Provides
+    @ApplicationScope
+    @NexmoApi
+    static Retrofit provideNexmoRetrofit(@NexmoApi OkHttpClient okHttpClient) {
+        return new Retrofit.Builder()
+                .baseUrl("https://nexmo-nexmo-sms-verify-v1.p.rapidapi.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
     }
 
     @Provides

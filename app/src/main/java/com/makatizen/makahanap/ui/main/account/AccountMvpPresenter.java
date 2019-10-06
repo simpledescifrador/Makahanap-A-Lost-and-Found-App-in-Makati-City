@@ -16,4 +16,6 @@ public interface AccountMvpPresenter<V extends AccountMvpView & BaseMvpView> ext
     void requestAccountLogout();
 
     void showAccountMessages();
+
+    void getHonestyRating();
 }

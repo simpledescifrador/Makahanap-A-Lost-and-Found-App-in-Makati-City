@@ -35,17 +35,22 @@ public class GetItemDetailsResponse {
     @Expose
     private Pet petData;
 
+    @SerializedName("reported_by")
+    @Expose
+    private String reportedBy;
     @SerializedName("report_type")
     @Expose
     private String reportType;
-
     @SerializedName("title")
     @Expose
     private String title;
-
     @SerializedName("type")
     @Expose
     private Type type;
+
+    public String getReportedBy() {
+        return reportedBy;
+    }
 
     public MakahanapAccount getAccount() {
         return account;

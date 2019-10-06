@@ -28,13 +28,14 @@ import com.makatizen.makahanap.ui.main.feed.FeedFragment;
 import com.makatizen.makahanap.ui.main.home.HomeFragment;
 import com.makatizen.makahanap.ui.main.map.MapFragment;
 import com.makatizen.makahanap.ui.main.notification.NotificationFragment;
+import com.makatizen.makahanap.utils.RequestCodes;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements MainMvpView, NotificationFragment.NotificationUpdateListener {
+public class MainActivity extends BaseActivity implements MainMvpView, NotificationFragment.NotificationUpdateListener, HomeFragment.HomeFragmentListener {
 
     @BindView(R.id.main_bnav_navigation)
     BottomNavigationView mMainBnavNavigation;
@@ -82,6 +83,11 @@ public class MainActivity extends BaseActivity implements MainMvpView, Notificat
             NotificationFragment notificationFragment = (NotificationFragment) fragment;
             notificationFragment.setOnNotificationUpdateListener(this);
         }
+
+        if (fragment instanceof HomeFragment) {
+            HomeFragment homeFragment = (HomeFragment) fragment;
+            homeFragment.setHomeFragmentListener(this);
+        }
     }
 
     @Override
@@ -99,14 +105,14 @@ public class MainActivity extends BaseActivity implements MainMvpView, Notificat
                     case R.id.main_nav_feed:
                         mMainVpContent.setCurrentItem(1);
                         break;
-//                    case R.id.main_nav_map:
-//                        mMainVpContent.setCurrentItem(2);
-//                        break;
-                    case R.id.main_nav_notification:
+                    case R.id.main_nav_map:
                         mMainVpContent.setCurrentItem(2);
                         break;
-                    case R.id.main_nav_account:
+                    case R.id.main_nav_notification:
                         mMainVpContent.setCurrentItem(3);
+                        break;
+                    case R.id.main_nav_account:
+                        mMainVpContent.setCurrentItem(4);
                         break;
                 }
                 return true;
@@ -144,7 +150,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Notificat
         final MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mainViewPagerAdapter.addFragment(new HomeFragment());
         mainViewPagerAdapter.addFragment(FeedFragment.getInstance());
-//        mainViewPagerAdapter.addFragment(new MapFragment());
+        mainViewPagerAdapter.addFragment(new MapFragment());
         mainViewPagerAdapter.addFragment(new NotificationFragment());
         mainViewPagerAdapter.addFragment(AccountFragment.getInstance());
 
@@ -212,5 +218,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, Notificat
         super.onStart();
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mBroadcastReceiver, new IntentFilter("com.makatizen.makahanap.notification"));
+    }
+
+    @Override
+    public void moveToFeed() {
+        mMainVpContent.setCurrentItem(1);
     }
 }

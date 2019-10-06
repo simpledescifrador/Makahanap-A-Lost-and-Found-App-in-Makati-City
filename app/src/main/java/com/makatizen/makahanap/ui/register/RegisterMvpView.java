@@ -24,4 +24,10 @@ public interface RegisterMvpView extends BaseMvpView {
     void showPassword();
 
     void hidePassword();
+
+    void showVerificationOption(String email, String contactNumber);
+
+    void successfulEmailVerificationRequest(String email);
+
+    void successfulSmsVerificationRequest(String requestId, String number);
 }

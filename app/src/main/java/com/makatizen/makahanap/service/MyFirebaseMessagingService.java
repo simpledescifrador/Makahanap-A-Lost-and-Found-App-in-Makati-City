@@ -73,11 +73,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(final RemoteMessage remoteMessage) {
-        String currentAccountId = String.valueOf(mDataManager.getCurrentAccount().getId());
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
+            /*Email Verification*/
+            if (remoteMessage.getData().containsKey("email")) {
+                String email = remoteMessage.getData().get("email");
+                String code = remoteMessage.getData().get("code");
+                Intent intent = new Intent("com.makatizen.makahanap.email_verification");
+                intent.putExtra("email", email);
+                intent.putExtra("code", code);
+
+                LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+
+                localBroadcastManager.sendBroadcast(intent);
+                return;
+            }
+
+            String currentAccountId = String.valueOf(mDataManager.getCurrentAccount().getId());
+
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             if (remoteMessage.getData().containsKey("message_id")) {
                 if (!remoteMessage.getData().get("message_id").isEmpty()) {

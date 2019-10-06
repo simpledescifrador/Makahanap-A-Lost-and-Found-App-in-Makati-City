@@ -25,4 +25,8 @@ public class RequestCodes {
     public static final int MEETUP_TRANSACTION = 110;
 
     public static final int RETURN_ITEM = 120;
+    public static final int EMAIL_VERIFICATION = 130;
+    public static final int SMS_VERIFICATION = 140;
+    public static final int CHANGE_PASSWORD = 150;
+    public static final int FORGOT_PASSWORD = 160;
 }

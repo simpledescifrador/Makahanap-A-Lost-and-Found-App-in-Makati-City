@@ -33,9 +33,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
-                    app:srcCompat="@drawable/ic_camera_alt_white_24dp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_camera_alt_white_24dp" />
 
                 <TextView
                     android:id="@+id/home_tv_search_scan"
@@ -46,6 +47,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@android:color/white"
                     android:textSize="10sp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/home_ib_search_scan"
                     app:layout_constraintStart_toStartOf="@+id/home_ib_search_scan"
                     app:layout_constraintTop_toBottomOf="@+id/home_ib_search_scan" />
@@ -54,20 +56,21 @@
                     android:id="@+id/home_tv_search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/bg_round_white"
                     android:clickable="true"
-                    android:drawablePadding="5dp"
                     android:drawableStart="@drawable/ic_search_grey_400_24dp"
                     android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:padding="3dp"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="3dp"
+                    android:paddingBottom="3dp"
                     android:text="Search Lost or Found Item"
                     android:textColor="@color/colorPrimaryText"
-                    app:layout_constraintBottom_toBottomOf="@+id/home_tv_search_scan"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/home_iv_chat"
                     app:layout_constraintStart_toEndOf="@+id/home_ib_search_scan"
                     app:layout_constraintTop_toTopOf="@+id/home_ib_search_scan" />
@@ -80,10 +83,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
-                    app:srcCompat="@drawable/ic_chat_white_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_chat_white_24dp" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -96,9 +99,9 @@
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <android.support.constraint.ConstraintLayout
-            android:background="@drawable/home_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/home_bg">
 
             <ImageView
                 android:id="@+id/imageView3"

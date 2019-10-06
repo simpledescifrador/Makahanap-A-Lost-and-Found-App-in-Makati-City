@@ -247,16 +247,15 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
             intent.putExtra(IntentExtraKeys.MEET_ID, notification.getMeetupId());
             intent.putExtra(IntentExtraKeys.CHAT_ID, String.valueOf(notification.getReferenceId()));
             startActivity(intent);
-            return;
+        } else {
+            Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra(IntentExtraKeys.ITEM_ID, notification.getReferenceId());
+            mPresenter.setNotificationAsViewed(String.valueOf(notification.getId()), position);
+            mPresenter.updateNotificationBadge();
+            startActivity(intent);
         }
-
-        Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra(IntentExtraKeys.ITEM_ID, notification.getReferenceId());
-        mPresenter.setNotificationAsViewed(String.valueOf(notification.getId()), position);
-        mPresenter.updateNotificationBadge();
-        startActivity(intent);
     }
 
     @Override

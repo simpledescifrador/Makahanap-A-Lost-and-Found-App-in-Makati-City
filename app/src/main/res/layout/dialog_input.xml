@@ -10,11 +10,7 @@
         android:id="@+id/input_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/quantum_grey">
-
-        <requestFocus />
-    </EditText>
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorAccent" />
 </LinearLayout>

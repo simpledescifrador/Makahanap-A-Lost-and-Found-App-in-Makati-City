@@ -2,6 +2,7 @@ package com.makatizen.makahanap.ui.item_details;
 
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.ui.base.BaseMvpView;
+
 import java.util.List;
 
 public interface ItemDetailsMvpView extends BaseMvpView {
@@ -28,9 +29,17 @@ public interface ItemDetailsMvpView extends BaseMvpView {
 
     void showReturnAgreement();
 
-    void showRatingDialog(String profileUrl ,String accountName);
+    void showRatingDialog(String profileUrl, String accountName);
 
     void hideReturnAgreement();
 
     void onSuccessReturn();
+
+    void showReportOption();
+
+    void showRemoveOption();
+
+    void onSuccessReportItem();
+
+    void hideReportOption();
 }

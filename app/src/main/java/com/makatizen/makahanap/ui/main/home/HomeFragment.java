@@ -40,17 +40,13 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
 
     @BindView(R.id.home_report_found)
     CardView mHomeReportFound;
-
     @BindView(R.id.home_report_lost)
     CardView mHomeReportLost;
-
     @Inject
     HomeMvpPresenter<HomeMvpView> mPresenter;
-
+    private HomeFragmentListener mHomeListener;
     private Dialog mDialog;
-
     private TextView mOptionTvTitle;
-
     private LinearLayout mTypePtOption, mTypePetOption, mTypePersonOption;
 
     @Nullable
@@ -70,6 +66,16 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.detachView();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK) {
+            if (requestCode == RequestCodes.REPORT_PT || requestCode == RequestCodes.REPORT_PET || requestCode == RequestCodes.REPORT_PERSON) {
+                mHomeListener.moveToFeed();
+            }
+        }
     }
 
     @OnClick({R.id.home_report_lost, R.id.home_report_found, R.id.home_tv_search_scan, R.id.home_tv_search, R.id.home_iv_chat})
@@ -157,6 +163,15 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
         mDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         mDialog.getWindow().setGravity(Gravity.CENTER);
         mDialog.getWindow().setWindowAnimations(R.style.DialogAnimation);
+    }
+
+    public void setHomeFragmentListener(HomeFragmentListener listener) {
+        mHomeListener = listener;
+    }
+
+    public interface HomeFragmentListener {
+
+        void moveToFeed();
     }
 
 }

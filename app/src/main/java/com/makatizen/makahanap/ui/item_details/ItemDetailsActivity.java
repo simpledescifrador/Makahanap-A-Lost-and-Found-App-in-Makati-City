@@ -14,6 +14,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -213,6 +216,8 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
     TextView mReturnAgreementDisagree;
     @BindView(R.id.item_return_agreement_layout)
     CardView mItemReturnAgreementLayout;
+    @BindView(R.id.item_details_map_view)
+    ImageView mItemDetailsMapView;
 
     private int autoScrollDelay = 5000;
 
@@ -239,6 +244,8 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
     private TextView[] mDots;
 
     private int mItemId;
+    private Menu mMenu;
+    private String mSelectedReportReason = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -290,6 +297,14 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
 
     @Override
     public void onPersonData(final GetItemDetailsResponse response) {
+
+        mPresenter.checkItemReported(String.valueOf(mItemId));
+        String lat = response.getLocationData().getLatitude();
+        String lng = response.getLocationData().getLongitude();
+        final String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=17&scale=1&size=600x300&maptype=roadmap&key=" + getResources().getString(R.string.google_map_api_key) + "&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff5050%7Clabel:%7C" + lat + "," + lng;
+        Glide.with(this)
+                .load(url)
+                .into(mItemDetailsMapView);
         itemOwnerAccount = response.getAccount();
         switch (response.getType()) {
             case LOST:
@@ -326,7 +341,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         }
 
         Glide.with(this)
-                .load(ApiConstants.MAKATIZEN_API_BASE_URL + response.getAccount().getProfileImageUrl())
+                .load(response.getAccount().getProfileImageUrl())
                 .into(mItemDetailsIvAccountImage);
 
         String accountName = response.getAccount().getFirstName() + " " + response.getAccount().getLastName();
@@ -348,6 +363,13 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
 
     @Override
     public void onPersonalThingData(final GetItemDetailsResponse response) {
+        mPresenter.checkItemReported(String.valueOf(mItemId));
+        String lat = response.getLocationData().getLatitude();
+        String lng = response.getLocationData().getLongitude();
+        final String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=15&scale=1&size=600x300&maptype=roadmap&key=" + getResources().getString(R.string.google_map_api_key) + "&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff5050%7Clabel:%7C" + lat + "," + lng;
+        Glide.with(this)
+                .load(url)
+                .into(mItemDetailsMapView);
         itemOwnerAccount = response.getAccount();
         switch (response.getType()) {
             case LOST:
@@ -390,7 +412,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         }
 
         Glide.with(this)
-                .load(ApiConstants.MAKATIZEN_API_BASE_URL + response.getAccount().getProfileImageUrl())
+                .load(response.getAccount().getProfileImageUrl())
                 .into(mItemDetailsIvAccountImage);
 
         String accountName = response.getAccount().getFirstName() + " " + response.getAccount().getLastName();
@@ -423,6 +445,13 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
 
     @Override
     public void onPetData(final GetItemDetailsResponse response) {
+        mPresenter.checkItemReported(String.valueOf(mItemId));
+        String lat = response.getLocationData().getLatitude();
+        String lng = response.getLocationData().getLongitude();
+        final String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=15&scale=1&size=600x300&maptype=roadmap&key=" + getResources().getString(R.string.google_map_api_key) + "&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff5050%7Clabel:%7C" + lat + "," + lng;
+        Glide.with(this)
+                .load(url)
+                .into(mItemDetailsMapView);
         itemOwnerAccount = response.getAccount();
         switch (response.getType()) {
             case LOST:
@@ -455,7 +484,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         }
 
         Glide.with(this)
-                .load(ApiConstants.MAKATIZEN_API_BASE_URL + response.getAccount().getProfileImageUrl())
+                .load(response.getAccount().getProfileImageUrl())
                 .into(mItemDetailsIvAccountImage);
 
         String accountName = response.getAccount().getFirstName() + " " + response.getAccount().getLastName();
@@ -659,6 +688,182 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
     }
 
     @Override
+    public void showReportOption() {
+        MenuItem menuItem = mMenu.findItem(R.id.option_item_details_report);
+        menuItem.setVisible(true);
+    }
+
+    @Override
+    public void showRemoveOption() {
+        MenuItem menuItem = mMenu.findItem(R.id.option_item_details_remove);
+        menuItem.setVisible(true);
+    }
+
+    @Override
+    public void onSuccessReportItem() {
+        MenuItem menuItem = mMenu.findItem(R.id.option_item_details_report);
+        menuItem.setVisible(false);
+        Toast.makeText(this, "This item was successfully reported", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void hideReportOption() {
+        MenuItem menuItem = mMenu.findItem(R.id.option_item_details_report);
+        menuItem.setVisible(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_item_detail, menu);
+        mMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.option_item_details_remove:
+                break;
+            case R.id.option_item_details_report:
+                final Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.dialog_report_item);
+                dialog.getWindow().setLayout(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                dialog.show();
+                final RadioButton r1 = dialog.findViewById(R.id.report_item_reason_1);
+                final RadioButton r2 = dialog.findViewById(R.id.report_item_reason_2);
+                final RadioButton r3 = dialog.findViewById(R.id.report_item_reason_3);
+                final RadioButton r4 = dialog.findViewById(R.id.report_item_reason_4);
+                final RadioButton r5 = dialog.findViewById(R.id.report_item_reason_5);
+                final RadioButton r6 = dialog.findViewById(R.id.report_item_reason_6);
+                final RadioButton r7 = dialog.findViewById(R.id.report_item_reason_7);
+                final Button submit = dialog.findViewById(R.id.report_item_submit_btn);
+                r1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSelectedReportReason = "Offensive";
+                        submit.setEnabled(true);
+                        r1.setChecked(true);
+                        r2.setChecked(false);
+                        r3.setChecked(false);
+                        r4.setChecked(false);
+                        r5.setChecked(false);
+                        r6.setChecked(false);
+                        r7.setChecked(false);
+
+                    }
+                });
+                r2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSelectedReportReason = "Sexually Inappropriate";
+                        submit.setEnabled(true);
+                        r1.setChecked(false);
+                        r2.setChecked(true);
+                        r3.setChecked(false);
+                        r4.setChecked(false);
+                        r5.setChecked(false);
+                        r6.setChecked(false);
+                        r7.setChecked(false);
+
+                    }
+                });
+                r3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSelectedReportReason = "Violence";
+                        submit.setEnabled(true);
+
+                        r1.setChecked(false);
+                        r2.setChecked(false);
+                        r3.setChecked(true);
+                        r4.setChecked(false);
+                        r5.setChecked(false);
+                        r6.setChecked(false);
+                        r7.setChecked(false);
+
+                    }
+                });
+                r4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSelectedReportReason = "Prohibited Content";
+
+                        submit.setEnabled(true);
+
+                        r1.setChecked(false);
+                        r2.setChecked(false);
+                        r3.setChecked(false);
+                        r4.setChecked(true);
+                        r5.setChecked(false);
+                        r6.setChecked(false);
+                        r7.setChecked(false);
+
+                    }
+                });
+                r5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSelectedReportReason = "Spam";
+
+                        submit.setEnabled(true);
+
+                        r1.setChecked(false);
+                        r2.setChecked(false);
+                        r3.setChecked(false);
+                        r4.setChecked(false);
+                        r5.setChecked(true);
+                        r6.setChecked(false);
+                        r7.setChecked(false);
+
+                    }
+                });
+                r6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSelectedReportReason = "False News";
+
+                        submit.setEnabled(true);
+
+                        r1.setChecked(false);
+                        r2.setChecked(false);
+                        r3.setChecked(false);
+                        r4.setChecked(false);
+                        r5.setChecked(false);
+                        r6.setChecked(true);
+                        r7.setChecked(false);
+
+                    }
+                });
+                r7.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSelectedReportReason = "Other";
+                        submit.setEnabled(true);
+
+                        r1.setChecked(false);
+                        r2.setChecked(false);
+                        r3.setChecked(false);
+                        r4.setChecked(false);
+                        r5.setChecked(false);
+                        r6.setChecked(false);
+                        r7.setChecked(true);
+
+                    }
+                });
+
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        mPresenter.reportItem(String.valueOf(mItemId), mSelectedReportReason);
+                    }
+                });
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void init() {
         mItemId = getIntent().getIntExtra(IntentExtraKeys.ITEM_ID, 0);
         setSupportActionBar(mItemDetailsToolbar);
@@ -673,6 +878,7 @@ public class ItemDetailsActivity extends BaseActivity implements ItemDetailsMvpV
         mPresenter.loadItemImages(mItemId);
         //Load Item Details
         mPresenter.loadItemDetails(mItemId);
+
         mPresenter.checkReturnStatus(mItemId);
         mPresenter.checkItemPendingReturnAgreement(mItemId);
 

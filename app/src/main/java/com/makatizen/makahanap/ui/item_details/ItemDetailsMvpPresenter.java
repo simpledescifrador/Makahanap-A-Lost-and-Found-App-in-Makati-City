@@ -24,4 +24,8 @@ public interface ItemDetailsMvpPresenter<V extends ItemDetailsMvpView & BaseMvpV
     void disgreeAgreement();
 
     void rateAccount(String rating, String feedBack);
+
+    void checkItemReported(String itemId);
+
+    void reportItem(String itemId, String reason);
 }

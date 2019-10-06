@@ -2,30 +2,91 @@ package com.makatizen.makahanap.ui.register;
 
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.DataManager;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.api_response.EmailVerificationRequest;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
+import com.makatizen.makahanap.pojo.api_response.SendSmsRequestResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import com.makatizen.makahanap.ui.base.BasePresenter;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
+
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 
 public class RegisterPresenter<V extends RegisterMvpView> extends BasePresenter<V>
         implements RegisterMvpPresenter<V> {
 
     private static final String TAG = "Register";
 
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +
+                    "(?=.*[@#$%^&+=])" +
+                    "(?=\\S+$)" +
+                    ".{8,}" +
+                    "$");
 
     @Inject
     RegisterPresenter(final DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void emailVerification(final String email, String token) {
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().onError(R.string.error_network_failed);
+        } else {
+            getMvpView().showLoading();
+            getDataManager().emailVerificationRequest(email, token)
+                    .subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui())
+                    .doFinally(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            getMvpView().hideLoading();
+                        }
+                    })
+                    .subscribe(new SingleObserver<EmailVerificationRequest>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            getCompositeDisposable().add(d);
+                        }
+
+                        @Override
+                        public void onSuccess(EmailVerificationRequest response) {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+
+                            if (response.isEmailSent()) {
+                                getMvpView().successfulEmailVerificationRequest(email);
+                            } else {
+                                getMvpView().onError("Failed to request email verification");
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+                            if (e instanceof SocketTimeoutException || e instanceof SocketException) {
+                                getMvpView().onError(R.string.error_network_failed);
+                            }
+                        }
+                    });
+        }
     }
 
     @Override
@@ -130,8 +191,8 @@ public class RegisterPresenter<V extends RegisterMvpView> extends BasePresenter<
     public boolean validatePassword(final String password) {
         if (TextUtils.isEmpty(password)) {
             getMvpView().setPasswordError(R.string.error_password_empty);
-        } else if (password.length() < 7) {
-            getMvpView().setPasswordError(R.string.error_password_invalid_length);
+        } else if (!PASSWORD_PATTERN.matcher(password).matches()) {
+            getMvpView().setPasswordError(R.string.error_invalid_password);
         } else {
             return true;
         }
@@ -190,7 +251,38 @@ public class RegisterPresenter<V extends RegisterMvpView> extends BasePresenter<
                                 getMvpView().hideLoading();
 
                                 if (verifyMakatizenIdResponse.isValid()) {
-                                    getMvpView().validMakatizenId();
+//                                    getMvpView().validMakatizenId();
+                                    getDataManager().getMakatizenData(id)
+                                            .subscribeOn(getSchedulerProvider().io())
+                                            .observeOn(getSchedulerProvider().ui())
+                                            .subscribe(new SingleObserver<MakatizenGetDataResponse>() {
+                                                @Override
+                                                public void onError(final Throwable e) {
+                                                    Log.e(TAG, "onError: ", e);
+                                                    checkViewAttached();
+                                                    getMvpView().hideLoading();
+
+                                                    if (e instanceof SocketTimeoutException || e instanceof SocketException) {
+                                                        getMvpView().onError(R.string.error_network_failed);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onSubscribe(final Disposable d) {
+                                                    getCompositeDisposable().add(d);
+                                                }
+
+                                                @Override
+                                                public void onSuccess(final MakatizenGetDataResponse response) {
+                                                    Log.d(TAG, "onSuccess: ");
+
+                                                    if (response.isStatus()) {
+                                                        getMvpView().showVerificationOption(response.getMakatizenAccount().getEmailAddress(), response.getMakatizenAccount().getContactNumber());
+                                                    } else {
+                                                        getMvpView().onError(response.getMessage());
+                                                    }
+                                                }
+                                            });
                                 } else {
                                     getMvpView().invalidMakatizenId();
                                 }
@@ -216,6 +308,53 @@ public class RegisterPresenter<V extends RegisterMvpView> extends BasePresenter<
             getMvpView().showPassword();
         } else {
             getMvpView().hidePassword();
+        }
+    }
+
+    @Override
+    public void smsVerification(final String phoneNumber) {
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().onError(R.string.error_network_failed);
+        } else {
+            getMvpView().showLoading();
+            getDataManager().sendSmsRequest(phoneNumber)
+                    .subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui())
+                    .doFinally(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            getMvpView().hideLoading();
+                        }
+                    })
+                    .subscribe(new SingleObserver<SendSmsRequestResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            getCompositeDisposable().add(d);
+                        }
+
+                        @Override
+                        public void onSuccess(SendSmsRequestResponse response) {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+
+                            if (response.isSmsSent()) {
+                                getMvpView().successfulSmsVerificationRequest(response.getRequestId(), phoneNumber);
+                            } else {
+                                getMvpView().onError("Failed to send sms request. Please try again");
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+                            if (e instanceof SocketTimeoutException || e instanceof SocketException) {
+                                getMvpView().onError(R.string.error_network_failed);
+                            }
+                        }
+                    });
         }
     }
 }

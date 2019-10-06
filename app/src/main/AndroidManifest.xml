@@ -20,6 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.login.forgot_password.ForgotPasswordActivity"></activity>
+        <activity android:name=".ui.main.account.change_password.ChangePasswordActivity" />
+        <activity android:name=".ui.register.sms_verification.SmsVerificationActivity" />
+        <activity android:name=".ui.register.email_verification.EmailVerificationActivity" />
         <activity android:name=".ui.return_item.ReturnItemActivity" />
         <activity android:name=".ui.transaction.MeetTransactionActivity" />
         <activity
@@ -67,8 +71,7 @@
             android:theme="@style/LoginTheme" />
         <activity
             android:name=".ui.register.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/RegisterTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/SplashTheme">

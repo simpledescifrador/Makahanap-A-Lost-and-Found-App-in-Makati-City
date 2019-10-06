@@ -50,7 +50,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                                 return;
                             }
                             getMvpView().hideLoading();
-
+                            getMvpView().onLoginFailed();
                             if (e instanceof SocketTimeoutException || e instanceof SocketException) {
                                 getMvpView().onError(R.string.error_network_failed);
                             }

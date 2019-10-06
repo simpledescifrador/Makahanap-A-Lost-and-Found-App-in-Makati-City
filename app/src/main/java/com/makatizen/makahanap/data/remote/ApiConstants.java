@@ -27,7 +27,25 @@ public class ApiConstants {
 
     static final String REGISTER_ACCOUNT_URL = "api/v1/auth/register";
 
+    static final String GET_CHECK_MAKATIZEN_URL = "api/v1/auth/check_makatizen";
+
+    static final String POST_FORGOT_PASSWORD_REQUEST_URL = "api/v1/auth/forgot_password";
+
+    static final String POST_RESET_PASSWORD_URL = "api/v1/auth/reset_password";
+
+    static final String CHANGE_PASSWORD_URL = "api/v1/auth/change_password";
+
     static final String REGISTER_ACCOUNT_TOKEN_URL = "api/auth/token/register";
+
+    static final String POST_REQUEST_EMAIL_VERIFICATION_URL = "api/v1/auth/email/verification";
+
+    static final String POST_VERIFY_EMAIL_CODE_URL = "api/v1/auth/email/verify_code";
+
+    static final String POST_SEND_SMS_REQUEST_URL = "api/v1/auth/phone/send_request";
+
+    static final String GET_CANCEL_SMS_REQUEST_URL = "api/v1/auth/phone/cancel_request";
+
+    static final String GET_CHECK_SMS_REQUEST_URL = "api/v1/auth/phone/check_request";
 
     //Account
     static final String GET_ACCOUNT_DATA_URL = "api/v1/account/";
@@ -60,6 +78,12 @@ public class ApiConstants {
     static final String GET_ITEM_IMAGES_URL = "api/v1/items/"/*itemID*/;
 
     static final String GET_ITEM_DETAILS_URL = "api/v1/items/"/*itemID */;
+
+    static final String GET_MAP_ITEMS_URL = "api/v1/items/map";
+
+    static final String POST_ITEM_REPORT_URL = "api/v1/items/report";
+
+    static final String GET_CHECK_ITEM_REPORTED_URL = "api/v1/items/check_reported";
 
     //Chat
     static final String GET_CHAT_URL = "api/v1/chats/";

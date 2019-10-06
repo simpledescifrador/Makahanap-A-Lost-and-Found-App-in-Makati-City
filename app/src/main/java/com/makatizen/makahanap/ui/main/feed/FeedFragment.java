@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -90,6 +91,8 @@ public class FeedFragment extends BaseFragment implements FeedMvpView, OnItemCli
     TextView mFeedPostSort;
     @BindView(R.id.feed_post_view)
     ImageView mFeedPostView;
+    @BindView(R.id.feed_page_loading)
+    ProgressBar mFeedPageLoading;
     private boolean isGridView = false;
 
     public static FeedFragment getInstance() {

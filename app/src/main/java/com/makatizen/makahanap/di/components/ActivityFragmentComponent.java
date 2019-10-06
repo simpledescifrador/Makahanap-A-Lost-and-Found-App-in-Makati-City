@@ -9,9 +9,11 @@ import com.makatizen.makahanap.ui.intro.IntroActivity;
 import com.makatizen.makahanap.ui.item_details.ItemDetailsActivity;
 import com.makatizen.makahanap.ui.loader.LoaderActivity;
 import com.makatizen.makahanap.ui.login.LoginActivity;
+import com.makatizen.makahanap.ui.login.forgot_password.ForgotPasswordActivity;
 import com.makatizen.makahanap.ui.main.MainActivity;
 import com.makatizen.makahanap.ui.main.account.AccountFragment;
 import com.makatizen.makahanap.ui.main.account.about.AccountAboutFragment;
+import com.makatizen.makahanap.ui.main.account.change_password.ChangePasswordActivity;
 import com.makatizen.makahanap.ui.main.account.gallery.AccountGalleryFragment;
 import com.makatizen.makahanap.ui.main.account.reports.AccountReportsFragment;
 import com.makatizen.makahanap.ui.main.feed.FeedFragment;
@@ -19,6 +21,8 @@ import com.makatizen.makahanap.ui.main.home.HomeFragment;
 import com.makatizen.makahanap.ui.main.map.MapFragment;
 import com.makatizen.makahanap.ui.main.notification.NotificationFragment;
 import com.makatizen.makahanap.ui.register.RegisterActivity;
+import com.makatizen.makahanap.ui.register.email_verification.EmailVerificationActivity;
+import com.makatizen.makahanap.ui.register.sms_verification.SmsVerificationActivity;
 import com.makatizen.makahanap.ui.report.person.ReportPersonActivity;
 import com.makatizen.makahanap.ui.report.personal_thing.ReportPersonalThingActivity;
 import com.makatizen.makahanap.ui.report.pet.ReportPetActivity;
@@ -77,4 +81,12 @@ public interface ActivityFragmentComponent {
     void inject(MeetTransactionActivity meetTransactionActivity);
 
     void inject(ReturnItemActivity returnItemActivity);
+
+    void inject(EmailVerificationActivity emailVerificationActivity);
+
+    void inject(SmsVerificationActivity smsVerificationActivity);
+
+    void inject(ChangePasswordActivity changePasswordActivity);
+
+    void inject(ForgotPasswordActivity forgotPasswordActivity);
 }

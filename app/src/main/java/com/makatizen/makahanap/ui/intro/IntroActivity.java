@@ -70,7 +70,10 @@ public class IntroActivity extends BaseActivity implements OnPageChangeListener,
         public void run() {
             if (mIntroAdapter.getCount() != mCurrentPage) {
                 mCurrentPage++;
+            } else {
+                handler.removeCallbacks(this);
             }
+
             mIntroPager.setCurrentItem(mCurrentPage, true);
             handler.postDelayed(this, autoScrollDelay);
         }

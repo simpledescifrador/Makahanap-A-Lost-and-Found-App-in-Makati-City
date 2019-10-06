@@ -3,6 +3,7 @@ package com.makatizen.makahanap.pojo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.makatizen.makahanap.utils.enums.Type;
@@ -47,6 +48,10 @@ public class FeedItem {
     @Expose
     private Type itemType;
 
+    @SerializedName("location_latlng")
+    @Expose
+    private LatLng locationLatlng;
+
     public FeedItem() {
     }
 
@@ -60,6 +65,14 @@ public class FeedItem {
         this.itemId = itemId;
         this.itemImageUrl = itemImageUrl;
         this.itemTitle = itemTitle;
+    }
+
+    public LatLng getLocationLatlng() {
+        return locationLatlng;
+    }
+
+    public void setLocationLatlng(LatLng locationLatlng) {
+        this.locationLatlng = locationLatlng;
     }
 
     public String getAccountImageUrl() {

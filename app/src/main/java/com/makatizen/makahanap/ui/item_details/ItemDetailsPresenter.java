@@ -6,6 +6,7 @@ import com.makatizen.makahanap.R;
 import com.makatizen.makahanap.data.DataManager;
 import com.makatizen.makahanap.data.remote.ApiConstants;
 import com.makatizen.makahanap.pojo.api_response.CheckReturnStatusResponse;
+import com.makatizen.makahanap.pojo.api_response.CommonResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.ReturnPendingTransactionResponse;
@@ -31,6 +32,8 @@ public class ItemDetailsPresenter<V extends ItemDetailsMvpView> extends BasePres
         implements ItemDetailsMvpPresenter<V> {
 
     private static final String TAG = "ItemDetails";
+
+    private int mPostAccountId = 0;
 
     private int mMeetUpId = 0;
 
@@ -70,11 +73,20 @@ public class ItemDetailsPresenter<V extends ItemDetailsMvpView> extends BasePres
                         if (isViewAttached()) {
                             getMvpView().hideItemDetailsLoading();
 
+
                             //Check if the item is report by current account
                             int currentAccountId = getDataManager().getCurrentAccount().getId();
+                            mPostAccountId = getItemDetailsResponse.getAccount().getId();
                             if (currentAccountId == getItemDetailsResponse.getAccount().getId()) {
                                 getMvpView().removeMessageButton();
+                                getMvpView().showRemoveOption();
                             }
+
+                            if (getItemDetailsResponse.getReportedBy().equals("Brgy User")) {
+                                getMvpView().removeMessageButton();
+                            }
+
+
                             if (getItemDetailsResponse.getPersonalThingData() != null) {
                                 getMvpView().onPersonalThingData(getItemDetailsResponse);
                             } else if (getItemDetailsResponse.getPetData() != null) {
@@ -418,6 +430,98 @@ public class ItemDetailsPresenter<V extends ItemDetailsMvpView> extends BasePres
                         }
                     }
                 });
+    }
+
+    @Override
+    public void checkItemReported(String itemId) {
+        getDataManager().checkItemReported(itemId, String.valueOf(getDataManager().getCurrentAccount().getId()))
+                .observeOn(getSchedulerProvider().ui())
+                .subscribeOn(getSchedulerProvider().io())
+                .subscribe(new SingleObserver<CommonResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        getCompositeDisposable().add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(CommonResponse response) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        if (mPostAccountId == getDataManager().getCurrentAccount().getId()) {
+                            getMvpView().hideReportOption();
+                            return;
+                        }
+
+                        if (response.getStatus() == 0) {
+                            getMvpView().showReportOption();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        if (e instanceof SocketTimeoutException
+                                || e instanceof SocketException) {
+                            getMvpView().onError(R.string.error_network_failed);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void reportItem(String itemId, String reason) {
+        if (!getMvpView().isNetworkConnected()) {
+            getMvpView().onError(R.string.error_network_failed);
+        } else {
+            getMvpView().showLoading();
+            String accountId = String.valueOf(getDataManager().getCurrentAccount().getId());
+            getDataManager().reportItem(itemId, accountId, reason)
+                    .observeOn(getSchedulerProvider().ui())
+                    .subscribeOn(getSchedulerProvider().io())
+                    .doFinally(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            getMvpView().hideLoading();
+                        }
+                    })
+                    .delaySubscription(2000, TimeUnit.MILLISECONDS)
+                    .subscribe(new SingleObserver<CommonResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(CommonResponse response) {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+
+                            if (response.getStatus() == 1) { //Reported Successfully
+                                getMvpView().onSuccessReportItem();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+
+                            if (e instanceof SocketTimeoutException
+                                    || e instanceof SocketException) {
+                                getMvpView().onError(R.string.error_network_failed);
+                            }
+                        }
+                    });
+        }
     }
 
     @Override

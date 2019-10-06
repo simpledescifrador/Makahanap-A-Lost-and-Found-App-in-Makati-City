@@ -9,16 +9,24 @@ import com.makatizen.makahanap.pojo.MakahanapAccount;
 import com.makatizen.makahanap.pojo.Person;
 import com.makatizen.makahanap.pojo.PersonalThing;
 import com.makatizen.makahanap.pojo.Pet;
+import com.makatizen.makahanap.pojo.api_response.AccountAverageRatingResponse;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
+import com.makatizen.makahanap.pojo.api_response.CancelSmsRequestResponse;
+import com.makatizen.makahanap.pojo.api_response.ChangePasswordResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckMakatizenResponse;
 import com.makatizen.makahanap.pojo.api_response.CheckReturnStatusResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckSmsRequestResponse;
 import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
+import com.makatizen.makahanap.pojo.api_response.CommonResponse;
 import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
+import com.makatizen.makahanap.pojo.api_response.EmailVerificationRequest;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
+import com.makatizen.makahanap.pojo.api_response.GetMapItemsResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MakatizenGetDataResponse;
 import com.makatizen.makahanap.pojo.api_response.MeetTransactionConfirmationResponse;
@@ -31,9 +39,11 @@ import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
 import com.makatizen.makahanap.pojo.api_response.ReturnPendingTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
+import com.makatizen.makahanap.pojo.api_response.SendSmsRequestResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
 import com.makatizen.makahanap.pojo.api_response.UpdateReturnTransactionResponse;
+import com.makatizen.makahanap.pojo.api_response.VerifyEmailVerificationCodeResponse;
 import com.makatizen.makahanap.pojo.api_response.VerifyMakatizenIdResponse;
 import com.makatizen.makahanap.utils.enums.Type;
 
@@ -64,6 +74,77 @@ public class AppApiHelper implements ApiHelper {
     public AppApiHelper(final ApiInterface apiInterface, final MakatizenApiInterface makatizenApiInterface) {
         mApiInterface = apiInterface;
         mMakatizenApiInterface = makatizenApiInterface;
+    }
+
+
+    @Override
+    public Single<CommonResponse> checkItemReported(String itemId, String accountId) {
+        return mApiInterface.checkItemReported(itemId, accountId);
+    }
+
+    @Override
+    public Single<CommonResponse> reportItem(String itemId, String reportedBy, String reason) {
+        return mApiInterface.reportItem(itemId, reportedBy, reason);
+    }
+
+    @Override
+    public Single<ChangePasswordResponse> resetPassword(String makatizenNumber, String password) {
+        return mApiInterface.resetPassword(makatizenNumber, password);
+    }
+
+    @Override
+    public Single<EmailVerificationRequest> requestForgotPasswordEmailVerification(String email) {
+        return mApiInterface.requestForgotPasswordEmailVerification(email);
+    }
+
+    @Override
+    public Single<CheckMakatizenResponse> checkMakatizenNumberRegistration(String makatizenNumber) {
+        return mApiInterface.checkMakatizenNumberRegistration(makatizenNumber);
+    }
+
+    @Override
+    public Single<ChangePasswordResponse> changePassword(String accountId, String newPassword, String oldPassword) {
+        return mApiInterface.changePassword(accountId, newPassword, oldPassword);
+    }
+
+    @Override
+    public Single<List<GetMapItemsResponse>> getMapItems() {
+        return mApiInterface.getMapItems();
+    }
+
+    @Override
+    public Single<SendSmsRequestResponse> sendSmsRequest(String number) {
+        return mApiInterface.sendSmsRequest(number);
+    }
+
+    @Override
+    public Single<CancelSmsRequestResponse> cancelSmsRequest(String requestId) {
+        return mApiInterface.cancelSmsRequest(requestId);
+    }
+
+    @Override
+    public Single<CheckSmsRequestResponse> checkSmsRequest(String code, String requestId) {
+        return mApiInterface.checkSmsRequest(code, requestId);
+    }
+
+    @Override
+    public Single<VerifyEmailVerificationCodeResponse> verifyEmailVerificationCode(String email, String verificationCode) {
+        return mApiInterface.verifyEmailVerificationCode(email, verificationCode);
+    }
+
+    @Override
+    public Single<EmailVerificationRequest> emailVerificationRequest(String email, String token) {
+        return mApiInterface.requestEmailVerification(email, token);
+    }
+
+    @Override
+    public Single<GetLatestFeedResponse> getItemLocations() {
+        return mApiInterface.getItemLocationsLatlng(1);
+    }
+
+    @Override
+    public Single<AccountAverageRatingResponse> getAccountAverageRating(String accountId) {
+        return mApiInterface.getAccountAverageRating(accountId);
     }
 
     @Override

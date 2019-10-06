@@ -2,16 +2,24 @@ package com.makatizen.makahanap.data.remote;
 
 import com.makatizen.makahanap.pojo.BarangayData;
 import com.makatizen.makahanap.pojo.MakahanapAccount;
+import com.makatizen.makahanap.pojo.api_response.AccountAverageRatingResponse;
 import com.makatizen.makahanap.pojo.api_response.AddChatMessageResponse;
+import com.makatizen.makahanap.pojo.api_response.CancelSmsRequestResponse;
+import com.makatizen.makahanap.pojo.api_response.ChangePasswordResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatMessagesResponse;
 import com.makatizen.makahanap.pojo.api_response.ChatResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckMakatizenResponse;
 import com.makatizen.makahanap.pojo.api_response.CheckReturnStatusResponse;
+import com.makatizen.makahanap.pojo.api_response.CheckSmsRequestResponse;
 import com.makatizen.makahanap.pojo.api_response.CheckTransactionStatusResponse;
+import com.makatizen.makahanap.pojo.api_response.CommonResponse;
 import com.makatizen.makahanap.pojo.api_response.ConfirmationStatusResponse;
 import com.makatizen.makahanap.pojo.api_response.CountResponse;
 import com.makatizen.makahanap.pojo.api_response.CreateChatResponse;
+import com.makatizen.makahanap.pojo.api_response.EmailVerificationRequest;
 import com.makatizen.makahanap.pojo.api_response.GetItemDetailsResponse;
 import com.makatizen.makahanap.pojo.api_response.GetLatestFeedResponse;
+import com.makatizen.makahanap.pojo.api_response.GetMapItemsResponse;
 import com.makatizen.makahanap.pojo.api_response.LoginResponse;
 import com.makatizen.makahanap.pojo.api_response.MeetTransactionConfirmationResponse;
 import com.makatizen.makahanap.pojo.api_response.MeetUpDetailsResponse;
@@ -21,12 +29,13 @@ import com.makatizen.makahanap.pojo.api_response.NotificationTotalResponse;
 import com.makatizen.makahanap.pojo.api_response.NotificationUpdateResponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterReponse;
 import com.makatizen.makahanap.pojo.api_response.RegisterTokenResponse;
-import com.makatizen.makahanap.pojo.api_response.ReturnItemTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.ReturnPendingTransactionResponse;
 import com.makatizen.makahanap.pojo.api_response.SearchItemResponse;
+import com.makatizen.makahanap.pojo.api_response.SendSmsRequestResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionConfirmResponse;
 import com.makatizen.makahanap.pojo.api_response.TransactionNewMeetupResponse;
 import com.makatizen.makahanap.pojo.api_response.UpdateReturnTransactionResponse;
+import com.makatizen.makahanap.pojo.api_response.VerifyEmailVerificationCodeResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -50,6 +59,85 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+
+    @GET(ApiConstants.GET_CHECK_ITEM_REPORTED_URL)
+    Single<CommonResponse> checkItemReported(
+            @Query("item_id") String itemId,
+            @Query("account_id") String accountId
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_ITEM_REPORT_URL)
+    Single<CommonResponse> reportItem(
+            @Field("item_id") String itemId,
+            @Field("reported_by") String reportedBy,
+            @Field("reason") String reason
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_RESET_PASSWORD_URL)
+    Single<ChangePasswordResponse> resetPassword(
+            @Field("makatizen_number") String makatizenNumber,
+            @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_FORGOT_PASSWORD_REQUEST_URL)
+    Single<EmailVerificationRequest> requestForgotPasswordEmailVerification(
+            @Field("email") String email
+    );
+
+    @GET(ApiConstants.GET_CHECK_MAKATIZEN_URL)
+    Single<CheckMakatizenResponse> checkMakatizenNumberRegistration(
+            @Query("makatizen_number") String makatizenNumber
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CHANGE_PASSWORD_URL)
+    Single<ChangePasswordResponse> changePassword(
+            @Field("account_id") String accountId,
+            @Field("new_password") String newPassword,
+            @Field("old_password") String oldPassword
+    );
+
+    @GET(ApiConstants.GET_MAP_ITEMS_URL)
+    Single<List<GetMapItemsResponse>> getMapItems();
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_SEND_SMS_REQUEST_URL)
+    Single<SendSmsRequestResponse> sendSmsRequest(
+            @Field("number") String number
+    );
+
+    @GET(ApiConstants.GET_CHECK_SMS_REQUEST_URL)
+    Single<CheckSmsRequestResponse> checkSmsRequest(
+            @Query("code") String code,
+            @Query("request_id") String requestId
+    );
+
+    @GET(ApiConstants.GET_CANCEL_SMS_REQUEST_URL)
+    Single<CancelSmsRequestResponse> cancelSmsRequest(
+            @Query("request_id") String requestId
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_VERIFY_EMAIL_CODE_URL)
+    Single<VerifyEmailVerificationCodeResponse> verifyEmailVerificationCode(
+            @Field("email") String email,
+            @Field("code") String verificationCode
+    );
+
+    @FormUrlEncoded
+    @POST(ApiConstants.POST_REQUEST_EMAIL_VERIFICATION_URL)
+    Single<EmailVerificationRequest> requestEmailVerification(
+            @Field("email") String email,
+            @Field("token") String token
+    );
+
+    @GET(ApiConstants.GET_ACCOUNT_AVERAGE_RATING_URL + "{account_id}")
+    Single<AccountAverageRatingResponse> getAccountAverageRating(
+            @Path("account_id") String accountId
+    );
 
     @FormUrlEncoded
     @POST(ApiConstants.POST_NEW_RATING_URL)
@@ -211,6 +299,11 @@ public interface ApiInterface {
 
     @GET(ApiConstants.GET_LATEST_FEED_URL)
     Single<GetLatestFeedResponse> getLatestFeed();
+
+    @GET(ApiConstants.GET_LATEST_FEED_URL)
+    Single<GetLatestFeedResponse> getItemLocationsLatlng(
+            @Query("wlatlng") int state
+    );
 
     @GET(ApiConstants.GET_ACCOUNT_DATA_URL + "{account_id}")
     Single<MakahanapAccount> getMakahanapAccountData(@Path("account_id") int accountId);

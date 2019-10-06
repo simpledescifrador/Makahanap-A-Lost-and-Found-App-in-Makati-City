@@ -6,22 +6,27 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.VectorDrawable;
 import android.location.Location;
-
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import butterknife.ButterKnife;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -33,7 +38,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,33 +56,47 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.makatizen.makahanap.R;
+import com.makatizen.makahanap.pojo.FeedItem;
 import com.makatizen.makahanap.ui.base.BaseFragment;
+import com.makatizen.makahanap.ui.item_details.ItemDetailsActivity;
+import com.makatizen.makahanap.utils.IntentExtraKeys;
 import com.makatizen.makahanap.utils.PermissionUtils;
+import com.makatizen.makahanap.utils.RecyclerItemUtils;
 import com.makatizen.makahanap.utils.RequestCodes;
+import com.makatizen.makahanap.utils.SimpleDividerItemDecoration;
+import com.makatizen.makahanap.utils.enums.Type;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyCallback {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    @Inject
-    MapMvpPresenter<MapMvpView> mPresenter;
-
-    @Inject
-    PermissionUtils mPermissionUtils;
-
-    private GoogleMap mMap;
-
-    private boolean mLocationPermissionGranted = false;
-
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-
-    private Location mLastKnownLocation;
+public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyCallback, GoogleMap.OnMarkerClickListener, RecyclerItemUtils.OnItemClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private static final float DEFAULT_ZOOM = 14f;
-
+    @Inject
+    MapMvpPresenter<MapMvpView> mPresenter;
+    @Inject
+    MapItemsAdapter mMapItemsAdapter;
+    @Inject
+    PermissionUtils mPermissionUtils;
+    @Inject
+    BottomSheetDialog mBottomSheetDialog;
+    @BindView(R.id.main_map_refresh_btn)
+    ImageButton mMainMapRefreshBtn;
+    @BindView(R.id.main_map_current_location_btn)
+    ImageButton mMainMapCurrentLocationBtn;
+    @BindView(R.id.main_map_updating)
+    LinearLayout mMainMapUpdating;
+    private GoogleMap mMap;
+    private boolean mLocationPermissionGranted = false;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private Location mLastKnownLocation;
     private GoogleApiClient mGoogleApiClient;
 
     @Nullable
@@ -89,6 +112,34 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
         return view;
     }
 
+    protected Marker createMarker(double latitude, double longitude, String title, String snippet, int iconResID) {
+        return mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .anchor(0.5f, 0.5f)
+                .title(title)
+                .snippet(snippet)
+                .icon(BitmapDescriptorFactory.fromResource(iconResID)));
+    }
+
+    private BitmapDescriptor getBitmapDescriptor(int id) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            VectorDrawable vectorDrawable = (VectorDrawable) getContext().getDrawable(id);
+
+            int h = vectorDrawable.getIntrinsicHeight();
+            int w = vectorDrawable.getIntrinsicWidth();
+
+            vectorDrawable.setBounds(0, 0, w, h);
+
+            Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bm);
+            vectorDrawable.draw(canvas);
+
+            return BitmapDescriptorFactory.fromBitmap(bm);
+
+        } else {
+            return BitmapDescriptorFactory.fromResource(id);
+        }
+    }
 
     @Override
     protected void init() {
@@ -114,7 +165,8 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
             @Override
             public void onPlaceSelected(Place place) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                        place.getLatLng(), 16f));
+                        place.getLatLng(), 17f));
+                mPresenter.getLocationItems(place.getId(), place.getName());
             }
         });
     }
@@ -124,7 +176,7 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
         mMap = googleMap;
         // Get the current location of the device and set the position of the map.
         if (mLocationPermissionGranted) {
-            mPresenter.loadMap();
+            mPresenter.loadMapItems();
         } else {
             getLocationPermission();
         }
@@ -140,7 +192,7 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
                         if (report.areAllPermissionsGranted()) {
                             // do you work now
                             mLocationPermissionGranted = true;
-                            mPresenter.loadMap();
+                            mPresenter.loadMapItems();
                         }
 
                         // check for permanent denial of any permission
@@ -157,8 +209,8 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
                 }).onSameThread().check();
     }
 
-    private boolean checkMapServices(){
-        if(isServicesOK()){
+    private boolean checkMapServices() {
+        if (isServicesOK()) {
             return isMapsEnabled();
         }
         return false;
@@ -170,7 +222,7 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        Intent enableGpsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        Intent enableGpsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivityForResult(enableGpsIntent, RequestCodes.ENABLE_GPS);
                     }
                 });
@@ -178,32 +230,31 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
         alert.show();
     }
 
-    public boolean isMapsEnabled(){
-        final LocationManager manager = (LocationManager) getActivity().getSystemService( Context.LOCATION_SERVICE );
+    public boolean isMapsEnabled() {
+        final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
             return false;
         }
         return true;
     }
 
-    public boolean isServicesOK(){
+    public boolean isServicesOK() {
         Log.d("GoogleServices", "isServicesOK: checking google services version");
 
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getContext());
 
-        if(available == ConnectionResult.SUCCESS){
+        if (available == ConnectionResult.SUCCESS) {
             //everything is fine and the user can make map requests
             Log.d("GoogleServices", "isServicesOK: Google Play Services is working");
             return true;
-        }
-        else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
             //an error occured but we can resolve it
             Log.d("GoogleServices", "isServicesOK: an error occured but we can fix it");
             Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(getActivity(), available, 0);
             dialog.show();
-        }else{
+        } else {
             Toast.makeText(getContext(), "You can't make map requests", Toast.LENGTH_SHORT).show();
         }
         return false;
@@ -214,10 +265,9 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case RequestCodes.ENABLE_GPS: {
-                if(mLocationPermissionGranted){
-                    mPresenter.loadMap();
-                }
-                else{
+                if (mLocationPermissionGranted) {
+                    mPresenter.loadMapItems();
+                } else {
                     getLocationPermission();
                 }
             }
@@ -247,6 +297,7 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
                             mLastKnownLocation = location;
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            mMap.setMyLocationEnabled(true);
                         } else {
                             Log.d("Map", "Current location is null. Using defaults.");
                             LatLng defaultLocation = new LatLng(14.556586, 121.023415);
@@ -262,9 +313,84 @@ public class MapFragment extends BaseFragment implements MapMvpView, OnMapReadyC
                     }
                 });
             }
-        } catch(SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
 
+    @Override
+    public void setMarkers(List<FeedItem> feedItems) {
+        mMap.setOnMarkerClickListener(this);
+        for (FeedItem item : feedItems) {
+            int markerLogo = (item.getItemType() == Type.LOST) ? R.drawable.ic_map_marker_lost : R.drawable.ic_map_marker_found;
+            createMarker(item.getLocationLatlng().latitude, item.getLocationLatlng().longitude, item.getItemTitle(), "", markerLogo);
+        }
+    }
+
+    @Override
+    public void setMapMarker(String tag, String title, String snippet, LatLng location) {
+        mMainMapUpdating.setVisibility(View.GONE);
+        mMainMapRefreshBtn.setEnabled(true);
+        mMap.setOnMarkerClickListener(this);
+        mMap.setOnInfoWindowClickListener(this);
+        createMarker(location.latitude, location.longitude, title, snippet, R.drawable.map_icon)
+                .setTag(tag);
+    }
+
+    @Override
+    public void showLocationItems(List<FeedItem> feedItems, String title, int lost, int found) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_map_items, null);
+        mBottomSheetDialog.setContentView(dialogView);
+        mBottomSheetDialog.show();
+
+        RecyclerView mapItemRv = dialogView.findViewById(R.id.map_items_rv);
+        TextView locationTitle = dialogView.findViewById(R.id.map_items_location);
+        locationTitle.setText(title);
+
+        TextView lostText = dialogView.findViewById(R.id.map_items_lost);
+        TextView foundText = dialogView.findViewById(R.id.map_items_found);
+
+        lostText.setText("Lost: " + lost);
+        foundText.setText("Found: " + found);
+        mapItemRv.setAdapter(mMapItemsAdapter);
+        mapItemRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mapItemRv.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+        RecyclerItemUtils.addTo(mapItemRv).setOnItemClickListener(this);
+        Collections.reverse(feedItems);
+        mMapItemsAdapter.setData(feedItems);
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        mPresenter.getLocationItems(marker.getTag().toString(), marker.getTitle());
+        return false;
+    }
+
+    @Override
+    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+        int itemId = mMapItemsAdapter.getItem(position).getItemId();
+        Intent intent = new Intent(getActivity(), ItemDetailsActivity.class);
+        intent.putExtra(IntentExtraKeys.ITEM_ID, itemId);
+        startActivityForResult(intent, RequestCodes.ITEM_DETAILS);
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        mPresenter.getLocationItems(marker.getTag().toString(), marker.getTitle());
+    }
+
+    @OnClick({R.id.main_map_refresh_btn, R.id.main_map_current_location_btn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.main_map_refresh_btn:
+                mMainMapRefreshBtn.setEnabled(false);
+                mMainMapUpdating.setVisibility(View.VISIBLE);
+                mPresenter.updateMap();
+                break;
+            case R.id.main_map_current_location_btn:
+                showCurrentLocation();
+                break;
+        }
+    }
 }

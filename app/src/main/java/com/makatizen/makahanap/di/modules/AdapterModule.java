@@ -13,12 +13,14 @@ import com.makatizen.makahanap.ui.item_details.ImageSliderAdapter;
 import com.makatizen.makahanap.ui.main.account.gallery.ImageGalleryAdapter;
 import com.makatizen.makahanap.ui.main.account.reports.AccountReportsAdapter;
 import com.makatizen.makahanap.ui.main.feed.FeedAdapter;
+import com.makatizen.makahanap.ui.main.map.MapItemsAdapter;
 import com.makatizen.makahanap.ui.main.notification.NotificationAdapter;
 import com.makatizen.makahanap.ui.report.adapter.ItemImagesAdapter;
 import com.makatizen.makahanap.ui.search.SearchAdapter;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.http.POST;
 
 @Module
 public class AdapterModule {
@@ -93,6 +95,12 @@ public class AdapterModule {
     @ActivityScope
     ChatItemAdapter provideChatItemAdapter(@ActivityContext Context context) {
         return new ChatItemAdapter(context);
+    }
+
+    @Provides
+    @ActivityScope
+    MapItemsAdapter provideMapItemsAdapter(@ActivityContext Context context) {
+        return new MapItemsAdapter(context);
     }
 
 }
